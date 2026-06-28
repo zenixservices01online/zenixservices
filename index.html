@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="ZENIX - Rapid, AI-accelerated web development and automation studio. We build full-stack web apps, landing pages, and automations in days, not weeks.">
+    <title>ZENIX | Rapid AI-Accelerated Development Studio</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Futuristic Boot Console Preloader -->
+    <div id="zenix-preloader" class="zenix-preloader">
+        <div class="preloader-terminal">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <span class="terminal-title">zenix_core_os.sys</span>
+            </div>
+            <div class="terminal-body" id="preloader-terminal-body">
+                <!-- Boot logs will scroll here -->
+            </div>
+            <div class="terminal-footer">
+                <div class="progress-info-row">
+                    <span class="progress-status-lbl" id="preloader-status-lbl">System Initializing</span>
+                    <span class="progress-percentage" id="preloader-progress-pct">0%</span>
+                </div>
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar-fill" id="preloader-progress-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo" id="nav-logo">
+                <svg class="logo-svg" width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" fill="rgba(0, 85, 204, 0.02)"/>
+                    <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc"/>
+                    <polygon points="15,8 18,8 9,16 6,16" fill="#000000"/>
+                    <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc"/>
+                </svg>
+                <span>ZENIX</span>
+            </a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <nav class="nav-links" id="nav-links">
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="#warranty" class="nav-link">Free Services & Reliability</a>
+                <a href="#team" class="nav-link">Meet the Team</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="grid-background"></div>
+            <div class="hero-content">
+                <h1 class="hero-headline">We build full-stack web apps, lightning landing pages, and custom automations
+                    in <span class="highlight-text">days, not weeks.</span></h1>
+                <p class="hero-subheadline">Engineered with absolute precision. Perfected by human craftsmanship.</p>
+                <a href="#contact" class="cta-button">
+                    <span>Launch Your Project</span>
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z"
+                            fill="currentColor" />
+                    </svg>
+                </a>
+            </div>
+            <div class="scroll-indicator">
+                <span class="scroll-text">Explore ZENIX</span>
+                <span class="scroll-line"></span>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services-section section-padding border-t">
+            <div class="section-container">
+                <span class="section-label">01 / CAPABILITIES</span>
+                <h2 class="section-title">The ZENIX Offerings</h2>
+
+                <div class="border-grid services-grid">
+                    <div class="grid-card service-card">
+                        <div class="card-num">I</div>
+                        <h3 class="card-title">Full-Stack Web Apps & MVPs</h3>
+                        <p class="card-desc">Rapid prototypes, interactive SaaS dashboards, and responsive full-stack
+                            applications built at breakthrough speeds. Engineered line-by-line for robustness and
+                            security.</p>
+                    </div>
+                    <div class="grid-card service-card">
+                        <div class="card-num">II</div>
+                        <h3 class="card-title">Lightning Frontends & Landing Pages</h3>
+                        <p class="card-desc">High-converting, responsive single-page marketing sites built with
+                            ultra-clean HTML/CSS/JS architecture. No bloating, optimized for search engines, built to
+                            engage.</p>
+                    </div>
+                    <div class="grid-card service-card">
+                        <div class="card-num">III</div>
+                        <h3 class="card-title">Python Automation & Workflow Scripting</h3>
+                        <p class="card-desc">Bespoke backend scripts, custom data scrapers, API integrations, and robust
+                            data pipeline automations that eliminate manual tasks and accelerate operations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Fast-Track Advantage -->
+        <section id="advantage" class="advantage-section section-padding border-t">
+            <div class="section-container">
+                <span class="section-label">02 / ADVANTAGE</span>
+                <h2 class="section-title">The Fast-Track Advantage</h2>
+                <p class="section-subtitle font-large">We ship production-ready builds in 48 to 72 hours, replacing
+                    traditional multi-week overhead cycles with hyper-focused development sprints.</p>
+
+                <div class="border-grid process-grid">
+                    <div class="grid-card process-card">
+                        <div class="process-step">01</div>
+                        <h3 class="card-title">Day 1: Architectural Design</h3>
+                        <p class="card-desc">We map out custom application schemas, define user experience flows, and
+                            outline precise data models for your product.</p>
+                    </div>
+                    <div class="grid-card process-card">
+                        <div class="process-step">02</div>
+                        <h3 class="card-title">Day 2: Bespoke Coding</h3>
+                        <p class="card-desc">We write clean, modular, and optimized frontends and backends, tailoring
+                            the components directly to your functional design specs.</p>
+                    </div>
+                    <div class="grid-card process-card">
+                        <div class="process-step">03</div>
+                        <h3 class="card-title">Day 3: Human QA & Deployment</h3>
+                        <p class="card-desc">Rigorous manual stress-testing, linting, accessibility checks, and
+                            serverless hosting deployment. We hand over the keys.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Meet the Team -->
+        <section id="team" class="team-section section-padding border-t">
+            <div class="section-container">
+                <span class="section-label">03 / THE TEAM</span>
+                <h2 class="section-title">Co-founders</h2>
+                <p class="section-subtitle">Two brothers operating as a unified rapid-development squad. Focused on code
+                    purity, responsiveness, and speed.</p>
+
+                <div class="border-grid team-grid">
+                    <div class="grid-card team-card">
+                        <div class="team-avatar-wrapper">
+                            <img src="assets/team_brother1.png" alt="Vishal Kumar Tiwary - Product Architect"
+                                loading="lazy" class="team-img">
+                        </div>
+                        <div class="team-meta">
+                            <h3 class="team-name">Vishal Kumar Tiwary</h3>
+                            <span class="team-role">Product Architecture & Design Specialist</span>
+                            <p class="team-bio">Architects clean user interfaces, constructs high-end visual wireframes,
+                                and codes robust state management workflows.</p>
+                        </div>
+                    </div>
+                    <div class="grid-card team-card">
+                        <div class="team-avatar-wrapper">
+                            <img src="assets/team_brother2.png" alt="Abhianav Tiwari - Systems Engineer" loading="lazy"
+                                class="team-img">
+                        </div>
+                        <div class="team-meta">
+                            <h3 class="team-name">Abhianav Tiwari</h3>
+                            <span class="team-role">Human-in-the-Loop QA & System Deployment</span>
+                            <p class="team-bio">Verifies application integrity, refines code structure, configures
+                                pipelines, and executes serverless hosting setups.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="pricing-section section-padding border-t">
+            <div class="section-container">
+                <span class="section-label">04 / ENGAGEMENT</span>
+                <h2 class="section-title">Transparent Flat Pricing</h2>
+                <p class="section-subtitle">No hidden fees, no hourly overhead. We ship production-ready builds at
+                    predictable flat rates with reliable quality.</p>
+
+                <div class="border-grid pricing-grid">
+                    <div class="grid-card pricing-card">
+                        <h3 class="pricing-tier-title">E-commerce & Landing Pages</h3>
+                        <div class="pricing-rate">
+                            <span class="currency">₹</span>
+                            <span class="amount">8,900</span>
+                            <span class="period">/ project</span>
+                        </div>
+                        <p class="pricing-desc">Bespoke, high-converting frontends with customized styling, responsive
+                            typography, and SEO frameworks.</p>
+                        <ul class="pricing-features">
+                            <li>100% human hand-coded HTML/CSS/JS</li>
+                            <li>Figma-to-Code fidelity</li>
+                            <li>Search Engine Optimization (SEO) setup</li>
+                            <li>Timeline: 48-hour delivery</li>
+                        </ul>
+                        <a href="#contact" class="pricing-cta-button">Select Model</a>
+                    </div>
+                    <div class="grid-card pricing-card featured">
+                        <div class="popular-tag">MOST POPULAR</div>
+                        <h3 class="pricing-tier-title">Full-Stack MVPs</h3>
+                        <div class="pricing-rate">
+                            <span class="currency">₹</span>
+                            <span class="amount">9,400</span>
+                            <span class="period">/ project</span>
+                        </div>
+                        <p class="pricing-desc">A complete interactive SaaS prototype or database web application
+                            tailored to validate your business idea.</p>
+                        <ul class="pricing-features">
+                            <li>Custom database design & schemas</li>
+                            <li>Interactive SaaS admin dashboards</li>
+                            <li>Serverless deployment & QA checked</li>
+                            <li>Timeline: 72-hour delivery</li>
+                        </ul>
+                        <a href="#contact" class="pricing-cta-button">Select Model</a>
+                    </div>
+                    <div class="grid-card pricing-card">
+                        <h3 class="pricing-tier-title">Workflow Automation</h3>
+                        <div class="pricing-rate">
+                            <span class="currency">₹</span>
+                            <span class="amount">1,599</span>
+                            <span class="period">/ project</span>
+                        </div>
+                        <p class="pricing-desc">Bespoke backend Python scripts, API integrations, and robust scrapers
+                            that eliminate manual data processing.</p>
+                        <ul class="pricing-features">
+                            <li>Custom data scrapers & parsers</li>
+                            <li>Third-party API synchronization</li>
+                            <li>Cron-scheduled pipeline scripts</li>
+                            <li>Timeline: 48-hour delivery</li>
+                        </ul>
+                        <a href="#contact" class="pricing-cta-button">Select Model</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Warranty & Support Section -->
+        <section id="warranty" class="warranty-section section-padding border-t">
+            <div class="section-container">
+                <span class="section-label">05 / GUARANTEE</span>
+                <h2 class="section-title">12-Month Guarantee & Support</h2>
+                <p class="section-subtitle">We build for the long haul. Every product is backed by our post-launch
+                    support guarantee and referral program.</p>
+
+                <div class="border-grid warranty-grid">
+                    <div class="grid-card warranty-card">
+                        <svg class="card-icon" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            <path d="m9 11 2 2 4-4" />
+                        </svg>
+                        <h3 class="card-title">Support & Security</h3>
+                        <p class="card-desc">Comprehensive after-sales service. We configure end-to-end encryption for
+                            maximum privacy, deliver security patch updates, and verify that your system remains
+                            completely secure and reliable.</p>
+                    </div>
+                    <div class="grid-card warranty-card">
+                        <svg class="card-icon" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="15" x="2" y="3" rx="2" />
+                            <path d="M12 18h.01" />
+                            <path d="M17 21H7a1 1 0 0 1-1-1v-2h12v2a1 1 0 0 1-1 1Z" />
+                        </svg>
+                        <h3 class="card-title">3-Year OS Updates</h3>
+                        <p class="card-desc">We align your application or website with the latest platform versions
+                            (Android, iOS, Windows, macOS) for 3 full years. We align the UI and code to run seamlessly
+                            on new OS versions.</p>
+                    </div>
+                    <div class="grid-card warranty-card">
+                        <svg class="card-icon" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8" />
+                            <path d="M12 6v12" />
+                        </svg>
+                        <h3 class="card-title">24-Hour Refund</h3>
+                        <p class="card-desc">100% refund policy for verified failures. If your app crashes or fails
+                            post-launch, provide system logs or diagnostic evidence, and we will credit your refund
+                            within 24 hours.</p>
+                    </div>
+                    <div class="grid-card warranty-card">
+                        <svg class="card-icon" width="32" height="32" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                        <h3 class="card-title">Referral Extensions</h3>
+                        <p class="card-desc">Refer ZENIX to another client. Once their project begins, you instantly get
+                            <strong>6 months of extended warranty completely free</strong> to request any improvements
+                            or refinements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section section-padding border-t">
+            <div class="section-container">
+                <span class="section-label">06 / DETAILS</span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+
+                <div class="faq-accordion">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How can you ship an entire MVP in just 72 hours?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We skip the corporate meeting bloat. By operating as a focused developer duo, we
+                                translate your project goals directly into technical schemas. We design, prototype, and
+                                refine in rapid sprints without agency overhead.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Do we own the codebase after delivery?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Yes, absolutely. Once final deliverables are approved and paid, you retain 100% copyright
+                                ownership of the code. We transfer ownership of the clean Git repositories and
+                                configurations.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What technologies do you write with?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We use modern, lightweight technologies for optimal performance. Frontends are crafted
+                                using semantic HTML5, clean CSS3, and modern vanilla JavaScript. Backends and script
+                                pipelines are built with Python and Node.js.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What does "flat-rate pricing" mean?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>It means no hourly bills, no surprise retainers, and no scope creep friction. We define
+                                the project deliverables clearly before we start. You pay a single flat price and
+                                receive exactly what we committed to on time.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What does the 12-month support guarantee cover?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>It covers comprehensive bug fixes, structural refinements, visual styling adjustments,
+                                and minor functional improvements to keep your app or page performing optimally. Any
+                                code issues or adjustments within the original scope are handled free of charge.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>How does the 3-year OS updates alignment guarantee work?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>We verify and align your app or website with new versions of Android, iOS, Windows, and
+                                macOS for 3 years post-launch. Regardless of the UI framework, when a new system-level
+                                OS update is released, we perform the necessary alignments to keep your application
+                                running cleanly.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>What is your 24-hour refund policy?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>If you experience any critical system failures post-launch (such as frequent app crashes
+                                or core performance defects), you can request a 100% refund within the first 24 hours.
+                                To process the refund, you must provide system failure details and attach diagnostic
+                                evidence so we can verify the issue.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section section-padding border-t">
+            <div class="section-container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <span class="section-label">07 / INTAKE</span>
+                        <h2 class="section-title">Launch Your Project</h2>
+                        <p class="contact-desc font-large">Ready to ship? Fill out the inquiry and we'll reply with a
+                            custom scope and quote within 12 hours.</p>
+
+                        <div class="contact-meta-details">
+                            <div class="meta-item">
+                                <span class="meta-label">Email</span>
+                                <a href="mailto:zenixservices67@gmail.com"
+                                    class="meta-val">zenixservices67@gmail.com</a>
+                            </div>
+                            <div class="meta-item">
+                                <span class="meta-label">Response Time</span>
+                                <span class="meta-val">Under 12 Hours</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-wrapper">
+                        <form id="intake-form" class="intake-form" novalidate>
+                            <!-- Honeypot anti-spam field (hidden from users) -->
+                            <input type="text" id="form-honeypot" name="botcheck" style="display:none !important;" tabindex="-1" autocomplete="off">
+
+                            <div class="form-group">
+                                <label for="form-name" class="form-label">Name</label>
+                                <input type="text" id="form-name" name="name" class="form-input" placeholder="Your name"
+                                    required autocomplete="name">
+                                <span class="error-msg" id="error-name">Please enter a valid name (letters and spaces only, 2-50 chars).</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-email" class="form-label">Email</label>
+                                <input type="email" id="form-email" name="email" class="form-input"
+                                    placeholder="Your email address" required autocomplete="email">
+                                <span class="error-msg" id="error-email">Please enter a valid email address.</span>
+                            </div>
+
+                            <div class="form-group" id="group-project-type">
+                                <span class="form-label">What do you need us to build?</span>
+                                <div class="choice-grid">
+                                    <label class="choice-card">
+                                        <input type="radio" name="project_type" value="mvp" required>
+                                        <span class="choice-title">Full-Stack MVP</span>
+                                        <span class="choice-details">Shipped in 72h / Flat Rate ₹9,400</span>
+                                    </label>
+                                    <label class="choice-card">
+                                        <input type="radio" name="project_type" value="frontend" required>
+                                        <span class="choice-title">Landing Page</span>
+                                        <span class="choice-details">Shipped in 48h / Flat Rate ₹8,900</span>
+                                    </label>
+                                    <label class="choice-card">
+                                        <input type="radio" name="project_type" value="automation" required>
+                                        <span class="choice-title">Workflow Automation</span>
+                                        <span class="choice-details">Shipped in 48h / Flat Rate ₹1,599</span>
+                                    </label>
+                                </div>
+                                <span class="error-msg" id="error-project-type">Please select a project type.</span>
+                            </div>
+
+                            <div class="form-group" id="group-budget">
+                                <span class="form-label">Estimate Budget Range</span>
+                                <div class="choice-pills">
+                                    <label class="choice-pill">
+                                        <input type="radio" name="budget" value="under-5000" required>
+                                        <span>Under ₹5,000</span>
+                                    </label>
+                                    <label class="choice-pill">
+                                        <input type="radio" name="budget" value="5000-10000" required>
+                                        <span>₹5,000 - ₹10,000</span>
+                                    </label>
+                                    <label class="choice-pill">
+                                        <input type="radio" name="budget" value="10000plus" required>
+                                        <span>₹10,000+</span>
+                                    </label>
+                                </div>
+                                <span class="error-msg" id="error-budget">Please select a budget range.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-desc" class="form-label">Project Description</label>
+                                <textarea id="form-desc" name="description" class="form-input form-textarea"
+                                    placeholder="Tell us about what you want to build..." required></textarea>
+                                <span class="error-msg" id="error-desc">Please describe your project
+                                    requirements.</span>
+                            </div>
+
+                            <button type="submit" class="submit-button" id="submit-btn">
+                                <span>Submit Inquiry</span>
+                                <svg class="btn-spinner" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="3">
+                                    <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
+                                    <path d="M12 2C6.47715 2 2 6.47715 2 12C2 13.5 2.5 15 3.5 16.2"
+                                        stroke-linecap="round"></path>
+                                </svg>
+                            </button>
+                        </form>
+
+                        <div id="form-success" class="form-success-message" aria-hidden="true">
+                            <div class="success-icon">✓</div>
+                            <h3>Inquiry Received</h3>
+                            <p>Thank you. One of the co-founders will review your request and get back to you within 12
+                                hours.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer border-t">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <span class="logo">
+                    <svg class="logo-svg" width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" fill="rgba(0, 85, 204, 0.02)"/>
+                        <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc"/>
+                        <polygon points="15,8 18,8 9,16 6,16" fill="#000000"/>
+                        <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc"/>
+                    </svg>
+                    <span>ZENIX</span>
+                </span>
+                <span class="footer-tagline">Hand-Coded. Human Quality.</span>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 ZENIX. All rights reserved. Rapidly engineered in 48-72h.</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Page Transition Overlay -->
+    <div id="zenix-transition-overlay" class="zenix-page-transition-overlay" aria-hidden="true">
+        <div class="transition-content">
+            <div class="transition-logo-wrapper">
+                <svg class="transition-logo-svg spin-logo" width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" />
+                    <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc" />
+                    <polygon points="15,8 18,8 9,16 6,16" fill="#ffffff" />
+                    <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc" />
+                </svg>
+            </div>
+            <p class="transition-message" id="zenix-transition-message">Launching Demo Workspace...</p>
+            <div class="transition-progress-container">
+                <div class="transition-progress-bar" id="zenix-transition-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="app.js"></script>
+</body>
+
+</html>

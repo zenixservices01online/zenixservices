@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Veloce Timepieces - Premium luxury watches hand-assembled for perfection.">
+    <title>Veloce | Premium Luxury Timepieces</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Luxury Navigation Header -->
+    <header class="veloce-header">
+        <div class="veloce-container header-nav">
+            <a href="#" class="veloce-logo">
+                <span class="logo-v">V</span>
+                <span>VELOCE</span>
+            </a>
+            <nav class="veloce-nav">
+                <a href="#catalog" class="veloce-nav-link">Collections</a>
+                <a href="#about" class="veloce-nav-link">Craftsmanship</a>
+            </nav>
+            <button class="cart-trigger-btn" id="cart-nav-btn">
+                <span>Cart</span>
+                <span class="cart-count-badge" id="cart-nav-badge">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Backdrop -->
+    <section class="veloce-hero">
+        <div class="hero-radial-shade"></div>
+        <div class="veloce-container hero-content">
+            <span class="hero-tag">Sovereign Edition</span>
+            <h1 class="hero-headline">Time engineered with <span class="gold-gradient">absolute prestige.</span></h1>
+            <p class="hero-subtitle">Meticulously crafted cases. Hand-assembled mechanical cores. The definitive statement of premium watchmaking craftsmanship.</p>
+            <a href="#catalog" class="hero-cta-btn">Browse Collections</a>
+        </div>
+    </section>
+
+    <!-- Product Catalog Grid -->
+    <section id="catalog" class="veloce-catalog-section">
+        <div class="veloce-container">
+            <div class="section-header-block">
+                <h2>The Signature Series</h2>
+                <p>Explore our flagship designs. Each watch is limited to 100 units worldwide.</p>
+            </div>
+
+            <div class="products-grid">
+                <!-- Watch 1 -->
+                <div class="product-card" data-id="v-gold" data-name="Veloce Chrono Gold" data-price="249000">
+                    <div class="watch-preview-wrapper">
+                        <!-- Dynamic CSS Watch Illustration -->
+                        <div class="css-watch gold-watch">
+                            <div class="watch-bezel">
+                                <div class="watch-dial">
+                                    <div class="dial-marker marker-12"></div>
+                                    <div class="dial-hand hand-hour"></div>
+                                    <div class="dial-hand hand-minute"></div>
+                                    <div class="dial-hand hand-second"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-meta">
+                        <h3>Veloce Chrono Gold</h3>
+                        <p class="p-desc">Signature 18k solid gold casing, leather band.</p>
+                        <div class="p-foot">
+                            <span class="p-price">₹249,000</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Watch 2 -->
+                <div class="product-card" data-id="v-onyx" data-name="Veloce Onyx Stealth" data-price="198000">
+                    <div class="watch-preview-wrapper">
+                        <div class="css-watch onyx-watch">
+                            <div class="watch-bezel">
+                                <div class="watch-dial">
+                                    <div class="dial-marker marker-12"></div>
+                                    <div class="dial-hand hand-hour"></div>
+                                    <div class="dial-hand hand-minute"></div>
+                                    <div class="dial-hand hand-second"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-meta">
+                        <h3>Veloce Onyx Stealth</h3>
+                        <p class="p-desc">Matte black titanium case, carbon weave band.</p>
+                        <div class="p-foot">
+                            <span class="p-price">₹198,000</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Watch 3 -->
+                <div class="product-card" data-id="v-blue" data-name="Veloce Regatta Blue" data-price="215000">
+                    <div class="watch-preview-wrapper">
+                        <div class="css-watch blue-watch">
+                            <div class="watch-bezel">
+                                <div class="watch-dial">
+                                    <div class="dial-marker marker-12"></div>
+                                    <div class="dial-hand hand-hour"></div>
+                                    <div class="dial-hand hand-minute"></div>
+                                    <div class="dial-hand hand-second"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-meta">
+                        <h3>Veloce Regatta Blue</h3>
+                        <p class="p-desc">Azure polished ceramic case, diving bezel.</p>
+                        <div class="p-foot">
+                            <span class="p-price">₹215,000</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Watch 4 -->
+                <div class="product-card" data-id="v-rose" data-name="Veloce Rose Sovereign" data-price="265000">
+                    <div class="watch-preview-wrapper">
+                        <div class="css-watch rose-watch">
+                            <div class="watch-bezel">
+                                <div class="watch-dial">
+                                    <div class="dial-marker marker-12"></div>
+                                    <div class="dial-hand hand-hour"></div>
+                                    <div class="dial-hand hand-minute"></div>
+                                    <div class="dial-hand hand-second"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-meta">
+                        <h3>Veloce Rose Sovereign</h3>
+                        <p class="p-desc">Premium rose-gold alloys, automatic mechanical movement.</p>
+                        <div class="p-foot">
+                            <span class="p-price">₹265,000</span>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Side Cart Drawer Overlay -->
+    <div class="cart-backdrop" id="cart-sidebar-backdrop">
+        <div class="cart-drawer">
+            <div class="cart-drawer-head">
+                <h3>Your Cart</h3>
+                <button class="cart-close-btn" id="cart-sidebar-close">&times;</button>
+            </div>
+            
+            <div class="cart-drawer-body" id="cart-items-panel">
+                <!-- Cart Items generated dynamically -->
+                <div class="cart-empty-text">Your cart is currently empty.</div>
+            </div>
+            
+            <div class="cart-drawer-foot" id="cart-checkout-panel">
+                <div class="cart-total-row">
+                    <span>Subtotal</span>
+                    <span class="cart-total-val" id="cart-subtotal-val">₹0</span>
+                </div>
+                <div class="cart-total-row" style="margin-bottom: 1.5rem; font-size: 0.85rem; color: #a1a1aa;">
+                    <span>Shipping</span>
+                    <span>Complimentary</span>
+                </div>
+                <button class="checkout-submit-btn" id="proceed-checkout-btn" disabled>Proceed to Checkout</button>
+            </div>
+
+            <!-- Embedded Checkout View Form (Hidden initially) -->
+            <div class="checkout-form-container" id="checkout-form-view">
+                <div class="checkout-head">
+                    <button class="back-to-cart-btn" id="back-to-cart-trigger">&larr; Back</button>
+                    <h3>Checkout Details</h3>
+                </div>
+                <form id="veloce-checkout-form" class="checkout-form">
+                    <div class="c-group">
+                        <label for="c-name">Full Name</label>
+                        <input type="text" class="c-input" id="c-name" required placeholder="John Doe">
+                    </div>
+                    <div class="c-group">
+                        <label for="c-email">Email</label>
+                        <input type="email" class="c-input" id="c-email" required placeholder="john@example.com">
+                    </div>
+                    <div class="c-group">
+                        <label for="c-card">Credit Card Number</label>
+                        <input type="text" class="c-input" id="c-card" required placeholder="4111 2222 3333 4444" pattern="[0-9\\s]{13,19}">
+                    </div>
+                    <div class="c-row">
+                        <div class="c-group">
+                            <label for="c-exp">Expiry Date</label>
+                            <input type="text" class="c-input" id="c-exp" required placeholder="MM/YY">
+                        </div>
+                        <div class="c-group">
+                            <label for="c-cvv">CVV</label>
+                            <input type="password" class="c-input" id="c-cvv" required placeholder="***">
+                        </div>
+                    </div>
+                    <button type="submit" class="checkout-submit-btn" style="margin-top: 1.5rem;">Authorize Payment</button>
+                </form>
+            </div>
+
+            <!-- Success Checkout Panel (Hidden initially) -->
+            <div class="checkout-success-container" id="checkout-success-view">
+                <div class="success-seal">✓</div>
+                <h3>Purchase Authorized</h3>
+                <p>Your luxury timepiece is being packaged. A confirmation tracking index will be sent to your email shortly.</p>
+                <button class="checkout-submit-btn" id="success-done-btn">Back to Shop</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Craftsmanship Section -->
+    <section id="about" class="veloce-craft-section">
+        <div class="veloce-container">
+            <div class="craft-grid">
+                <div class="craft-meta">
+                    <span class="hero-tag">The Caliber</span>
+                    <h2>Hand-assembled mechanical movements</h2>
+                    <p>Every Veloce watch features proprietary chronometer calibers containing up to 280 individually balanced gears, rubies, and spring coils, yielding accuracy tolerances under 2 seconds a day.</p>
+                </div>
+                <div class="craft-visual">
+                    <div class="gear-spinner-wrapper">
+                        <!-- Abstract CSS Gear -->
+                        <div class="gear-cog gc-1"></div>
+                        <div class="gear-cog gc-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="veloce-footer">
+        <div class="veloce-container footer-row">
+            <span>&copy; 2026 VELOCE Timepieces. Custom e-commerce demo.</span>
+            <span>Prestige styling.</span>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script src="../shared/viewer.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nova Fit - Next-generation fitness tracking and wellness advisor.">
+    <title>Nova Fit | Premium Wellness Companion</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Nav Header -->
+    <header class="nova-header">
+        <div class="nova-container header-row">
+            <a href="#" class="nova-logo">
+                <span class="logo-ring"></span>
+                <span>Nova Fit</span>
+            </a>
+            <nav class="nova-nav">
+                <a href="#stats" class="nova-link">Vitals</a>
+                <a href="#calculator" class="nova-link">Calculator</a>
+                <a href="#features" class="nova-link">Features</a>
+            </nav>
+            <a href="#calculator" class="nova-cta">Launch App</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="nova-hero">
+        <div class="nova-container hero-grid">
+            <div class="hero-left">
+                <span class="nova-badge">Now Synced with Wearables 4.0</span>
+                <h1 class="hero-title">Your body's vital signals, <span class="coral-gradient">beautifully visualised.</span></h1>
+                <p class="hero-subtitle">Nova Fit translates complex biometric telemetry into clear, actionable advice. Maximize energy, optimize sleep cycle, and train smarter.</p>
+                <div class="hero-btns">
+                    <a href="#calculator" class="btn-primary">Test Burn Calculator</a>
+                    <a href="#stats" class="btn-secondary">Explore Vitals</a>
+                </div>
+            </div>
+            
+            <div class="hero-right">
+                <!-- Floating Glass Card UI Widget -->
+                <div class="vital-glass-card">
+                    <div class="v-card-head">
+                        <span>Nova Active Index</span>
+                        <span class="v-status-dot">Live</span>
+                    </div>
+                    <div class="v-pulse-circle">
+                        <span class="v-pulse-num" id="vital-heartrate">72</span>
+                        <span class="v-pulse-lbl">BPM</span>
+                    </div>
+                    <div class="v-card-stats-row">
+                        <div class="v-stat-col">
+                            <span class="v-stat-val">8,420</span>
+                            <span class="v-stat-lbl">Steps</span>
+                        </div>
+                        <div class="v-stat-col">
+                            <span class="v-stat-val">412</span>
+                            <span class="v-stat-lbl">kCal</span>
+                        </div>
+                        <div class="v-stat-col">
+                            <span class="v-stat-val">94%</span>
+                            <span class="v-stat-lbl">Oxygen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Biometrics Highlights -->
+    <section id="stats" class="nova-vitals-section">
+        <div class="nova-container">
+            <div class="section-title-block">
+                <h2>Real-time Biometric Analytics</h2>
+                <p>Telemetry nodes monitor core stress, autonomic recovery, and metabolic burn hourly.</p>
+            </div>
+
+            <div class="vitals-grid">
+                <div class="vital-card">
+                    <div class="card-icon icon-sleep">🌙</div>
+                    <h3>Sleep Efficiency</h3>
+                    <div class="stat-indicator">
+                        <span class="bold-stat">8.4 hrs</span>
+                        <span class="trend-pos">+12% Deep Sleep</span>
+                    </div>
+                    <p>Analyzes autonomic indicators during circadian stages to project neural recovery indexes.</p>
+                </div>
+                <div class="vital-card">
+                    <div class="card-icon icon-cardio">❤️</div>
+                    <h3>Cardiovascular Load</h3>
+                    <div class="stat-indicator">
+                        <span class="bold-stat">64 ms</span>
+                        <span class="trend-pos">Optimal HRV</span>
+                    </div>
+                    <p>Monitors Heart Rate Variability to define neural readiness for heavy athletic training sprints.</p>
+                </div>
+                <div class="vital-card">
+                    <div class="card-icon icon-stress">⚡</div>
+                    <h3>Stress Level Index</h3>
+                    <div class="stat-indicator">
+                        <span class="bold-stat">Low</span>
+                        <span class="trend-neutral">Stable Cortisol</span>
+                    </div>
+                    <p>Monitors galvanic changes to suggest breathing cycles or recovery routines when stress peaks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workout Calculator Section -->
+    <section id="calculator" class="nova-calculator-section">
+        <div class="nova-container">
+            <div class="calculator-wrapper">
+                <div class="calc-sidebar">
+                    <h2>Wellness Burn Calculator</h2>
+                    <p>Input your workout variables to calculate active metabolic burn thresholds, fluid intake needs, and training zones.</p>
+                    
+                    <form id="burn-calc-form" class="calc-form">
+                        <div class="calc-group">
+                            <label for="workout-type" class="calc-label">Exercise Category</label>
+                            <select id="workout-type" class="calc-select">
+                                <option value="running">Running (Cardio Focus)</option>
+                                <option value="cycling">Cycling (Stamina Focus)</option>
+                                <option value="yoga">Yoga/Pilates (Flexibility)</option>
+                                <option value="hiit">HIIT Sprints (High Intensity)</option>
+                            </select>
+                        </div>
+
+                        <div class="calc-group">
+                            <label for="active-minutes" class="calc-label">Workout Duration (Minutes)</label>
+                            <div class="range-container">
+                                <input type="range" id="active-minutes" class="calc-range" min="10" max="180" step="5" value="45">
+                                <span class="range-display" id="minutes-val">45 mins</span>
+                            </div>
+                        </div>
+
+                        <div class="calc-group">
+                            <label for="body-weight" class="calc-label">Body Weight (kg)</label>
+                            <div class="range-container">
+                                <input type="range" id="body-weight" class="calc-range" min="40" max="150" step="1" value="70">
+                                <span class="range-display" id="weight-val">70 kg</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="calc-submit-btn">Calculate Core Burn</button>
+                    </form>
+                </div>
+
+                <div class="calc-results-panel">
+                    <h3>Biometric Projections</h3>
+                    
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <span class="res-label">Metabolic Calorie Burn</span>
+                            <span class="res-value" id="res-calories">315 <span class="res-unit">kCal</span></span>
+                        </div>
+                        <div class="result-card">
+                            <span class="res-label">Hydration Target</span>
+                            <span class="res-value" id="res-hydration">0.5 <span class="res-unit">Liters</span></span>
+                        </div>
+                        <div class="result-card">
+                            <span class="res-label">Target Training HR</span>
+                            <span class="res-value" id="res-heartrate">135-155 <span class="res-unit">BPM</span></span>
+                        </div>
+                        <div class="result-card">
+                            <span class="res-label">Post-Workout Recovery</span>
+                            <span class="res-value" id="res-recovery">20 <span class="res-unit">Minutes</span></span>
+                        </div>
+                    </div>
+
+                    <div class="results-advice-box">
+                        <span class="advice-tag">Nova AI Coach Insights</span>
+                        <p id="res-coach-text">Select your workout details and press calculate to view customized training zone guidelines.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="nova-footer">
+        <div class="nova-container footer-row">
+            <span>&copy; 2026 Nova Fit. Built for ZENIX.</span>
+            <span>Hand-Coded Performance.</span>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+    <script src="../shared/viewer.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zenith Workspace - Minimalist task manager and project Gantt scheduler for engineering squads.">
+    <title>Zenith Workspace | Project Planning Redefined</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Light Minimal Header -->
+    <header class="zenith-header">
+        <div class="zenith-container header-nav">
+            <a href="#" class="zenith-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="18" height="18" x="3" y="3" rx="4" stroke="#059669" stroke-width="2"/>
+                    <path d="M7 8H17" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M7 12H13" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="17" cy="14" r="2.5" fill="#0f172a"/>
+                </svg>
+                <span>Zenith</span>
+            </a>
+            <nav class="zenith-nav">
+                <a href="#planner" class="zenith-link">Planner Workspace</a>
+                <a href="#metrics" class="zenith-link">Metrics</a>
+            </nav>
+            <a href="#planner" class="zenith-cta">Launch Workspace</a>
+        </div>
+    </header>
+
+    <!-- Hero Block -->
+    <section class="zenith-hero">
+        <div class="dot-grid-pattern"></div>
+        <div class="zenith-container hero-content">
+            <span class="hero-label">COLLABORATION FRAMEWORK 2.0</span>
+            <h1 class="hero-headline">The project planner designed for <span class="highlight-emerald">high-focus teams.</span></h1>
+            <p class="hero-subline">No bloated side-bars. No confusing features. Just clean Kanban grids, fast visual Gantt schedulers, and sub-millisecond timeline rendering.</p>
+            <div class="hero-actions">
+                <a href="#planner" class="hero-btn-primary">Open Interactive Gantt</a>
+                <a href="#metrics" class="hero-btn-secondary">Read System Docs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Planner Dashboard Widget -->
+    <section id="planner" class="zenith-planner-section">
+        <div class="zenith-container">
+            <div class="section-title-block">
+                <h2>Interactive Sprint Timeline</h2>
+                <p>Add task nodes, filter categories, and toggle completions on the timeline panel.</p>
+            </div>
+
+            <!-- Workspace Gantt Grid -->
+            <div class="planner-workspace-card">
+                <div class="planner-toolbar">
+                    <div class="filter-group">
+                        <button class="filter-btn active" data-filter="all">All Tasks</button>
+                        <button class="filter-btn" data-filter="design">🎨 Design</button>
+                        <button class="filter-btn" data-filter="dev">💻 Engineering</button>
+                        <button class="filter-btn" data-filter="qa">🔍 QA Checks</button>
+                    </div>
+
+                    <button class="add-task-btn" id="add-task-node-btn">+ Add Task Node</button>
+                </div>
+
+                <!-- Gantt Chart Container -->
+                <div class="gantt-chart-container">
+                    <div class="gantt-header-row">
+                        <div class="gantt-col-taskname">Active Sprints</div>
+                        <div class="gantt-col-day">Day 1</div>
+                        <div class="gantt-col-day">Day 2</div>
+                        <div class="gantt-col-day">Day 3</div>
+                        <div class="gantt-col-day">Day 4</div>
+                        <div class="gantt-col-day">Day 5</div>
+                    </div>
+
+                    <div class="gantt-rows" id="gantt-task-rows">
+                        <!-- Initial Task 1 -->
+                        <div class="gantt-row" data-cat="design">
+                            <div class="gantt-col-taskname">
+                                <span class="gantt-cat-dot dot-design"></span>
+                                <span>UX Wireframe Signoff</span>
+                            </div>
+                            <div class="gantt-bar-cell">
+                                <div class="gantt-bar bar-design" style="grid-column: 1 / span 2; width: 100%;">
+                                    <span class="bar-progress">100% Complete</span>
+                                    <button class="bar-delete-btn">&times;</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Initial Task 2 -->
+                        <div class="gantt-row" data-cat="dev">
+                            <div class="gantt-col-taskname">
+                                <span class="gantt-cat-dot dot-dev"></span>
+                                <span>Serverless REST API setup</span>
+                            </div>
+                            <div class="gantt-bar-cell">
+                                <div class="gantt-bar bar-dev" style="grid-column: 2 / span 3; width: 100%;">
+                                    <span class="bar-progress">65% Progress</span>
+                                    <button class="bar-delete-btn">&times;</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Initial Task 3 -->
+                        <div class="gantt-row" data-cat="qa">
+                            <div class="gantt-col-taskname">
+                                <span class="gantt-cat-dot dot-qa"></span>
+                                <span>Integration QA Diagnostics</span>
+                            </div>
+                            <div class="gantt-bar-cell">
+                                <div class="gantt-bar bar-qa" style="grid-column: 4 / span 2; width: 100%;">
+                                    <span class="bar-progress">20% Idle</span>
+                                    <button class="bar-delete-btn">&times;</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Operational Metrics -->
+    <section id="metrics" class="zenith-metrics-section">
+        <div class="zenith-container">
+            <div class="section-title-block">
+                <h2>Productivity Analytics</h2>
+                <p>How Zenith accelerates development cycles for modern engineers.</p>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-num">01</span>
+                    <h3>High Contrast Dark/Light</h3>
+                    <p>Clean accessibility colors optimized for readability in daylight workspace scenarios.</p>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-num">02</span>
+                    <h3>Drag & Timeline Align</h3>
+                    <p>Dynamic visual Gantt structures rendered client-side on simple HTML layout foundations.</p>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-num">03</span>
+                    <h3>Flexible Tag Filters</h3>
+                    <p>Filter task boards by specific focus tags instantly without server query latency.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="zenith-footer">
+        <div class="zenith-container footer-row">
+            <span>&copy; 2026 Zenith Workspace. Custom demo.</span>
+            <span>Minimalist CSS design system.</span>
+        </div>
+    </footer>
+
+    <!-- Scripting -->
+    <script src="app.js"></script>
+    <script src="../shared/viewer.js"></script>
+</body>
+</html>

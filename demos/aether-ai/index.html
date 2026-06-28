@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aether AI - Premium generative copywriting engine for digital agencies.">
+    <title>Aether AI | Generative Copywriting Engine</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Main Navigation Header -->
+    <header class="aether-header">
+        <div class="aether-container header-nav">
+            <a href="#" class="aether-logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="#a855f7" stroke-width="2" fill="rgba(168, 85, 247, 0.05)"/>
+                    <path d="M12 6L16 14H8L12 6Z" fill="#a855f7"/>
+                    <circle cx="12" cy="11" r="2" fill="#06b6d4"/>
+                </svg>
+                <span>Aether AI</span>
+            </a>
+            <nav class="aether-nav-links">
+                <a href="#features" class="aether-nav-link">Features</a>
+                <a href="#demo" class="aether-nav-link">Interactive Engine</a>
+                <a href="#pricing" class="aether-nav-link">Pricing</a>
+            </nav>
+            <a href="#demo" class="aether-cta-nav">Try Free</a>
+        </div>
+    </header>
+
+    <!-- Hero Showcase Section -->
+    <section class="aether-hero">
+        <div class="glow-sphere purple-glow"></div>
+        <div class="glow-sphere cyan-glow"></div>
+        
+        <div class="aether-container hero-wrapper">
+            <span class="hero-tag">Aether Copywriting Suite 3.0</span>
+            <h1 class="hero-title">Create high-converting copy in <span class="gradient-text">seconds, not hours.</span></h1>
+            <p class="hero-subtitle">The ultimate generative engine trained on millions of marketing scripts. Supercharge your ads, emails, and landing page assets today.</p>
+            
+            <!-- CTA Button & Social Proof -->
+            <div class="hero-actions">
+                <a href="#demo" class="hero-btn-primary">Launch Interface</a>
+                <a href="#features" class="hero-btn-secondary">Explore Features &darr;</a>
+            </div>
+            
+            <div class="social-proof">
+                <span>Trusted by top design groups</span>
+                <div class="brands-row">
+                    <span>NEXUS</span>
+                    <span>VELOCITY</span>
+                    <span>CREATIVE.IO</span>
+                    <span>SPARK</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive AI Prompt Generator Demo Section -->
+    <section id="demo" class="aether-demo-section">
+        <div class="aether-container">
+            <div class="section-header">
+                <span class="section-tag">01 / LIVE PLAYGROUND</span>
+                <h2 class="section-title">See Aether AI in action</h2>
+                <p class="section-desc">Select a marketing request below and watch Aether's LLM draft copy in real-time.</p>
+            </div>
+
+            <!-- Playground Widget -->
+            <div class="playground-widget">
+                <div class="playground-selector-panel">
+                    <h3>Select Prompt Case</h3>
+                    <div class="prompt-option-list">
+                        <button class="prompt-opt-btn active" data-type="ad">
+                            <span class="opt-emoji">📣</span>
+                            <span class="opt-text">Facebook Ad Hook</span>
+                        </button>
+                        <button class="prompt-opt-btn" data-type="email">
+                            <span class="opt-emoji">✉️</span>
+                            <span class="opt-text">SaaS Welcome Email</span>
+                        </button>
+                        <button class="prompt-opt-btn" data-type="headline">
+                            <span class="opt-emoji">⚡</span>
+                            <span class="opt-text">Hero Landing Page Hook</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="playground-console">
+                    <div class="console-head">
+                        <div class="console-controls">
+                            <span class="c-dot r"></span>
+                            <span class="c-dot y"></span>
+                            <span class="c-dot g"></span>
+                        </div>
+                        <span class="console-status">aether-engine v3.0.4 - status: idle</span>
+                    </div>
+                    <div class="console-body">
+                        <div class="console-prompt-line">
+                            <span class="console-prefix">aether-ai --prompt</span>
+                            <span class="console-prompt-text" id="active-prompt-display">Generate Facebook Ad Copy for a luxury coffee subscription box called "Roast & Co"...</span>
+                        </div>
+                        <div class="console-divider"></div>
+                        <div class="console-response-panel">
+                            <div class="console-response-text" id="ai-response-text">
+                                Click a prompt case on the left, or hit "Generate Copy" below to start the copywriting engine...
+                            </div>
+                        </div>
+                    </div>
+                    <div class="console-foot">
+                        <button class="console-action-btn" id="trigger-generation-btn">Generate Copy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section id="features" class="aether-features-section">
+        <div class="aether-container">
+            <div class="section-header">
+                <span class="section-tag">02 / FEATURES</span>
+                <h2 class="section-title">Engineered for absolute speed</h2>
+                <p class="section-desc">Get professional marketing drafts optimized for high click-through rates.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="f-icon-box f-purple">⚡</div>
+                    <h3>Millisecond Speeds</h3>
+                    <p>Powered by ultra-fast serverless clusters. Average response latency remains under 450ms globally.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="f-icon-box f-cyan">🧠</div>
+                    <h3>Advanced Persona Modeling</h3>
+                    <p>Choose between playful, formal, bold, or analytic tones to match your exact brand style.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="f-icon-box f-purple">📈</div>
+                    <h3>SEO Integrations</h3>
+                    <p>Integrates semantic search terms and LSI keywords seamlessly into headers and product descriptions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Grid Section -->
+    <section id="pricing" class="aether-pricing-section">
+        <div class="aether-container">
+            <div class="section-header">
+                <span class="section-tag">03 / PRICING</span>
+                <h2 class="section-title">Scale plans as you grow</h2>
+                <p class="section-desc">Transparent billing, cancel anytime. No hidden API overhead fees.</p>
+                
+                <!-- Toggle Switch -->
+                <div class="pricing-toggle-container">
+                    <span class="toggle-label active" id="monthly-label">Monthly</span>
+                    <button class="pricing-toggle-switch" id="billing-toggle-btn" aria-label="Toggle billing cycle">
+                        <span class="toggle-slider"></span>
+                    </button>
+                    <span class="toggle-label" id="annual-label">Annual <span class="discount-badge">Save 20%</span></span>
+                </div>
+            </div>
+
+            <!-- Pricing Grid -->
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3 class="tier-title">Starter</h3>
+                    <p class="tier-desc">Perfect for single founders testing copywriting prototypes.</p>
+                    <div class="price-container">
+                        <span class="price-val" id="price-starter">₹1,900</span>
+                        <span class="price-period" id="starter-period">/ month</span>
+                    </div>
+                    <ul class="tier-features">
+                        <li>Up to 20,000 words / mo</li>
+                        <li>5 brand voice personas</li>
+                        <li>Standard API access</li>
+                        <li>Email support assistance</li>
+                    </ul>
+                    <a href="#" class="tier-btn">Select Starter</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="tier-badge">RECOMMENDED</div>
+                    <h3 class="tier-title">Pro Suite</h3>
+                    <p class="tier-desc">Designed for active agencies managing multiple marketing projects.</p>
+                    <div class="price-container">
+                        <span class="price-val" id="price-pro">₹4,900</span>
+                        <span class="price-period" id="pro-period">/ month</span>
+                    </div>
+                    <ul class="tier-features">
+                        <li>Unlimited word generations</li>
+                        <li>50 brand voice personas</li>
+                        <li>Priority API clusters</li>
+                        <li>24/7 dedicated Slack channel</li>
+                    </ul>
+                    <a href="#" class="tier-btn featured-btn">Select Pro</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3 class="tier-title">Enterprise</h3>
+                    <p class="tier-desc">For large scaling teams requiring customized fine-tuned models.</p>
+                    <div class="price-container">
+                        <span class="price-val" id="price-enterprise">Custom</span>
+                        <span class="price-period">/ annual</span>
+                    </div>
+                    <ul class="tier-features">
+                        <li>Custom fine-tuned weights</li>
+                        <li>Unlimited brand voices</li>
+                        <li>SLA Uptime guarantee</li>
+                        <li>Dedicated account manager</li>
+                    </ul>
+                    <a href="#" class="tier-btn">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Simple Footer -->
+    <footer class="aether-footer">
+        <div class="aether-container footer-row">
+            <span class="footer-copy">&copy; 2026 Aether AI. Demo created for ZENIX.</span>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shared Client Feedback Widget & Page Script -->
+    <script src="app.js"></script>
+    <script src="../shared/viewer.js"></script>
+</body>
+</html>

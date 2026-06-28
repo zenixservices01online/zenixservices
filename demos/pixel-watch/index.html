@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Google Pixel Watch 3 - The premium smartwatch engineered by Google. Advanced health insights, Fitbit integration, and dynamic personalization options.">
+    <title>Google Pixel Watch 3 | Engineered by Google</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Premium Google Store Header -->
+    <header class="pixel-header">
+        <div class="pixel-container header-nav">
+            <a href="#" class="pixel-logo" id="header-logo-link">
+                <!-- Clean Minimalist Google Logo SVG -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l3.66-2.85z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.85c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
+                <span>Store</span>
+            </a>
+            <nav class="pixel-nav" aria-label="Main Navigation">
+                <a href="#customizer" class="pixel-nav-link" id="nav-customizer-link">Overview</a>
+                <a href="#features" class="pixel-nav-link" id="nav-features-link">Features</a>
+                <a href="#specs" class="pixel-nav-link" id="nav-specs-link">Specifications</a>
+            </nav>
+            <button class="pixel-cta-buy" id="floating-buy-trigger">Buy Now</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section & Customizer Block -->
+        <section class="pixel-hero" id="customizer">
+            <div class="pixel-container hero-grid">
+                <!-- Left Column: High Fidelity Image Showcase -->
+                <div class="hero-image-viewer">
+                    <div class="watch-mockup-frame">
+                        <img src="../../assets/pixel_watch_hero.png" alt="Google Pixel Watch 3 Obsidian Black" id="main-watch-img" class="watch-img fade-in">
+                    </div>
+                </div>
+
+                <!-- Right Column: Product Detail & Selection Panel -->
+                <div class="hero-selection-panel">
+                    <span class="product-badge">New Launch</span>
+                    <h1 class="product-title">Google Pixel Watch 3</h1>
+                    <div class="product-price-row">
+                        <span class="product-price" id="display-price">₹39,900</span>
+                        <span class="product-shipping">Free shipping</span>
+                    </div>
+                    <p class="product-description">The ultimate smart timepiece engineered by Google. Combining elegant circular aesthetics with the advanced health insights of Fitbit and helper apps of Google AI.</p>
+
+                    <!-- Swatches customizer container -->
+                    <div class="customizer-options-box">
+                        <h2 class="option-group-title">Select Color & Material</h2>
+                        <div class="swatch-list" role="radiogroup" aria-label="Watch style selection">
+                            <!-- Swatch 1 -->
+                            <button class="swatch-btn active" data-style="obsidian" data-price="39900" data-img="../../assets/pixel_watch_hero.png" aria-checked="true" role="radio" id="swatch-obsidian">
+                                <span class="swatch-dot color-obsidian"></span>
+                                <span class="swatch-label">Matte Black / Obsidian</span>
+                            </button>
+                            <!-- Swatch 2 -->
+                            <button class="swatch-btn" data-style="porcelain" data-price="42900" data-img="../../assets/pixel_watch_porcelain.png" aria-checked="false" role="radio" id="swatch-porcelain">
+                                <span class="swatch-dot color-porcelain"></span>
+                                <span class="swatch-label">Polished Silver / Porcelain</span>
+                            </button>
+                            <!-- Swatch 3 -->
+                            <button class="swatch-btn" data-style="hazel" data-price="44900" data-img="../../assets/pixel_watch_hazel.png" aria-checked="false" role="radio" id="swatch-hazel">
+                                <span class="swatch-dot color-hazel"></span>
+                                <span class="swatch-label">Champagne Gold / Hazel</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Specs Summary -->
+                    <div class="model-specs-summary" id="model-specs-box">
+                        <div class="spec-row">
+                            <span class="spec-lbl">Casing:</span>
+                            <span class="spec-val" id="spec-case-val">Matte Black Aluminum</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-lbl">Active Band:</span>
+                            <span class="spec-val" id="spec-band-val">Obsidian fluoroelastomer</span>
+                        </div>
+                        <div class="spec-row">
+                            <span class="spec-lbl">Connectivity:</span>
+                            <span class="spec-val">Wi-Fi / Bluetooth (LTE optional)</span>
+                        </div>
+                    </div>
+
+                    <!-- Purchase Actions -->
+                    <div class="purchase-actions-row">
+                        <button class="buy-now-btn" id="add-to-cart-trigger">Configure & Purchase</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Features Section -->
+        <section class="pixel-features-section" id="features">
+            <div class="pixel-container">
+                <div class="features-header-block">
+                    <span class="section-label-chip">Engineering</span>
+                    <h2>Help by Google. Health by Fitbit.</h2>
+                    <p class="features-subheading">A deeper look at what makes the Pixel Watch 3 the smartest companion on your wrist.</p>
+                </div>
+
+                <div class="features-cards-grid">
+                    <!-- Feature Card 1 -->
+                    <div class="feature-card-item">
+                        <div class="card-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                            </svg>
+                        </div>
+                        <h3>Fitbit Readiness Score</h3>
+                        <p>Leverages heart rate variability, sleep patterns, and recent activity levels to formulate a personalized index telling you if you are ready to train or need rest.</p>
+                    </div>
+
+                    <!-- Feature Card 2 -->
+                    <div class="feature-card-item">
+                        <div class="card-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                            </svg>
+                        </div>
+                        <h3>Continuous SpO2 Tracking</h3>
+                        <p>Monitors blood oxygen saturation and sleeping metrics overnight to keep you updated on body acclimation and overall recovery trends.</p>
+                    </div>
+
+                    <!-- Feature Card 3 -->
+                    <div class="feature-card-item">
+                        <div class="card-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m21 16-4 4-4-4M3 8h14M3 12h18M3 16h8"/>
+                            </svg>
+                        </div>
+                        <h3>Seamless Google Hub</h3>
+                        <p>Control your Smart Home devices, view Nest Cam alerts live, respond to Gmail notifications, or check directions in real-time with Google Maps right from your wrist.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Specifications Accordion Section -->
+        <section class="pixel-specs-section" id="specs">
+            <div class="pixel-container max-width-specs">
+                <div class="features-header-block text-center">
+                    <span class="section-label-chip">Technical Specs</span>
+                    <h2>Every Detail Engineered</h2>
+                    <p class="features-subheading">Comprehensive specs list for the Google Pixel Watch 3.</p>
+                </div>
+
+                <div class="specs-accordion-list">
+                    <!-- Spec Item 1 -->
+                    <div class="specs-accordion-item">
+                        <button class="accordion-header-btn" aria-expanded="false" id="accordion-btn-display">
+                            <span>Display and Visuals</span>
+                            <span class="icon-toggle">+</span>
+                        </button>
+                        <div class="accordion-panel-content" aria-hidden="true">
+                            <div class="specs-table">
+                                <div class="specs-table-row">
+                                    <span class="lbl">Screen</span>
+                                    <span class="val">Custom 3D Corning Gorilla Glass 5, Actua AMOLED Display</span>
+                                </div>
+                                <div class="specs-table-row">
+                                    <span class="lbl">Brightness</span>
+                                    <span class="val">Up to 2000 nits peak brightness, down to 1 nit in Always-On state</span>
+                                </div>
+                                <div class="specs-table-row">
+                                    <span class="lbl">Pixel Density</span>
+                                    <span class="val">320 ppi display resolution with full color depth</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spec Item 2 -->
+                    <div class="specs-accordion-item">
+                        <button class="accordion-header-btn" aria-expanded="false" id="accordion-btn-battery">
+                            <span>Power and Battery Life</span>
+                            <span class="icon-toggle">+</span>
+                        </button>
+                        <div class="accordion-panel-content" aria-hidden="true">
+                            <div class="specs-table">
+                                <div class="specs-table-row">
+                                    <span class="lbl">Always-On Display</span>
+                                    <span class="val">Up to 24 hours of usage with Always-On mode enabled</span>
+                                </div>
+                                <div class="specs-table-row">
+                                    <span class="lbl">Battery Saver Mode</span>
+                                    <span class="val">Up to 36 hours of active monitoring with Battery Saver enabled</span>
+                                </div>
+                                <div class="specs-table-row">
+                                    <span class="lbl">Charging Speed</span>
+                                    <span class="val">0% to 50% in 28 minutes, 0% to 100% in 60 minutes via USB-C fast charging</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spec Item 3 -->
+                    <div class="specs-accordion-item">
+                        <button class="accordion-header-btn" aria-expanded="false" id="accordion-btn-materials">
+                            <span>Materials and Dimensions</span>
+                            <span class="icon-toggle">+</span>
+                        </button>
+                        <div class="accordion-panel-content" aria-hidden="true">
+                            <div class="specs-table">
+                                <div class="specs-table-row">
+                                    <span class="lbl">Casing Material</span>
+                                    <span class="val">100% recycled aluminum casing structures</span>
+                                </div>
+                                <div class="specs-table-row">
+                                    <span class="lbl">Dimensions</span>
+                                    <span class="val">Diameter: 41mm | Height: 12.3mm | Weight: 31g (without band)</span>
+                                </div>
+                                <div class="specs-table-row">
+                                    <span class="lbl">Water Resistance</span>
+                                    <span class="val">IP68 water and dust certification, 5 ATM underwater depth resistance</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Google-style purchase sidebar drawer -->
+    <div class="drawer-backdrop" id="checkout-drawer-backdrop" aria-hidden="true">
+        <div class="buy-drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+            <div class="drawer-header">
+                <h3 id="drawer-title">Your Google Store Cart</h3>
+                <button class="drawer-close-btn" id="close-drawer-btn" aria-label="Close cart">&times;</button>
+            </div>
+
+            <!-- Cart Details View -->
+            <div class="drawer-scroll-body" id="cart-content-view">
+                <div class="cart-product-summary">
+                    <div class="cart-product-img-box">
+                        <img src="../../assets/pixel_watch_hero.png" alt="Google Pixel Watch 3" id="cart-product-thumb">
+                    </div>
+                    <div class="cart-product-meta">
+                        <h4 class="cart-item-name">Google Pixel Watch 3</h4>
+                        <p class="cart-item-specs" id="cart-item-specs-lbl">Matte Black / Obsidian</p>
+                        <span class="cart-item-price" id="cart-item-price-lbl">₹39,900</span>
+                    </div>
+                </div>
+
+                <div class="pricing-calculation-block">
+                    <div class="calc-row">
+                        <span>Subtotal</span>
+                        <span id="cart-calc-subtotal">₹39,900</span>
+                    </div>
+                    <div class="calc-row">
+                        <span>Shipping</span>
+                        <span class="free-badge">Complimentary</span>
+                    </div>
+                    <div class="calc-row tax-row">
+                        <span>GST (Included)</span>
+                        <span id="cart-calc-tax">₹7,182</span>
+                    </div>
+                    <div class="calc-row total-row">
+                        <span>Est. Total</span>
+                        <span id="cart-calc-total">₹39,900</span>
+                    </div>
+                </div>
+
+                <button class="checkout-next-btn" id="go-checkout-details-btn">Proceed to Delivery</button>
+            </div>
+
+            <!-- Checkout Details Form View (Hidden by default) -->
+            <div class="drawer-scroll-body form-view-hidden" id="checkout-details-view">
+                <div class="back-to-cart-row">
+                    <button class="back-btn" id="back-to-cart-trigger-btn">&larr; Back to Cart</button>
+                </div>
+                <form id="google-checkout-form" class="checkout-details-form" novalidate>
+                    <div class="input-form-group">
+                        <label for="checkout-name" class="input-label">Full Name</label>
+                        <input type="text" class="form-input-field" id="checkout-name" required placeholder="John Doe">
+                        <span class="form-error-msg" id="err-checkout-name">Please enter your delivery name.</span>
+                    </div>
+                    <div class="input-form-group">
+                        <label for="checkout-email" class="input-label">Email</label>
+                        <input type="email" class="form-input-field" id="checkout-email" required placeholder="john@example.com">
+                        <span class="form-error-msg" id="err-checkout-email">Please enter a valid email address.</span>
+                    </div>
+                    <div class="input-form-group">
+                        <label for="checkout-card" class="input-label">Credit Card Number</label>
+                        <input type="text" class="form-input-field" id="checkout-card" required placeholder="4111 2222 3333 4444" pattern="[0-9\s]{13,19}">
+                        <span class="form-error-msg" id="err-checkout-card">Please enter a valid card index.</span>
+                    </div>
+                    <div class="input-form-row">
+                        <div class="input-form-group">
+                            <label for="checkout-exp" class="input-label">Expiry</label>
+                            <input type="text" class="form-input-field" id="checkout-exp" required placeholder="MM/YY">
+                            <span class="form-error-msg" id="err-checkout-exp">Expiry invalid.</span>
+                        </div>
+                        <div class="input-form-group">
+                            <label for="checkout-cvv" class="input-label">CVV</label>
+                            <input type="password" class="form-input-field" id="checkout-cvv" required placeholder="***">
+                            <span class="form-error-msg" id="err-checkout-cvv">CVV error.</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="checkout-next-btn" id="checkout-submit-btn">Place Order</button>
+                </form>
+            </div>
+
+            <!-- Success Panel (Hidden by default) -->
+            <div class="drawer-scroll-body form-view-hidden" id="checkout-success-view">
+                <div class="purchase-success-seal">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </div>
+                <h3>Order Confirmed</h3>
+                <p class="success-blurb">Thank you for your order! Your Pixel Watch 3 package is being registered. A confirmation tracking index will be sent to your email shortly.</p>
+                <button class="checkout-next-btn" id="success-done-btn">Back to Store</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Store style simple footer -->
+    <footer class="pixel-footer">
+        <div class="pixel-container footer-row">
+            <span class="footer-copy">&copy; 2026 Google Store. Custom product demo crafted for ZENIX.</span>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Client Scripts -->
+    <script src="app.js"></script>
+    <script src="../shared/viewer.js"></script>
+</body>
+</html>
