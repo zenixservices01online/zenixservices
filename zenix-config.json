@@ -1,0 +1,70 @@
+{
+  "promoBanner": {
+    "active": false,
+    "text": "🔥 Limited Time Offer: Get 10% off on all MVP orders this week! Use code ZENIX10.",
+    "theme": "accent"
+  },
+  "services": [
+    {
+      "num": "I",
+      "title": "Full-Stack Web Apps & MVPs",
+      "desc": "Rapid prototypes, interactive SaaS dashboards, and responsive full-stack applications built at breakthrough speeds. Engineered line-by-line for robustness and security."
+    },
+    {
+      "num": "II",
+      "title": "Lightning Frontends & Landing Pages",
+      "desc": "High-converting, responsive single-page marketing sites built with ultra-clean HTML/CSS/JS architecture. No bloating, optimized for search engines, built to engage."
+    },
+    {
+      "num": "III",
+      "title": "Python Automation & Workflow Scripting",
+      "desc": "Bespoke backend scripts, custom data scrapers, API integrations, and robust data pipeline automations that eliminate manual tasks and accelerate operations."
+    }
+  ],
+  "pricing": [
+    {
+      "id": "frontend",
+      "title": "E-commerce & Landing Pages",
+      "currency": "₹",
+      "price": "8,900",
+      "period": "/ project",
+      "desc": "Bespoke, high-converting frontends with customized styling, responsive typography, and SEO frameworks.",
+      "features": [
+        "100% human hand-coded HTML/CSS/JS",
+        "Figma-to-Code fidelity",
+        "Search Engine Optimization (SEO) setup",
+        "Timeline: 48-hour delivery"
+      ]
+    },
+    {
+      "id": "mvp",
+      "title": "Full-Stack MVPs",
+      "currency": "₹",
+      "price": "9,400",
+      "period": "/ project",
+      "desc": "A complete interactive SaaS prototype or database web application tailored to validate your business idea.",
+      "features": [
+        "Custom database design & schemas",
+        "Interactive SaaS admin dashboards",
+        "Serverless deployment & QA checked",
+        "Timeline: 72-hour delivery"
+      ],
+      "featured": true,
+      "popularTag": "MOST POPULAR"
+    },
+    {
+      "id": "automation",
+      "title": "Workflow Automation",
+      "currency": "₹",
+      "price": "1,599",
+      "period": "/ project",
+      "desc": "Bespoke backend Python scripts, API integrations, and robust scrapers that eliminate manual data processing.",
+      "features": [
+        "Custom data scrapers & parsers",
+        "Third-party API synchronization",
+        "Cron-scheduled pipeline scripts",
+        "Timeline: 48-hour delivery"
+      ]
+    }
+  ]
+}
