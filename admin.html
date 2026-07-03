@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ZENIX Administration Panel - Content and Configuration Hub.">
+    <title>ZENIX Admin Console | Content Management</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ZENIX Admin Stylesheet - Embedded to keep page self-contained and super fast */
+        :root {
+            --bg-pure-black: #ffffff;
+            --bg-obsidian: #f5f5f7;
+            --bg-card: #ffffff;
+            --bg-card-hover: #fafafa;
+            --text-primary: #000000;
+            --text-secondary: #1c1c1e;
+            --text-muted: #55555d;
+            --border-slate: rgba(0, 0, 0, 0.1);
+            --border-slate-active: rgba(0, 0, 0, 0.22);
+            --accent-ice: #0055cc;
+            --accent-ice-glow: rgba(0, 85, 204, 0.08);
+            --danger-red: #d32f2f;
+            --success-green: #2e7d32;
+            
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-heading: 'Space Grotesk', var(--font-sans);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: all 0.2s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Geometric Grid Background */
+        .grid-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 85, 204, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 85, 204, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            background-position: center;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Gatekeeper Auth Screen */
+        .auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-obsidian);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+
+        .auth-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.05);
+        }
+
+        .auth-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-slate);
+            padding: 3rem 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .auth-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .auth-logo svg {
+            filter: drop-shadow(0 2px 8px rgba(0, 85, 204, 0.15));
+        }
+
+        .auth-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #000000 35%, var(--accent-ice) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--bg-obsidian);
+            border: 1px solid var(--border-slate);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-ice);
+            background: var(--bg-card);
+            box-shadow: 0 0 0 3px var(--accent-ice-glow);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: var(--accent-ice);
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            letter-spacing: 0.02em;
+        }
+
+        .auth-btn:hover {
+            background: #0044a3;
+            transform: translateY(-1px);
+        }
+
+        .auth-error {
+            color: var(--danger-red);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+            min-height: 20px;
+            opacity: 0;
+            transition: var(--transition-fast);
+        }
+
+        .auth-error.visible {
+            opacity: 1;
+        }
+
+        /* Admin Layout Structure */
+        .admin-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: none; /* Shown after auth */
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* Admin Header */
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-slate);
+            margin-bottom: 2rem;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .console-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            background: var(--accent-ice-glow);
+            color: var(--accent-ice);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 85, 204, 0.15);
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid var(--border-slate);
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .btn:hover {
+            border-color: var(--border-slate-active);
+            background: var(--bg-card-hover);
+        }
+
+        .btn-primary {
+            background: var(--accent-ice);
+            color: #ffffff;
+            border-color: var(--accent-ice);
+        }
+
+        .btn-primary:hover {
+            background: #0044a3;
+            border-color: #0044a3;
+        }
+
+        .btn-danger {
+            color: var(--danger-red);
+            border-color: rgba(211, 47, 47, 0.2);
+        }
+
+        .btn-danger:hover {
+            background: rgba(211, 47, 47, 0.05);
+            border-color: var(--danger-red);
+        }
+
+        /* Workspace Grid Split Layout */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 2rem;
+            flex-grow: 1;
+        }
+
+        /* Sidebar Navigation Tabs */
+        .sidebar-tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: 1px solid transparent;
+            text-align: left;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .tab-btn:hover {
+            background: rgba(0, 85, 204, 0.04);
+            color: var(--accent-ice);
+        }
+
+        .tab-btn.active {
+            background: var(--bg-card);
+            border-color: var(--border-slate);
+            color: var(--accent-ice);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.015);
+        }
+
+        /* Main Workspace Panels */
+        .workspace-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-slate);
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
+            display: none; /* Managed by JS */
+        }
+
+        .workspace-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel-header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-slate);
+            padding-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .panel-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .panel-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Form Grid Utilities */
+        .row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Card list layout (Services, Pricing) */
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .item-card {
+            border: 1px solid var(--border-slate);
+            border-radius: 8px;
+            background: var(--bg-obsidian);
+            padding: 1.5rem;
+            position: relative;
+            transition: var(--transition-fast);
+        }
+
+        .item-card:hover {
+            border-color: var(--border-slate-active);
+        }
+
+        .item-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .item-card-title-lbl {
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--accent-ice);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .item-delete-btn {
+            background: none;
+            border: none;
+            color: var(--danger-red);
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition-fast);
+            padding: 0.2rem;
+            border-radius: 4px;
+        }
+
+        .item-delete-btn:hover {
+            opacity: 1;
+            background: rgba(211, 47, 47, 0.08);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.95rem;
+        }
+
+        .checkbox-container input {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-ice);
+        }
+
+        /* Promo banner settings style */
+        .banner-preview-box {
+            border: 1px dashed var(--border-slate);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            background: var(--bg-obsidian);
+        }
+
+        .banner-preview-header {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+        }
+
+        /* Float Notifications / Toast Messages */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.8rem;
+            border-radius: 8px;
+            background: #1c1c1e;
+            color: #ffffff;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+            pointer-events: none;
+            border-left: 4px solid var(--accent-ice);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            border-left-color: var(--success-green);
+        }
+
+        .toast.error {
+            border-left-color: var(--danger-red);
+        }
+
+        /* SVG Icon styling */
+        .icon {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Footer */
+        .admin-footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-slate);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+
+    <!-- Passcode Authenticator Overlay -->
+    <div class="auth-overlay" id="auth-overlay">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" fill="rgba(0, 85, 204, 0.02)"/>
+                    <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc"/>
+                    <polygon points="15,8 18,8 9,16 6,16" fill="#000000"/>
+                    <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc"/>
+                </svg>
+                <span>ZENIX Admin</span>
+            </div>
+            <h2 class="auth-title">Administrative Gate</h2>
+            <p class="auth-subtitle">Verify cryptographic passcode to access console configurations.</p>
+            
+            <form id="auth-form" onsubmit="handleAuth(event)">
+                <div class="form-group">
+                    <label for="passcode" class="form-label">System Passcode</label>
+                    <input type="password" id="passcode" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="auth-btn">Establish Uplink</button>
+                <div class="auth-error" id="auth-error">Incorrect passcode. Uplink rejected.</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Console Workspace -->
+    <div class="admin-wrapper" id="admin-wrapper">
+        <header class="admin-header">
+            <div class="header-brand">
+                <a href="index.html" class="auth-logo" style="margin-bottom: 0;">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" fill="rgba(0, 85, 204, 0.02)"/>
+                        <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc"/>
+                        <polygon points="15,8 18,8 9,16 6,16" fill="#000000"/>
+                        <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc"/>
+                    </svg>
+                    <span>ZENIX</span>
+                </a>
+                <span class="console-tag">v2.1.0-admin</span>
+            </div>
+            
+            <div class="header-actions">
+                <a href="index.html" class="btn" target="_blank">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    View Website
+                </a>
+                <button onclick="handleLogout()" class="btn btn-danger">
+                    <svg class="icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Terminate Session
+                </button>
+            </div>
+        </header>
+
+        <div class="workspace-grid">
+            <!-- Sidebar navigation Tabs -->
+            <nav class="sidebar-tabs">
+                <button class="tab-btn active" onclick="switchTab('tab-dashboard')">
+                    <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                    Dashboard Controls
+                </button>
+                <button class="tab-btn" onclick="switchTab('tab-offers')">
+                    <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    Active Offers Banner
+                </button>
+                <button class="tab-btn" onclick="switchTab('tab-services')">
+                    <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    Service Offerings
+                </button>
+                <button class="tab-btn" onclick="switchTab('tab-pricing')">
+                    <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    Flat Pricing Tiers
+                </button>
+            </nav>
+
+            <!-- Main Panel Content -->
+            <main>
+                <!-- Dashboard Controller Tab -->
+                <div class="workspace-panel active" id="tab-dashboard">
+                    <div class="panel-header">
+                        <div>
+                            <h2 class="panel-title">Dashboard Hub</h2>
+                            <p class="panel-desc">Commit browser previews, export production JSON configurations, or restore default state.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="item-card" style="background: var(--bg-card);">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.8rem; font-weight: 500;">Preview & Deploy Workflow</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                                Preview modifications instantly on this browser. Once satisfied, click <strong>Export Configuration JSON</strong> and replace `zenix-config.json` in the project root folder to publish to the production environment.
+                            </p>
+                            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                                <button onclick="saveToLocal()" class="btn btn-primary" style="justify-content: center;">
+                                    <svg class="icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                    Apply & Save Browser Preview
+                                </button>
+                                <button onclick="exportConfig()" class="btn" style="justify-content: center; font-weight: 600;">
+                                    <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                    Export Configuration JSON
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="item-card" style="background: var(--bg-card);">
+                            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.8rem; font-weight: 500;">System Actions & Recovery</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                                Restore your workspace configurations to ZENIX out-of-the-box defaults. This will erase browser preview cookies and pull default values from the original code definitions.
+                            </p>
+                            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                                <button onclick="resetDefaults()" class="btn btn-danger" style="justify-content: center;">
+                                    <svg class="icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                                    Reset Workspace to Default Settings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Offers Tab -->
+                <div class="workspace-panel" id="tab-offers">
+                    <div class="panel-header">
+                        <div>
+                            <h2 class="panel-title">Active Offers Banner</h2>
+                            <p class="panel-desc">Configure promotional texts and warning messages at the top of the homepage.</p>
+                        </div>
+                    </div>
+
+                    <div class="item-card" style="background: var(--bg-card);">
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="offer-active" onchange="updateOfferPreview()">
+                                <span>Active Announcement Banner</span>
+                            </label>
+                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.7rem; margin-top: 0.2rem;">
+                                Enable this to display a sleek, global horizontal alert notification strip at the top of the webpage.
+                            </p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="offer-text" class="form-label">Banner Message Content</label>
+                            <input type="text" id="offer-text" class="form-input" placeholder="e.g., 🔥 Special Offer: Shipped within 48 hours!" oninput="updateOfferPreview()">
+                        </div>
+
+                        <div class="row-grid">
+                            <div class="form-group">
+                                <label for="offer-theme" class="form-label">Visual Aesthetic Theme</label>
+                                <select id="offer-theme" class="form-input" onchange="updateOfferPreview()">
+                                    <option value="accent">Blue Accent (Solid & Sleek)</option>
+                                    <option value="subtle">Obsidian Grey (Minimalist & Low-Key)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="banner-preview-box">
+                            <div class="banner-preview-header">Live Banner Rendering Output</div>
+                            <div id="banner-preview-render" style="padding: 0.6rem; border-radius: 4px; font-size: 0.8rem; text-align: center; font-weight: 500;">
+                                [No active banner configured]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Capabilities / Services Tab -->
+                <div class="workspace-panel" id="tab-services">
+                    <div class="panel-header">
+                        <div>
+                            <h2 class="panel-title">Service Offerings</h2>
+                            <p class="panel-desc">Add, edit, or remove capabilities. These represent the primary capability items (Section 01).</p>
+                        </div>
+                        <button onclick="addService()" class="btn btn-primary">
+                            <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            Add New Capability
+                        </button>
+                    </div>
+
+                    <div class="card-list" id="services-list-container">
+                        <!-- Dynamic rows injected here -->
+                    </div>
+                </div>
+
+                <!-- Flat Pricing Tiers Tab -->
+                <div class="workspace-panel" id="tab-pricing">
+                    <div class="panel-header">
+                        <div>
+                            <h2 class="panel-title">Flat Pricing Tiers</h2>
+                            <p class="panel-desc">Manage flat rates, descriptions, and feature checklists (Section 04).</p>
+                        </div>
+                    </div>
+
+                    <div class="card-list" id="pricing-list-container">
+                        <!-- Dynamic tiers injected here -->
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <footer class="admin-footer">
+            <p>&copy; 2026 ZENIX Admin Engine. All systems operational.</p>
+        </footer>
+    </div>
+
+    <!-- Notification Toast Element -->
+    <div class="toast" id="toast-notif">
+        <span id="toast-text">Configuration Saved Successfully</span>
+    </div>
+
+    <script>
+        // Default configuration definition matching original codebase
+        const DEFAULT_CONFIG = {
+            promoBanner: {
+                active: false,
+                text: "🔥 Limited Time Offer: Get 10% off on all MVP orders this week! Use code ZENIX10.",
+                theme: "accent"
+            },
+            services: [
+                {
+                    num: "I",
+                    title: "Full-Stack Web Apps & MVPs",
+                    desc: "Rapid prototypes, interactive SaaS dashboards, and responsive full-stack applications built at breakthrough speeds. Engineered line-by-line for robustness and security."
+                },
+                {
+                    num: "II",
+                    title: "Lightning Frontends & Landing Pages",
+                    desc: "High-converting, responsive single-page marketing sites built with ultra-clean HTML/CSS/JS architecture. No bloating, optimized for search engines, built to engage."
+                },
+                {
+                    num: "III",
+                    title: "Python Automation & Workflow Scripting",
+                    desc: "Bespoke backend scripts, custom data scrapers, API integrations, and robust data pipeline automations that eliminate manual tasks and accelerate operations."
+                }
+            ],
+            pricing: [
+                {
+                    id: "frontend",
+                    title: "E-commerce & Landing Pages",
+                    currency: "₹",
+                    price: "8,900",
+                    period: "/ project",
+                    desc: "Bespoke, high-converting frontends with customized styling, responsive typography, and SEO frameworks.",
+                    features: [
+                        "100% human hand-coded HTML/CSS/JS",
+                        "Figma-to-Code fidelity",
+                        "Search Engine Optimization (SEO) setup",
+                        "Timeline: 48-hour delivery"
+                    ]
+                },
+                {
+                    id: "mvp",
+                    title: "Full-Stack MVPs",
+                    currency: "₹",
+                    price: "9,400",
+                    period: "/ project",
+                    desc: "A complete interactive SaaS prototype or database web application tailored to validate your business idea.",
+                    features: [
+                        "Custom database design & schemas",
+                        "Interactive SaaS admin dashboards",
+                        "Serverless deployment & QA checked",
+                        "Timeline: 72-hour delivery"
+                    ],
+                    featured: true,
+                    popularTag: "MOST POPULAR"
+                },
+                {
+                    id: "automation",
+                    title: "Workflow Automation",
+                    currency: "₹",
+                    price: "1,599",
+                    period: "/ project",
+                    desc: "Bespoke backend Python scripts, API integrations, and robust scrapers that eliminate manual data processing.",
+                    features: [
+                        "Custom data scrapers & parsers",
+                        "Third-party API synchronization",
+                        "Cron-scheduled pipeline scripts",
+                        "Timeline: 48-hour delivery"
+                    ]
+                }
+            ]
+        };
+
+        // Active State variables
+        let currentConfig = null;
+
+        // On Load Check Authentication Session
+        window.addEventListener('DOMContentLoaded', () => {
+            const hasAuth = sessionStorage.getItem('zenix_auth');
+            if (hasAuth === 'true') {
+                authenticateConsole();
+            }
+        });
+
+        // Auth Form Handler
+        function handleAuth(event) {
+            event.preventDefault();
+            const passcode = document.getElementById('passcode').value;
+            const errorLabel = document.getElementById('auth-error');
+            
+            // Crytographic checking (simple gates for static sites)
+            if (passcode === 'zenix2026') {
+                sessionStorage.setItem('zenix_auth', 'true');
+                authenticateConsole();
+                showToast("Uplink Established. Welcome.", "success");
+            } else {
+                errorLabel.classList.add('visible');
+                setTimeout(() => {
+                    errorLabel.classList.remove('visible');
+                }, 3000);
+            }
+        }
+
+        // Establish Auth Panel Displays & Load Config Data
+        function authenticateConsole() {
+            document.getElementById('auth-overlay').classList.add('hidden');
+            document.getElementById('admin-wrapper').style.display = 'flex';
+            
+            // Pull configuration data
+            const saved = localStorage.getItem('zenix_config');
+            if (saved) {
+                try {
+                    currentConfig = JSON.parse(saved);
+                } catch(e) {
+                    console.error("Error reading storage preview config, loading file default.", e);
+                    currentConfig = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+                }
+            } else {
+                currentConfig = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+            }
+            
+            initializeDashboard();
+        }
+
+        // De-Authorize Session
+        function handleLogout() {
+            sessionStorage.removeItem('zenix_auth');
+            document.getElementById('auth-overlay').classList.remove('hidden');
+            document.getElementById('admin-wrapper').style.display = 'none';
+            document.getElementById('passcode').value = '';
+            showToast("Uplink Terminated.", "default");
+        }
+
+        // Build Inputs & View Form Fields from Loaded Config
+        function initializeDashboard() {
+            // Setup Tab 2: Offers Banner
+            document.getElementById('offer-active').checked = currentConfig.promoBanner.active;
+            document.getElementById('offer-text').value = currentConfig.promoBanner.text;
+            document.getElementById('offer-theme').value = currentConfig.promoBanner.theme || 'accent';
+            updateOfferPreview();
+
+            // Setup Tab 3: Capabilities List
+            renderServicesEditor();
+
+            // Setup Tab 4: Pricing Editor
+            renderPricingEditor();
+        }
+
+        // Tab Switching Actions
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            document.querySelectorAll('.workspace-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Announcement Banner Interactive Preview
+        function updateOfferPreview() {
+            const active = document.getElementById('offer-active').checked;
+            const text = document.getElementById('offer-text').value;
+            const theme = document.getElementById('offer-theme').value;
+            
+            const previewEl = document.getElementById('banner-preview-render');
+            
+            if (active) {
+                previewEl.innerText = text ? text : "[Empty Message]";
+                previewEl.className = `promo-banner ${theme}`;
+                previewEl.style.color = theme === 'accent' ? '#ffffff' : 'var(--text-primary)';
+                previewEl.style.background = theme === 'accent' ? 'var(--accent-ice)' : 'var(--bg-obsidian)';
+                previewEl.style.border = theme === 'accent' ? 'none' : '1px solid var(--border-slate)';
+            } else {
+                previewEl.innerText = "[Banner Inactive]";
+                previewEl.className = "";
+                previewEl.style.color = "var(--text-muted)";
+                previewEl.style.background = "transparent";
+                previewEl.style.border = "1px dashed var(--border-slate)";
+            }
+
+            // Sync state object
+            currentConfig.promoBanner.active = active;
+            currentConfig.promoBanner.text = text;
+            currentConfig.promoBanner.theme = theme;
+        }
+
+        // Render Capability Editor Cards
+        function renderServicesEditor() {
+            const container = document.getElementById('services-list-container');
+            container.innerHTML = "";
+
+            currentConfig.services.forEach((service, index) => {
+                const card = document.createElement('div');
+                card.className = "item-card";
+                card.innerHTML = `
+                    <div class="item-card-header">
+                        <div class="item-card-title-lbl">
+                            <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                            Capability Card ${index + 1}
+                        </div>
+                        <button onclick="deleteService(${index})" class="item-delete-btn" title="Delete Capability">
+                            <svg class="icon" viewBox="0 0 24 24" style="width: 16px; height: 16px;"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                        </button>
+                    </div>
+                    
+                    <div class="row-grid">
+                        <div class="form-group">
+                            <label class="form-label">Roman Numeral ID</label>
+                            <input type="text" class="form-input" value="${service.num}" oninput="updateServiceVal(${index}, 'num', this.value)" placeholder="e.g., I, II, III">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-input" value="${service.title}" oninput="updateServiceVal(${index}, 'title', this.value)" placeholder="Title of Offering">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label">Description text</label>
+                        <textarea class="form-input" rows="3" oninput="updateServiceVal(${index}, 'desc', this.value)" placeholder="Description explaining the service capability">${service.desc}</textarea>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Add Service helper
+        function addService() {
+            const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII"];
+            const nextIdx = currentConfig.services.length;
+            const nextNum = romanNumerals[nextIdx] || (nextIdx + 1).toString();
+            
+            currentConfig.services.push({
+                num: nextNum,
+                title: "New Custom Service Option",
+                desc: "Describe your service parameters, technologies, and shipment schedules."
+            });
+
+            renderServicesEditor();
+            showToast("Capability block added", "default");
+        }
+
+        // Delete Service helper
+        function deleteService(index) {
+            if (currentConfig.services.length <= 1) {
+                showToast("Cannot delete last remaining capability card.", "error");
+                return;
+            }
+            currentConfig.services.splice(index, 1);
+            renderServicesEditor();
+            showToast("Capability block removed", "default");
+        }
+
+        // Sync Service fields
+        function updateServiceVal(index, field, val) {
+            currentConfig.services[index][field] = val;
+        }
+
+        // Render Pricing Editors
+        function renderPricingEditor() {
+            const container = document.getElementById('pricing-list-container');
+            container.innerHTML = "";
+
+            currentConfig.pricing.forEach((tier, index) => {
+                const card = document.createElement('div');
+                card.className = "item-card";
+                
+                const isFeaturedChecked = tier.featured ? 'checked' : '';
+                const popularTagVal = tier.popularTag || '';
+                const featuresVal = (tier.features || []).join('\n');
+
+                card.innerHTML = `
+                    <div class="item-card-header">
+                        <div class="item-card-title-lbl">
+                            <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            Pricing Tier ${index + 1}: ${tier.title}
+                        </div>
+                    </div>
+                    
+                    <div class="row-grid">
+                        <div class="form-group">
+                            <label class="form-label">Tier Title</label>
+                            <input type="text" class="form-input" value="${tier.title}" oninput="updatePricingVal(${index}, 'title', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Form Identification ID (Key)</label>
+                            <input type="text" class="form-input" value="${tier.id}" oninput="updatePricingVal(${index}, 'id', this.value)" placeholder="e.g., mvp, frontend">
+                        </div>
+                    </div>
+
+                    <div class="row-grid" style="grid-template-columns: 80px 1fr 1fr;">
+                        <div class="form-group">
+                            <label class="form-label">Currency</label>
+                            <input type="text" class="form-input" value="${tier.currency}" oninput="updatePricingVal(${index}, 'currency', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Amount Rate</label>
+                            <input type="text" class="form-input" value="${tier.price}" oninput="updatePricingVal(${index}, 'price', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Rate Period</label>
+                            <input type="text" class="form-input" value="${tier.period}" oninput="updatePricingVal(${index}, 'period', this.value)">
+                        </div>
+                    </div>
+
+                    <div class="row-grid" style="grid-template-columns: 180px 1fr;">
+                        <div class="form-group" style="display: flex; flex-direction: column; justify-content: center;">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="pricing-featured-${index}" ${isFeaturedChecked} onchange="updatePricingFeatured(${index}, this.checked)">
+                                <span>Featured Tier Card</span>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Featured Badge Text</label>
+                            <input type="text" id="pricing-tag-${index}" class="form-input" value="${popularTagVal}" oninput="updatePricingVal(${index}, 'popularTag', this.value)" placeholder="e.g., MOST POPULAR" ${tier.featured ? '' : 'disabled'}>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Description Text</label>
+                        <input type="text" class="form-input" value="${tier.desc}" oninput="updatePricingVal(${index}, 'desc', this.value)">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label class="form-label">Features List (One bullet point item per line)</label>
+                        <textarea class="form-input" rows="4" placeholder="Enter one feature item per line" oninput="updatePricingFeatures(${index}, this.value)">${featuresVal}</textarea>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Sync pricing field properties
+        function updatePricingVal(index, field, val) {
+            currentConfig.pricing[index][field] = val;
+        }
+
+        // Featured checkbox handler
+        function updatePricingFeatured(index, checked) {
+            currentConfig.pricing[index].featured = checked;
+            const badgeInput = document.getElementById(`pricing-tag-${index}`);
+            if (badgeInput) {
+                badgeInput.disabled = !checked;
+                if (checked && !badgeInput.value) {
+                    badgeInput.value = "MOST POPULAR";
+                    currentConfig.pricing[index].popularTag = "MOST POPULAR";
+                }
+            }
+        }
+
+        // Features text splitter
+        function updatePricingFeatures(index, text) {
+            currentConfig.pricing[index].features = text.split('\n').filter(line => line.trim() !== "");
+        }
+
+        // Save preview config to LocalStorage
+        function saveToLocal() {
+            try {
+                localStorage.setItem('zenix_config', JSON.stringify(currentConfig));
+                showToast("Configuration Applied to Browser Preview", "success");
+            } catch (e) {
+                showToast("Failed to save configuration preview.", "error");
+                console.error("Local save error:", e);
+            }
+        }
+
+        // Reset localStorage configuration overrides
+        function resetDefaults() {
+            if (confirm("Are you sure you want to clear browser overrides and restore out-of-the-box defaults?")) {
+                localStorage.removeItem('zenix_config');
+                currentConfig = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+                initializeDashboard();
+                showToast("Workspace Reset to System Defaults", "success");
+            }
+        }
+
+        // Export data to zenix-config.json
+        function exportConfig() {
+            try {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(currentConfig, null, 2));
+                const downloadAnchor = document.createElement('a');
+                downloadAnchor.setAttribute("href", dataStr);
+                downloadAnchor.setAttribute("download", "zenix-config.json");
+                document.body.appendChild(downloadAnchor);
+                downloadAnchor.click();
+                downloadAnchor.remove();
+                showToast("Config JSON Download Triggered", "success");
+            } catch (e) {
+                showToast("Error exporting JSON package.", "error");
+                console.error("JSON Export error:", e);
+            }
+        }
+
+        // Toast trigger helper
+        function showToast(message, type = "default") {
+            const toast = document.getElementById('toast-notif');
+            const label = document.getElementById('toast-text');
+            
+            label.innerText = message;
+            toast.className = `toast show ${type}`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
