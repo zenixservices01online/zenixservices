@@ -28,40 +28,56 @@
             z-index: 2;
         }
         .legal-meta {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            color: var(--accent-ice);
-            margin-bottom: 1rem;
-            display: block;
+            font-family: var(--font-mono) !important;
+            font-size: 0.8rem !important;
+            color: var(--accent-ice) !important;
+            margin-bottom: 1rem !important;
+            display: block !important;
+            font-weight: 500 !important;
+            letter-spacing: normal !important;
         }
         .legal-header {
             margin-bottom: 3rem;
         }
         .legal-title {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #000000 35%, var(--accent-ice) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: var(--font-heading) !important;
+            font-size: 2.8rem !important;
+            font-weight: 700 !important;
+            margin-bottom: 1rem !important;
+            letter-spacing: -0.02em !important;
+            background: none !important;
+            -webkit-background-clip: border-box !important;
+            -webkit-text-fill-color: var(--text-primary) !important;
+            color: var(--text-primary) !important;
         }
         .legal-body {
             color: var(--text-secondary);
             font-family: var(--font-sans);
-            font-size: 1rem;
             line-height: 1.8;
         }
         .legal-body h3 {
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            color: var(--text-primary);
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-            background: none;
-            -webkit-text-fill-color: initial;
+            font-family: var(--font-heading) !important;
+            font-size: 1.4rem !important;
+            color: var(--text-primary) !important;
+            margin-top: 2.5rem !important;
+            margin-bottom: 1rem !important;
+            font-weight: 600 !important;
+            letter-spacing: -0.02em !important;
+            background: none !important;
+            -webkit-background-clip: border-box !important;
+            -webkit-text-fill-color: var(--text-primary) !important;
+        }
+        .legal-body p, 
+        .legal-body li {
+            font-family: var(--font-sans) !important;
+            color: var(--text-secondary) !important;
+            font-size: 0.95rem !important;
+            line-height: 1.8 !important;
+            font-weight: 400 !important;
+            letter-spacing: normal !important;
         }
         .legal-body p {
-            margin-bottom: 1.5rem;
-            color: var(--text-secondary);
+            margin-bottom: 1.5rem !important;
         }
         .legal-body ul {
             margin-bottom: 1.5rem;

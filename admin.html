@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ZENIX Administration Panel - Content and Configuration Hub.">
     <title>ZENIX Admin Console | Content Management</title>
-    
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet">
 
     <style>
         /* ZENIX Admin Stylesheet - Embedded to keep page self-contained and super fast */
@@ -27,7 +30,7 @@
             --accent-ice-glow: rgba(0, 85, 204, 0.08);
             --danger-red: #d32f2f;
             --success-green: #2e7d32;
-            
+
             --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             --font-heading: 'Space Grotesk', var(--font-sans);
             --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -59,7 +62,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(0, 85, 204, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 85, 204, 0.02) 1px, transparent 1px);
             background-size: 50px 50px;
@@ -170,7 +173,7 @@
             width: 100%;
             padding: 0.9rem;
             background: var(--accent-ice);
-            color: #ffffff;
+            color: #c3bbbb;
             border: none;
             border-radius: 6px;
             font-family: var(--font-heading);
@@ -207,7 +210,8 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
-            display: none; /* Shown after auth */
+            display: none;
+            /* Shown after auth */
             flex-direction: column;
             flex-grow: 1;
         }
@@ -337,7 +341,8 @@
             border-radius: 12px;
             padding: 2.5rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.01);
-            display: none; /* Managed by JS */
+            display: none;
+            /* Managed by JS */
         }
 
         .workspace-panel.active {
@@ -346,8 +351,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .panel-header {
@@ -479,7 +491,7 @@
             font-family: var(--font-heading);
             font-size: 0.9rem;
             font-weight: 500;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             z-index: 2000;
             display: flex;
             align-items: center;
@@ -526,6 +538,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="grid-background"></div>
 
@@ -534,20 +547,21 @@
         <div class="auth-card">
             <div class="auth-logo">
                 <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" fill="rgba(0, 85, 204, 0.02)"/>
-                    <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc"/>
-                    <polygon points="15,8 18,8 9,16 6,16" fill="#000000"/>
-                    <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc"/>
+                    <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" fill="rgba(0, 85, 204, 0.02)" />
+                    <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc" />
+                    <polygon points="15,8 18,8 9,16 6,16" fill="#000000" />
+                    <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc" />
                 </svg>
                 <span>ZENIX Admin</span>
             </div>
             <h2 class="auth-title">Administrative Gate</h2>
             <p class="auth-subtitle">Verify cryptographic passcode to access console configurations.</p>
-            
+
             <form id="auth-form" onsubmit="handleAuth(event)">
                 <div class="form-group">
                     <label for="passcode" class="form-label">System Passcode</label>
-                    <input type="password" id="passcode" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+                    <input type="password" id="passcode" class="form-input" placeholder="••••••••" required
+                        autocomplete="current-password">
                 </div>
                 <button type="submit" class="auth-btn">Establish Uplink</button>
                 <div class="auth-error" id="auth-error">Incorrect passcode. Uplink rejected.</div>
@@ -561,23 +575,32 @@
             <div class="header-brand">
                 <a href="index.html" class="auth-logo" style="margin-bottom: 0;">
                     <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" fill="rgba(0, 85, 204, 0.02)"/>
-                        <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc"/>
-                        <polygon points="15,8 18,8 9,16 6,16" fill="#000000"/>
-                        <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc"/>
+                        <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5"
+                            fill="rgba(0, 85, 204, 0.02)" />
+                        <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc" />
+                        <polygon points="15,8 18,8 9,16 6,16" fill="#000000" />
+                        <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc" />
                     </svg>
                     <span>ZENIX</span>
                 </a>
                 <span class="console-tag">v2.1.0-admin</span>
             </div>
-            
+
             <div class="header-actions">
                 <a href="index.html" class="btn" target="_blank">
-                    <svg class="icon" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
                     View Website
                 </a>
                 <button onclick="handleLogout()" class="btn btn-danger">
-                    <svg class="icon" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
                     Terminate Session
                 </button>
             </div>
@@ -587,19 +610,34 @@
             <!-- Sidebar navigation Tabs -->
             <nav class="sidebar-tabs">
                 <button class="tab-btn active" onclick="switchTab('tab-dashboard')">
-                    <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="9"></rect>
+                        <rect x="14" y="3" width="7" height="5"></rect>
+                        <rect x="14" y="12" width="7" height="9"></rect>
+                        <rect x="3" y="16" width="7" height="5"></rect>
+                    </svg>
                     Dashboard Controls
                 </button>
                 <button class="tab-btn" onclick="switchTab('tab-offers')">
-                    <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
                     Active Offers Banner
                 </button>
                 <button class="tab-btn" onclick="switchTab('tab-services')">
-                    <svg class="icon" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
                     Service Offerings
                 </button>
                 <button class="tab-btn" onclick="switchTab('tab-pricing')">
-                    <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
                     Flat Pricing Tiers
                 </button>
             </nav>
@@ -611,36 +649,58 @@
                     <div class="panel-header">
                         <div>
                             <h2 class="panel-title">Dashboard Hub</h2>
-                            <p class="panel-desc">Commit browser previews, export production JSON configurations, or restore default state.</p>
+                            <p class="panel-desc">Commit browser previews, export production JSON configurations, or
+                                restore default state.</p>
                         </div>
                     </div>
-                    
+
                     <div class="row-grid" style="grid-template-columns: 1fr 1fr;">
                         <div class="item-card" style="background: var(--bg-card);">
-                            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.8rem; font-weight: 500;">Preview & Deploy Workflow</h3>
+                            <h3
+                                style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.8rem; font-weight: 500;">
+                                Preview & Deploy Workflow</h3>
                             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-                                Preview modifications instantly on this browser. Once satisfied, click <strong>Export Configuration JSON</strong> and replace `zenix-config.json` in the project root folder to publish to the production environment.
+                                Preview modifications instantly on this browser. Once satisfied, click <strong>Export
+                                    Configuration JSON</strong> and replace `zenix-config.json` in the project root
+                                folder to publish to the production environment.
                             </p>
                             <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                                <button onclick="saveToLocal()" class="btn btn-primary" style="justify-content: center;">
-                                    <svg class="icon" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                <button onclick="saveToLocal()" class="btn btn-primary"
+                                    style="justify-content: center;">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z">
+                                        </path>
+                                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                        <polyline points="7 3 7 8 15 8"></polyline>
+                                    </svg>
                                     Apply & Save Browser Preview
                                 </button>
-                                <button onclick="exportConfig()" class="btn" style="justify-content: center; font-weight: 600;">
-                                    <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                <button onclick="exportConfig()" class="btn"
+                                    style="justify-content: center; font-weight: 600;">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="7 10 12 15 17 10"></polyline>
+                                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                                    </svg>
                                     Export Configuration JSON
                                 </button>
                             </div>
                         </div>
 
                         <div class="item-card" style="background: var(--bg-card);">
-                            <h3 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.8rem; font-weight: 500;">System Actions & Recovery</h3>
+                            <h3
+                                style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.8rem; font-weight: 500;">
+                                System Actions & Recovery</h3>
                             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-                                Restore your workspace configurations to ZENIX out-of-the-box defaults. This will erase browser preview cookies and pull default values from the original code definitions.
+                                Restore your workspace configurations to ZENIX out-of-the-box defaults. This will erase
+                                browser preview cookies and pull default values from the original code definitions.
                             </p>
                             <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                                <button onclick="resetDefaults()" class="btn btn-danger" style="justify-content: center;">
-                                    <svg class="icon" viewBox="0 0 24 24"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+                                <button onclick="resetDefaults()" class="btn btn-danger"
+                                    style="justify-content: center;">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+                                    </svg>
                                     Reset Workspace to Default Settings
                                 </button>
                             </div>
@@ -653,7 +713,8 @@
                     <div class="panel-header">
                         <div>
                             <h2 class="panel-title">Active Offers Banner</h2>
-                            <p class="panel-desc">Configure promotional texts and warning messages at the top of the homepage.</p>
+                            <p class="panel-desc">Configure promotional texts and warning messages at the top of the
+                                homepage.</p>
                         </div>
                     </div>
 
@@ -663,14 +724,18 @@
                                 <input type="checkbox" id="offer-active" onchange="updateOfferPreview()">
                                 <span>Active Announcement Banner</span>
                             </label>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.7rem; margin-top: 0.2rem;">
-                                Enable this to display a sleek, global horizontal alert notification strip at the top of the webpage.
+                            <p
+                                style="font-size: 0.85rem; color: var(--text-muted); margin-left: 1.7rem; margin-top: 0.2rem;">
+                                Enable this to display a sleek, global horizontal alert notification strip at the top of
+                                the webpage.
                             </p>
                         </div>
 
                         <div class="form-group">
                             <label for="offer-text" class="form-label">Banner Message Content</label>
-                            <input type="text" id="offer-text" class="form-input" placeholder="e.g., 🔥 Special Offer: Shipped within 48 hours!" oninput="updateOfferPreview()">
+                            <input type="text" id="offer-text" class="form-input"
+                                placeholder="e.g., 🔥 Special Offer: Shipped within 48 hours!"
+                                oninput="updateOfferPreview()">
                         </div>
 
                         <div class="row-grid">
@@ -685,7 +750,8 @@
 
                         <div class="banner-preview-box">
                             <div class="banner-preview-header">Live Banner Rendering Output</div>
-                            <div id="banner-preview-render" style="padding: 0.6rem; border-radius: 4px; font-size: 0.8rem; text-align: center; font-weight: 500;">
+                            <div id="banner-preview-render"
+                                style="padding: 0.6rem; border-radius: 4px; font-size: 0.8rem; text-align: center; font-weight: 500;">
                                 [No active banner configured]
                             </div>
                         </div>
@@ -697,10 +763,14 @@
                     <div class="panel-header">
                         <div>
                             <h2 class="panel-title">Service Offerings</h2>
-                            <p class="panel-desc">Add, edit, or remove capabilities. These represent the primary capability items (Section 01).</p>
+                            <p class="panel-desc">Add, edit, or remove capabilities. These represent the primary
+                                capability items (Section 01).</p>
                         </div>
                         <button onclick="addService()" class="btn btn-primary">
-                            <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
                             Add New Capability
                         </button>
                     </div>
@@ -715,7 +785,8 @@
                     <div class="panel-header">
                         <div>
                             <h2 class="panel-title">Flat Pricing Tiers</h2>
-                            <p class="panel-desc">Manage flat rates, descriptions, and feature checklists (Section 04).</p>
+                            <p class="panel-desc">Manage flat rates, descriptions, and feature checklists (Section 04).
+                            </p>
                         </div>
                     </div>
 
@@ -825,7 +896,7 @@
             event.preventDefault();
             const passcode = document.getElementById('passcode').value;
             const errorLabel = document.getElementById('auth-error');
-            
+
             // Crytographic checking (simple gates for static sites)
             if (passcode === 'zenix2026') {
                 sessionStorage.setItem('zenix_auth', 'true');
@@ -843,20 +914,20 @@
         function authenticateConsole() {
             document.getElementById('auth-overlay').classList.add('hidden');
             document.getElementById('admin-wrapper').style.display = 'flex';
-            
+
             // Pull configuration data
             const saved = localStorage.getItem('zenix_config');
             if (saved) {
                 try {
                     currentConfig = JSON.parse(saved);
-                } catch(e) {
+                } catch (e) {
                     console.error("Error reading storage preview config, loading file default.", e);
                     currentConfig = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
                 }
             } else {
                 currentConfig = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
             }
-            
+
             initializeDashboard();
         }
 
@@ -902,9 +973,9 @@
             const active = document.getElementById('offer-active').checked;
             const text = document.getElementById('offer-text').value;
             const theme = document.getElementById('offer-theme').value;
-            
+
             const previewEl = document.getElementById('banner-preview-render');
-            
+
             if (active) {
                 previewEl.innerText = text ? text : "[Empty Message]";
                 previewEl.className = `promo-banner ${theme}`;
@@ -968,7 +1039,7 @@
             const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII"];
             const nextIdx = currentConfig.services.length;
             const nextNum = romanNumerals[nextIdx] || (nextIdx + 1).toString();
-            
+
             currentConfig.services.push({
                 num: nextNum,
                 title: "New Custom Service Option",
@@ -1003,7 +1074,7 @@
             currentConfig.pricing.forEach((tier, index) => {
                 const card = document.createElement('div');
                 card.className = "item-card";
-                
+
                 const isFeaturedChecked = tier.featured ? 'checked' : '';
                 const popularTagVal = tier.popularTag || '';
                 const featuresVal = (tier.features || []).join('\n');
@@ -1134,14 +1205,15 @@
         function showToast(message, type = "default") {
             const toast = document.getElementById('toast-notif');
             const label = document.getElementById('toast-text');
-            
+
             label.innerText = message;
             toast.className = `toast show ${type}`;
-            
+
             setTimeout(() => {
                 toast.classList.remove('show');
             }, 3500);
         }
     </script>
 </body>
+
 </html>
