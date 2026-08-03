@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
             '.section-title',
             '.section-subtitle',
             '.grid-card',
+            '.portfolio-featured-card',
             '.contact-info',
             '.contact-form-wrapper'
         ];

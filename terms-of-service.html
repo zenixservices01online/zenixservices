@@ -9,10 +9,336 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Self-Contained Legal Page CSS -->
+    <style>
+        :root {
+            --bg-pure-white: #ffffff;
+            --bg-obsidian: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --accent-ice: #0055cc;
+            --accent-glow: rgba(0, 85, 204, 0.08);
+            --border-slate: rgba(148, 163, 184, 0.2);
+            --danger-red: #d32f2f;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-heading: 'Space Grotesk', var(--font-sans);
+            --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .legal-section {
+            padding: 7rem 1.5rem 5rem;
+            min-height: 100vh;
+            background-color: var(--bg-obsidian);
+            position: relative;
+        }
+
+        .legal-container {
+            max-width: 860px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-home-wrapper {
+            margin-bottom: 2rem;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-ice);
+            background: #ffffff;
+            border: 1px solid var(--border-slate);
+            padding: 0.55rem 1.25rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .back-home:hover {
+            background: var(--accent-ice);
+            color: #ffffff;
+            border-color: var(--accent-ice);
+            transform: translateX(-4px);
+            box-shadow: 0 4px 15px rgba(0, 85, 204, 0.25);
+        }
+
+        .back-home svg {
+            transition: transform 0.25s ease;
+        }
+
+        .back-home:hover svg {
+            transform: scaleX(-1) translateX(3px);
+        }
+
+        .legal-card {
+            background: #ffffff;
+            border: 1px solid var(--border-slate);
+            border-radius: 20px;
+            padding: 4rem 3.5rem;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .legal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-ice) 0%, #00a3ff 100%);
+        }
+
+        .legal-header {
+            border-bottom: 1px solid var(--border-slate);
+            padding-bottom: 2.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .legal-meta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent-ice);
+            background: rgba(0, 85, 204, 0.06);
+            border: 1px solid rgba(0, 85, 204, 0.15);
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1.25rem;
+        }
+
+        .legal-title {
+            font-family: var(--font-heading);
+            font-size: 2.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            margin: 0 0 0.85rem 0;
+            line-height: 1.12;
+        }
+
+        .legal-header .section-subtitle {
+            font-size: 1.12rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Section Jump Nav Pills */
+        .toc-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.75rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--border-slate);
+        }
+
+        .toc-pill {
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--bg-obsidian);
+            border: 1px solid var(--border-slate);
+            padding: 0.35rem 0.85rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .toc-pill:hover {
+            color: var(--accent-ice);
+            background: rgba(0, 85, 204, 0.05);
+            border-color: var(--accent-ice);
+        }
+
+        .legal-body {
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 1.02rem;
+            line-height: 1.85;
+        }
+
+        .legal-intro-lead {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            background: var(--bg-obsidian);
+            border: 1px solid var(--border-slate);
+            border-left: 4px solid var(--accent-ice);
+            padding: 1.5rem 1.75rem;
+            border-radius: 10px;
+        }
+
+        .legal-body h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-top: 2.75rem;
+            margin-bottom: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-top: 1.75rem;
+            border-top: 1px dashed var(--border-slate);
+            scroll-margin-top: 100px;
+        }
+
+        .legal-body h3:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .section-num {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-ice);
+            background: rgba(0, 85, 204, 0.08);
+            border: 1px solid rgba(0, 85, 204, 0.18);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .legal-body p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.85;
+            margin-bottom: 1.35rem;
+        }
+
+        .legal-body ul {
+            margin: 1.15rem 0 2rem 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .legal-body li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.95rem;
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.8;
+        }
+
+        .legal-body li::before {
+            content: '';
+            position: absolute;
+            left: 0.4rem;
+            top: 0.65rem;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--accent-ice);
+            box-shadow: 0 0 0 3px rgba(0, 85, 204, 0.15);
+        }
+
+        .legal-body li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .alert-box {
+            border: 1px solid rgba(211, 47, 47, 0.25);
+            background: rgba(211, 47, 47, 0.03);
+            border-left: 4px solid var(--danger-red);
+            padding: 1.75rem 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            color: var(--text-secondary);
+        }
+
+        .alert-box-title {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .legal-contact-card {
+            margin-top: 3.5rem;
+            background: var(--bg-obsidian);
+            border: 1px solid var(--border-slate);
+            border-radius: 14px;
+            padding: 2rem 2.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .legal-contact-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .legal-contact-card a {
+            color: var(--accent-ice);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .legal-contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .legal-section {
+                padding: 5.5rem 1rem 3rem;
+            }
+            .legal-card {
+                padding: 2.5rem 1.5rem;
+                border-radius: 14px;
+            }
+            .legal-title {
+                font-size: 2.1rem;
+            }
+            .legal-body h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -30,6 +356,7 @@
             <nav class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="index.html#services" class="nav-link">Services</a>
+                <a href="index.html#work" class="nav-link">Work</a>
                 <a href="index.html#pricing" class="nav-link">Pricing</a>
                 <a href="index.html#contact" class="nav-link">Contact</a>
             </nav>
@@ -60,38 +387,53 @@
                         </span>
                         <h1 class="legal-title">Terms of Service</h1>
                         <p class="section-subtitle">Binding agreement governing project intakes, code delivery sprints, payment obligations, and fraud protections.</p>
+
+                        <!-- Quick Navigation Pills -->
+                        <div class="toc-pills">
+                            <a href="#sprints" class="toc-pill">1. Sprint Rules</a>
+                            <a href="#payments" class="toc-pill">2. Pricing & Deposit</a>
+                            <a href="#code-ip" class="toc-pill">3. IP Transfer</a>
+                            <a href="#fraud-prevention" class="toc-pill">4. Fraud Policy</a>
+                            <a href="#refund-policy" class="toc-pill">5. Refund Policy</a>
+                            <a href="#support-guarantee" class="toc-pill">6. 12m Support</a>
+                            <a href="#liability" class="toc-pill">7. Liability</a>
+                            <a href="#governing-law" class="toc-pill">8. Jurisdiction</a>
+                            <a href="#contact-terms" class="toc-pill">9. Contact</a>
+                        </div>
                     </div>
 
                     <div class="legal-body">
-                        <p>Welcome to ZENIX. These Terms of Service ("Terms") dictate the legally binding agreement between you ("Client") and ZENIX ("we", "us", or "our"), a rapid software development studio co-founded by Vishal Kumar Tiwary and Abhianav Tiwari. By submitting a project inquiry, signing a statement of work, or commissioning a service card, you agree to comply with these terms.</p>
+                        <div class="legal-intro-lead">
+                            Welcome to ZENIX. These Terms of Service ("Terms") dictate the legally binding agreement between you ("Client") and ZENIX ("we", "us", or "our"), a rapid software development studio co-founded by Vishal Kumar Tiwary and Abhianav Tiwari. By submitting a project inquiry, signing a statement of work, or commissioning a service card, you agree to comply with these terms.
+                        </div>
 
-                        <h3>1. Rapid Sprints & Timeline Rules</h3>
+                        <h3 id="sprints"><span class="section-num">01</span> Rapid Sprints & Timeline Rules</h3>
                         <p>We pride ourselves on delivery speeds of 48 to 72 hours. To maintain these sprints, the following timeline constraints apply:</p>
                         <ul>
                             <li>The Client must provide all required contents, specifications, mockups, copy, and API integrations within 12 hours of the project kick-off.</li>
                             <li>Delays in Client feedback or credential provisions will immediately pause the delivery timeline countdown and push the delivery window correspondingly.</li>
                         </ul>
 
-                        <h3>2. Flat-Rate Pricing & Payments</h3>
-                        <p>All projects are billed on transparent flat-rate models (e.g., E-commerce/Landing Pages at ₹8,900, Full-Stack MVPs at ₹9,400, Automations at ₹1,599) as custom-scoped before starting. Unless explicitly modified in writing:</p>
+                        <h3 id="payments"><span class="section-num">02</span> Flat-Rate Pricing & Payments</h3>
+                        <p>All projects are billed on transparent flat-rate models (e.g., Landing Pages at ₹8,900, Full-Stack MVPs at ₹9,400, Automations at ₹1,599) as custom-scoped before starting. Unless explicitly modified in writing:</p>
                         <ul>
-                            <li><strong>Retainer:</strong> A 50% upfront retainer deposit is required to secure our development sprint slots.</li>
-                            <li><strong>Completion:</strong> The remaining 50% balance is invoiced upon project showcase and QA approval, prior to repository handovers.</li>
+                            <li><strong>Retainer Deposit:</strong> A 50% upfront retainer deposit is required to secure our development sprint slots.</li>
+                            <li><strong>Completion Balance:</strong> The remaining 50% balance is invoiced upon project showcase and QA approval, prior to repository handovers.</li>
                         </ul>
 
-                        <h3>3. Code Handovers & Intellectual Property</h3>
+                        <h3 id="code-ip"><span class="section-num">03</span> Code Handovers & Intellectual Property</h3>
                         <p>We craft 100% hand-coded software models. Intellectual Property (IP) ownership behaves as follows:</p>
                         <ul>
                             <li>ZENIX retains full copyrights and ownership of all codes, database structures, templates, scripts, and deployment configurations until the final invoice is paid and settled in full.</li>
                             <li>Upon receipt of final payment, full copyright ownership and access privileges of the clean Git repositories are transferred permanently to the Client.</li>
                         </ul>
 
-                        <div class="alert-box">
+                        <div class="alert-box" id="fraud-prevention">
                             <div class="alert-box-title">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #d32f2f;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                4. Zero-Tolerance Fraud & Chargeback Prevention Clause
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--danger-red);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                04. Zero-Tolerance Fraud & Chargeback Prevention Clause
                             </div>
-                            <p>If a client engages in payment fraud—including initiating malicious credit card chargebacks, reversing authorized bank transfers, or failing to pay final balances after work approval while retaining or deploying draft codes:</p>
+                            <p style="margin-bottom: 0.75rem;">If a client engages in payment fraud—including initiating malicious credit card chargebacks, reversing authorized bank transfers, or failing to pay final balances after work approval while retaining or deploying draft codes:</p>
                             <ul style="margin-top: 0.5rem; margin-bottom: 0;">
                                 <li><strong>Immediate Revocation:</strong> ZENIX will immediately revoke all licenses, terminate hosting instances, deploy software locks, and lock all source code repositories.</li>
                                 <li><strong>Legal Remedies:</strong> ZENIX will aggressively pursue full legal remedies for software piracy, copyright infringement, theft of intellectual property, and breach of contract under the Information Technology Act (India) and the Indian Penal Code.</li>
@@ -99,7 +441,7 @@
                             </ul>
                         </div>
 
-                        <h3>5. 24-Hour Refund Policy</h3>
+                        <h3 id="refund-policy"><span class="section-num">05</span> 24-Hour Refund Policy</h3>
                         <p>We stand behind our code. If your application experiences verified system crashes or defect failures within the first 24 hours of release, you are eligible for a 100% refund of fees paid, subject to:</p>
                         <ul>
                             <li>Provision of diagnostic system console logs showing a core system failure.</li>
@@ -107,20 +449,20 @@
                             <li>No refunds are issued for change of mind or requests outside the original project description scope.</li>
                         </ul>
 
-                        <h3>6. 12-Month Support & OS Updates</h3>
+                        <h3 id="support-guarantee"><span class="section-num">06</span> 12-Month Support & OS Updates</h3>
                         <p>All delivered products include a 12-month support guarantee covering bug corrections inside original scope parameters. In addition, we align your system layout and styles to run on updated mobile and desktop OS versions (Android, iOS, Windows, macOS) for 3 full years post-launch.</p>
 
-                        <h3>7. Limitation of Liability</h3>
+                        <h3 id="liability"><span class="section-num">07</span> Limitation of Liability</h3>
                         <p>ZENIX operates as an acceleration studio. We are not liable for any indirect, incidental, or consequential damages (including profit loss, database leakage, third-party API rate adjustments, or server outages) arising from your software operations.</p>
 
-                        <h3>8. Governing Law & Dispute Forum</h3>
+                        <h3 id="governing-law"><span class="section-num">08</span> Governing Law & Dispute Forum</h3>
                         <p>These Terms are governed by and construed in accordance with the laws of India. Any litigation, dispute, or legal proceeding resulting from this engagement must be submitted exclusively to the courts of Ranchi, Jharkhand (India).</p>
 
-                        <h3>9. Contact Terms</h3>
+                        <h3 id="contact-terms"><span class="section-num">09</span> Contact Terms</h3>
                         <div class="legal-contact-card">
                             <h4>Legal & Invoicing Inquiries</h4>
-                            <p>For questions or terms updates, reach us at:</p>
-                            <p>
+                            <p style="margin: 0;">For questions or terms updates, reach us directly at:</p>
+                            <p style="margin-top: 0.5rem;">
                                 <strong>Email:</strong> <a href="mailto:zenixservices67@gmail.com">zenixservices67@gmail.com</a><br>
                                 <strong>Phone:</strong> +91 92636 23724 | +91 62090 01378
                             </p>

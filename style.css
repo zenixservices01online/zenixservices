@@ -1903,6 +1903,197 @@ body.has-promo-banner {
 }
 
 /* ==========================================
+   Portfolio & Featured Client Work Showcase
+   ========================================== */
+.portfolio-featured-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+@media (max-width: 900px) {
+    .portfolio-featured-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.portfolio-featured-card {
+    background: #ffffff;
+    border: 1px solid var(--border-slate);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 15px 35px rgba(0, 85, 204, 0.04);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-card);
+    display: flex;
+    flex-direction: column;
+}
+
+.portfolio-featured-card:hover {
+    border-color: var(--accent-ice);
+    box-shadow: 0 20px 45px rgba(0, 85, 204, 0.08);
+    transform: translateY(-2px);
+}
+
+.portfolio-featured-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-ice) 0%, #00a3ff 100%);
+}
+
+.portfolio-featured-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent-ice);
+    background: rgba(0, 85, 204, 0.06);
+    border: 1px solid rgba(0, 85, 204, 0.15);
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+}
+
+.pulse-dot {
+    width: 7px;
+    height: 7px;
+    background-color: #00c853;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.7);
+    }
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 8px rgba(0, 200, 83, 0);
+    }
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(0, 200, 83, 0);
+    }
+}
+
+.portfolio-client-tag {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.portfolio-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    background: none;
+    -webkit-background-clip: border-box;
+    -webkit-text-fill-color: var(--text-primary);
+}
+
+.portfolio-desc {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+    max-width: 800px;
+}
+
+.portfolio-tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+}
+
+.tech-tag {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    background: var(--bg-obsidian);
+    border: 1px solid var(--border-slate);
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+}
+
+.portfolio-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: var(--accent-ice);
+    padding: 0.75rem 1.6rem;
+    border-radius: 8px;
+    transition: var(--transition-fast);
+    box-shadow: 0 4px 15px rgba(0, 85, 204, 0.2);
+}
+
+.portfolio-link-btn:hover {
+    background: #0044a3;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 85, 204, 0.3);
+}
+
+.portfolio-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.portfolio-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-tag {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent-ice);
+    margin-bottom: 0.75rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.card-demo-link {
+    margin-top: auto;
+    padding-top: 1.25rem;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-ice);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: var(--transition-fast);
+}
+
+.card-demo-link:hover {
+    color: #0044a3;
+    transform: translateX(3px);
+}
+
+
+/* ==========================================
    Legal Pages (Privacy Policy & Terms of Service)
    ========================================== */
 .legal-section {

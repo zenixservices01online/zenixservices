@@ -9,10 +9,330 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Self-Contained Legal Page CSS -->
+    <style>
+        :root {
+            --bg-pure-white: #ffffff;
+            --bg-obsidian: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --accent-ice: #0055cc;
+            --accent-glow: rgba(0, 85, 204, 0.08);
+            --border-slate: rgba(148, 163, 184, 0.2);
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-heading: 'Space Grotesk', var(--font-sans);
+            --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+        }
+
+        body {
+            background-color: var(--bg-obsidian);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .legal-section {
+            padding: 7rem 1.5rem 5rem;
+            min-height: 100vh;
+            background-color: var(--bg-obsidian);
+            position: relative;
+        }
+
+        .legal-container {
+            max-width: 860px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-home-wrapper {
+            margin-bottom: 2rem;
+        }
+
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-ice);
+            background: #ffffff;
+            border: 1px solid var(--border-slate);
+            padding: 0.55rem 1.25rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .back-home:hover {
+            background: var(--accent-ice);
+            color: #ffffff;
+            border-color: var(--accent-ice);
+            transform: translateX(-4px);
+            box-shadow: 0 4px 15px rgba(0, 85, 204, 0.25);
+        }
+
+        .back-home svg {
+            transition: transform 0.25s ease;
+        }
+
+        .back-home:hover svg {
+            transform: scaleX(-1) translateX(3px);
+        }
+
+        .legal-card {
+            background: #ffffff;
+            border: 1px solid var(--border-slate);
+            border-radius: 20px;
+            padding: 4rem 3.5rem;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .legal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-ice) 0%, #00a3ff 100%);
+        }
+
+        .legal-header {
+            border-bottom: 1px solid var(--border-slate);
+            padding-bottom: 2.25rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .legal-meta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent-ice);
+            background: rgba(0, 85, 204, 0.06);
+            border: 1px solid rgba(0, 85, 204, 0.15);
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1.25rem;
+        }
+
+        .legal-title {
+            font-family: var(--font-heading);
+            font-size: 2.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            margin: 0 0 0.85rem 0;
+            line-height: 1.12;
+        }
+
+        .legal-header .section-subtitle {
+            font-size: 1.12rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Section Jump Nav Pills */
+        .toc-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.75rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--border-slate);
+        }
+
+        .toc-pill {
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background: var(--bg-obsidian);
+            border: 1px solid var(--border-slate);
+            padding: 0.35rem 0.85rem;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .toc-pill:hover {
+            color: var(--accent-ice);
+            background: rgba(0, 85, 204, 0.05);
+            border-color: var(--accent-ice);
+        }
+
+        .legal-body {
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 1.02rem;
+            line-height: 1.85;
+        }
+
+        .legal-intro-lead {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            background: var(--bg-obsidian);
+            border: 1px solid var(--border-slate);
+            border-left: 4px solid var(--accent-ice);
+            padding: 1.5rem 1.75rem;
+            border-radius: 10px;
+        }
+
+        .legal-body h3 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-top: 2.75rem;
+            margin-bottom: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-top: 1.75rem;
+            border-top: 1px dashed var(--border-slate);
+            scroll-margin-top: 100px;
+        }
+
+        .legal-body h3:first-of-type {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .section-num {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent-ice);
+            background: rgba(0, 85, 204, 0.08);
+            border: 1px solid rgba(0, 85, 204, 0.18);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .legal-body p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.85;
+            margin-bottom: 1.35rem;
+        }
+
+        .legal-body ul {
+            margin: 1.15rem 0 2rem 0;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .legal-body li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.95rem;
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.8;
+        }
+
+        .legal-body li::before {
+            content: '';
+            position: absolute;
+            left: 0.4rem;
+            top: 0.65rem;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background-color: var(--accent-ice);
+            box-shadow: 0 0 0 3px rgba(0, 85, 204, 0.15);
+        }
+
+        .legal-body li strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .highlight-box {
+            background: rgba(0, 85, 204, 0.03);
+            border: 1px solid rgba(0, 85, 204, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem 1.75rem;
+            margin: 1.75rem 0;
+        }
+
+        .highlight-box h4 {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--accent-ice);
+            margin: 0 0 0.5rem 0;
+        }
+
+        .legal-contact-card {
+            margin-top: 3.5rem;
+            background: var(--bg-obsidian);
+            border: 1px solid var(--border-slate);
+            border-radius: 14px;
+            padding: 2rem 2.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .legal-contact-card h4 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        .legal-contact-card a {
+            color: var(--accent-ice);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .legal-contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .legal-section {
+                padding: 5.5rem 1rem 3rem;
+            }
+            .legal-card {
+                padding: 2.5rem 1.5rem;
+                border-radius: 14px;
+            }
+            .legal-title {
+                font-size: 2.1rem;
+            }
+            .legal-body h3 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -30,6 +350,7 @@
             <nav class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="index.html#services" class="nav-link">Services</a>
+                <a href="index.html#work" class="nav-link">Work</a>
                 <a href="index.html#pricing" class="nav-link">Pricing</a>
                 <a href="index.html#contact" class="nav-link">Contact</a>
             </nav>
@@ -60,20 +381,34 @@
                         </span>
                         <h1 class="legal-title">Privacy Policy</h1>
                         <p class="section-subtitle">Your data privacy, source code security, and architectural confidentiality are our top priorities.</p>
+
+                        <!-- Quick Navigation Pills -->
+                        <div class="toc-pills">
+                            <a href="#info-collect" class="toc-pill">1. Info Collected</a>
+                            <a href="#data-use" class="toc-pill">2. Data Usage</a>
+                            <a href="#ndas" class="toc-pill">3. Code & NDAs</a>
+                            <a href="#third-party" class="toc-pill">4. Integrations</a>
+                            <a href="#security" class="toc-pill">5. Security</a>
+                            <a href="#control" class="toc-pill">6. Rights</a>
+                            <a href="#jurisdiction" class="toc-pill">7. Law</a>
+                            <a href="#contact-us" class="toc-pill">8. Contact</a>
+                        </div>
                     </div>
 
                     <div class="legal-body">
-                        <p>At ZENIX, we build rapid, high-performance web applications, AI agents, and automations with absolute structural integrity. We treat our clients' projects, files, and intellectual property with the utmost confidentiality. This Privacy Policy describes how we collect, store, and process your information when you engage our development studio.</p>
+                        <div class="legal-intro-lead">
+                            At ZENIX, we build rapid, high-performance web applications, AI agents, and automations with absolute structural integrity. We treat our clients' projects, files, and intellectual property with the utmost confidentiality. This Privacy Policy describes how we collect, store, and process your information when you engage our development studio.
+                        </div>
 
-                        <h3>1. Information We Collect</h3>
+                        <h3 id="info-collect"><span class="section-num">01</span> Information We Collect</h3>
                         <p>To compile scopes, build functional wireframes, and integrate software pipelines, we may collect the following classifications of details:</p>
                         <ul>
-                            <li><strong>Identification Information:</strong> Your name, business entity name, email address, and phone number when submitting inquiries.</li>
+                            <li><strong>Identification Information:</strong> Your name, business entity name, email address, and phone number when submitting project inquiries.</li>
                             <li><strong>Project Specifications:</strong> Descriptions of your product idea, database schemas, mockups, design assets, and feature requirements.</li>
                             <li><strong>Deployment Credentials:</strong> API keys (e.g., OpenAI, Gemini, Web3Forms, Supabase), hosting server environment configurations, or Git credentials required to set up and deploy your application.</li>
                         </ul>
 
-                        <h3>2. How We Use Your Data</h3>
+                        <h3 id="data-use"><span class="section-num">02</span> How We Use Your Data</h3>
                         <p>We process collected data exclusively to build and deploy your customized products:</p>
                         <ul>
                             <li>To provide accurate design estimates, technical specifications, and delivery proposals.</li>
@@ -81,26 +416,29 @@
                             <li>To provision hosting servers and integrate serverless APIs on your behalf.</li>
                         </ul>
 
-                        <h3>3. Code Confidentiality & NDAs</h3>
-                        <p>As co-founders and sole developers operating ZENIX, we guarantee that all client codebases remain completely private. We never lease, reuse, or share your proprietary application code, database designs, or unique logic with outside parties. We happily sign Mutual Non-Disclosure Agreements (NDAs) before reviewing sensitive project specifications.</p>
+                        <h3 id="ndas"><span class="section-num">03</span> Code Confidentiality & NDAs</h3>
+                        <div class="highlight-box">
+                            <h4>🔒 100% Code Ownership & Privacy Guarantee</h4>
+                            <p style="margin: 0; font-size: 0.98rem; color: var(--text-secondary);">As co-founders and sole developers operating ZENIX, we guarantee that all client codebases remain completely private. We never lease, reuse, or share your proprietary application code, database designs, or unique logic with outside parties. We happily sign Mutual Non-Disclosure Agreements (NDAs) before reviewing sensitive project specifications.</p>
+                        </div>
 
-                        <h3>4. Third-Party Services & Integrations</h3>
+                        <h3 id="third-party"><span class="section-num">04</span> Third-Party Services & Integrations</h3>
                         <p>When engineering your system, we may utilize established third-party services (such as serverless email handlers, database hostings, or AI APIs). While ZENIX ensures secure communication channels, we recommend reviewing the privacy protocols of these integrated services. We explicitly isolate all client API keys and configurations into secure, encrypted environmental variables (`.env` files) that are never exposed publicly.</p>
 
-                        <h3>5. Security Safeguards</h3>
+                        <h3 id="security"><span class="section-num">05</span> Security Safeguards</h3>
                         <p>We employ commercial-grade structural safety measures to protect client assets. Your development code repositories are hosted on private, secured cloud servers. We restrict physical and virtual system access exclusively to our core co-founders, Vishal Kumar Tiwary and Abhianav Tiwari, ensuring zero leakage of project assets.</p>
 
-                        <h3>6. User Choices & Control</h3>
+                        <h3 id="control"><span class="section-num">06</span> User Choices & Control</h3>
                         <p>You can request to inspect, update, or permanently purge all personal information, project assets, and database credentials we have recorded in our development backups. Once a project is paid, completed, and handed over, we purge all client credentials from our local environments upon request.</p>
 
-                        <h3>7. Governing Jurisdiction</h3>
+                        <h3 id="jurisdiction"><span class="section-num">07</span> Governing Jurisdiction</h3>
                         <p>This Privacy Policy is governed by the laws of India. Any disputes or inquiries relating to data privacy or breach will be resolved exclusively under the jurisdiction of the courts of Ranchi, Jharkhand (India).</p>
 
-                        <h3>8. Contact Us</h3>
+                        <h3 id="contact-us"><span class="section-num">08</span> Contact Us</h3>
                         <div class="legal-contact-card">
-                            <h4>Direct Privacy Inquiries</h4>
-                            <p>For inquiries regarding data confidentiality, NDAs, or security practices, contact us directly at:</p>
-                            <p>
+                            <h4>Direct Privacy & Security Inquiries</h4>
+                            <p style="margin: 0;">For inquiries regarding data confidentiality, NDAs, or security practices, contact us directly at:</p>
+                            <p style="margin-top: 0.5rem;">
                                 <strong>Email:</strong> <a href="mailto:zenixservices67@gmail.com">zenixservices67@gmail.com</a><br>
                                 <strong>Co-Founders:</strong> Vishal Kumar Tiwary & Abhianav Tiwari
                             </p>
