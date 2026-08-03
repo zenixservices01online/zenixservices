@@ -12,11 +12,16 @@
     },
     {
       "num": "II",
+      "title": "Custom AI Agents & Autonomous Systems",
+      "desc": "Bespoke LLM-powered AI agents, autonomous multi-agent pipelines, custom RAG search engines, and task automations engineered with cutting-edge Antigravity & Gemini technology."
+    },
+    {
+      "num": "III",
       "title": "Lightning Frontends & Landing Pages",
       "desc": "High-converting, responsive single-page marketing sites built with ultra-clean HTML/CSS/JS architecture. No bloating, optimized for search engines, built to engage."
     },
     {
-      "num": "III",
+      "num": "IV",
       "title": "Python Automation & Workflow Scripting",
       "desc": "Bespoke backend scripts, custom data scrapers, API integrations, and robust data pipeline automations that eliminate manual tasks and accelerate operations."
     }

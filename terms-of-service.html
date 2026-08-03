@@ -13,112 +13,6 @@
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        .legal-section {
-            padding: 8rem 2rem 4rem;
-            min-height: 100vh;
-            background-color: var(--bg-pure-black);
-            position: relative;
-        }
-        .legal-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        .legal-meta {
-            font-family: var(--font-mono) !important;
-            font-size: 0.8rem !important;
-            color: var(--accent-ice) !important;
-            margin-bottom: 1rem !important;
-            display: block !important;
-            font-weight: 500 !important;
-            letter-spacing: normal !important;
-        }
-        .legal-header {
-            margin-bottom: 3rem;
-        }
-        .legal-title {
-            font-family: var(--font-heading) !important;
-            font-size: 2.8rem !important;
-            font-weight: 700 !important;
-            margin-bottom: 1rem !important;
-            letter-spacing: -0.02em !important;
-            background: none !important;
-            -webkit-background-clip: border-box !important;
-            -webkit-text-fill-color: var(--text-primary) !important;
-            color: var(--text-primary) !important;
-        }
-        .legal-body {
-            color: var(--text-secondary);
-            font-family: var(--font-sans);
-            line-height: 1.8;
-        }
-        .legal-body h3 {
-            font-family: var(--font-heading) !important;
-            font-size: 1.4rem !important;
-            color: var(--text-primary) !important;
-            margin-top: 2.5rem !important;
-            margin-bottom: 1rem !important;
-            font-weight: 600 !important;
-            letter-spacing: -0.02em !important;
-            background: none !important;
-            -webkit-background-clip: border-box !important;
-            -webkit-text-fill-color: var(--text-primary) !important;
-        }
-        .legal-body p, 
-        .legal-body li {
-            font-family: var(--font-sans) !important;
-            color: var(--text-secondary) !important;
-            font-size: 0.95rem !important;
-            line-height: 1.8 !important;
-            font-weight: 400 !important;
-            letter-spacing: normal !important;
-        }
-        .legal-body p {
-            margin-bottom: 1.5rem !important;
-        }
-        .legal-body ul {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }
-        .legal-body li {
-            margin-bottom: 0.5rem;
-        }
-        .back-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: var(--font-heading);
-            font-size: 0.9rem;
-            color: var(--accent-ice);
-            margin-bottom: 2rem;
-            font-weight: 500;
-        }
-        .back-home:hover {
-            color: #0044a3;
-        }
-        .alert-box {
-            border: 1px solid rgba(211, 47, 47, 0.2);
-            background: rgba(211, 47, 47, 0.02);
-            border-left: 4px solid var(--danger-red);
-            padding: 1.25rem;
-            border-radius: 6px;
-            margin: 1.5rem 0;
-            color: var(--text-secondary);
-        }
-        .alert-box-title {
-            font-family: var(--font-heading);
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            margin-bottom: 0.4rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -146,79 +40,92 @@
         <section class="legal-section">
             <div class="grid-background"></div>
             <div class="legal-container">
-                <a href="index.html" class="back-home">
-                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: scaleX(-1);">
-                        <path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" />
-                    </svg>
-                    <span>Back to Home</span>
-                </a>
-
-                <div class="legal-header">
-                    <span class="legal-meta">EFFECTIVE DATE: JULY 3, 2026</span>
-                    <h1 class="legal-title">Terms of Service</h1>
-                    <p class="section-subtitle">Binding agreement governing project intakes, code delivery sprints, payment obligations, and fraud protections.</p>
+                <div class="back-home-wrapper">
+                    <a href="index.html" class="back-home">
+                        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: scaleX(-1);">
+                            <path d="M8.14645 3.14645C8.34171 2.95118 8.65829 2.95118 8.85355 3.14645L12.8536 7.14645C13.0488 7.34171 13.0488 7.65829 12.8536 7.85355L8.85355 11.8536C8.65829 12.0488 8.34171 12.0488 8.14645 11.8536C7.95118 11.6583 7.95118 11.3417 8.14645 11.1464L11.2929 8H2.5C2.22386 8 2 7.77614 2 7.5C2 7.22386 2.22386 7 2.5 7H11.2929L8.14645 3.85355C7.95118 3.65829 7.95118 3.34171 8.14645 3.14645Z" fill="currentColor" />
+                        </svg>
+                        <span>Back to Home</span>
+                    </a>
                 </div>
 
-                <div class="legal-body">
-                    <p>Welcome to ZENIX. These Terms of Service ("Terms") dictate the legally binding agreement between you ("Client") and ZENIX ("we", "us", or "our"), a rapid software development studio co-founded by Vishal Kumar Tiwary and Abhianav Tiwari. By submitting a project inquiry, signing a statement of work, or commissioning a service card, you agree to comply with these terms.</p>
-
-                    <h3>1. Rapid Sprints & Timeline Rules</h3>
-                    <p>We pride ourselves on delivery speeds of 48 to 72 hours. To maintain these sprints, the following timeline constraints apply:</p>
-                    <ul>
-                        <li>The Client must provide all required contents, specifications, mockups, copy, and API integrations within 12 hours of the project kick-off.</li>
-                        <li>Delays in Client feedback or credential provisions will immediately pause the delivery timeline countdown and push the delivery window correspondingly.</li>
-                    </ul>
-
-                    <h3>2. Flat-Rate Pricing & Payments</h3>
-                    <p>All projects are billed on transparent flat-rate models (e.g., E-commerce/Landing Pages at ₹8,900, Full-Stack MVPs at ₹9,400, Automations at ₹1,599) as custom-scoped before starting. Unless explicitly modified in writing:</p>
-                    <ul>
-                        <li><strong>Retainer:</strong> A 50% upfront retainer deposit is required to secure our development sprint slots.</li>
-                        <li><strong>Completion:</strong> The remaining 50% balance is invoiced upon project showcase and QA approval, prior to repository handovers.</li>
-                    </ul>
-
-                    <h3>3. Code Handovers & Intellectual Property</h3>
-                    <p>We craft 100% hand-coded software models. Intellectual Property (IP) ownership behaves as follows:</p>
-                    <ul>
-                        <li>ZENIX retains full copyrights and ownership of all codes, database structures, templates, scripts, and deployment configurations until the final invoice is paid and settled in full.</li>
-                        <li>Upon receipt of final payment, full copyright ownership and access privileges of the clean Git repositories are transferred permanently to the Client.</li>
-                    </ul>
-
-                    <div class="alert-box">
-                        <div class="alert-box-title">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--danger-red);"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                            4. Zero-Tolerance Fraud & Chargeback Prevention Clause
-                        </div>
-                        <p>If a client engages in payment fraud—including initiating malicious credit card chargebacks, reversing authorized bank transfers, or failing to pay final balances after work approval while retaining or deploying draft codes:</p>
-                        <ul style="margin-top: 0.5rem; margin-bottom: 0;">
-                            <li><strong>Immediate Revocation:</strong> ZENIX will immediately revoke all licenses, terminate hosting instances, deploy software locks, and lock all source code repositories.</li>
-                            <li><strong>Legal Remedies:</strong> ZENIX will aggressively pursue full legal remedies for software piracy, copyright infringement, theft of intellectual property, and breach of contract under the Information Technology Act (India) and the Indian Penal Code.</li>
-                            <li><strong>Statutory Damages:</strong> The Client will be held legally liable for all statutory damages, lost profits, and all legal expenses/court costs incurred by ZENIX during recovery.</li>
-                        </ul>
+                <div class="legal-card">
+                    <div class="legal-header">
+                        <span class="legal-meta-badge">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            EFFECTIVE DATE: AUGUST 2026
+                        </span>
+                        <h1 class="legal-title">Terms of Service</h1>
+                        <p class="section-subtitle">Binding agreement governing project intakes, code delivery sprints, payment obligations, and fraud protections.</p>
                     </div>
 
-                    <h3>5. 24-Hour Refund Policy</h3>
-                    <p>We stand behind our code. If your application experiences verified system crashes or defect failures within the first 24 hours of release, you are eligible for a 100% refund of fees paid, subject to:</p>
-                    <ul>
-                        <li>Provision of diagnostic system console logs showing a core system failure.</li>
-                        <li>Verified failure to compile the agreed project scope deliverables.</li>
-                        <li>No refunds are issued for change of mind or requests outside the original project description scope.</li>
-                    </ul>
+                    <div class="legal-body">
+                        <p>Welcome to ZENIX. These Terms of Service ("Terms") dictate the legally binding agreement between you ("Client") and ZENIX ("we", "us", or "our"), a rapid software development studio co-founded by Vishal Kumar Tiwary and Abhianav Tiwari. By submitting a project inquiry, signing a statement of work, or commissioning a service card, you agree to comply with these terms.</p>
 
-                    <h3>6. 12-Month Support & OS Updates</h3>
-                    <p>All delivered products include a 12-month support guarantee covering bug corrections inside original scope parameters. In addition, we align your system layout and styles to run on updated mobile and desktop OS versions (Android, iOS, Windows, macOS) for 3 full years post-launch.</p>
+                        <h3>1. Rapid Sprints & Timeline Rules</h3>
+                        <p>We pride ourselves on delivery speeds of 48 to 72 hours. To maintain these sprints, the following timeline constraints apply:</p>
+                        <ul>
+                            <li>The Client must provide all required contents, specifications, mockups, copy, and API integrations within 12 hours of the project kick-off.</li>
+                            <li>Delays in Client feedback or credential provisions will immediately pause the delivery timeline countdown and push the delivery window correspondingly.</li>
+                        </ul>
 
-                    <h3>7. Limitation of Liability</h3>
-                    <p>ZENIX operates as an acceleration studio. We are not liable for any indirect, incidental, or consequential damages (including profit loss, database leakage, third-party API rate adjustments, or server outages) arising from your software operations.</p>
+                        <h3>2. Flat-Rate Pricing & Payments</h3>
+                        <p>All projects are billed on transparent flat-rate models (e.g., E-commerce/Landing Pages at ₹8,900, Full-Stack MVPs at ₹9,400, Automations at ₹1,599) as custom-scoped before starting. Unless explicitly modified in writing:</p>
+                        <ul>
+                            <li><strong>Retainer:</strong> A 50% upfront retainer deposit is required to secure our development sprint slots.</li>
+                            <li><strong>Completion:</strong> The remaining 50% balance is invoiced upon project showcase and QA approval, prior to repository handovers.</li>
+                        </ul>
 
-                    <h3>8. Governing Law & Dispute Forum</h3>
-                    <p>These Terms are governed by and construed in accordance with the laws of India. Any litigation, dispute, or legal proceeding resulting from this engagement must be submitted exclusively to the courts of Ranchi, Jharkhand (India).</p>
+                        <h3>3. Code Handovers & Intellectual Property</h3>
+                        <p>We craft 100% hand-coded software models. Intellectual Property (IP) ownership behaves as follows:</p>
+                        <ul>
+                            <li>ZENIX retains full copyrights and ownership of all codes, database structures, templates, scripts, and deployment configurations until the final invoice is paid and settled in full.</li>
+                            <li>Upon receipt of final payment, full copyright ownership and access privileges of the clean Git repositories are transferred permanently to the Client.</li>
+                        </ul>
 
-                    <h3>9. Contact Terms</h3>
-                    <p>For questions or terms updates, reach us at:</p>
-                    <p>
-                        <strong>Email:</strong> <a href="mailto:zenixservices67@gmail.com" style="color: var(--accent-ice);">zenixservices67@gmail.com</a><br>
-                        <strong>Phone:</strong> +91 92636 23724 | +91 62090 01378
-                    </p>
+                        <div class="alert-box">
+                            <div class="alert-box-title">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #d32f2f;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                4. Zero-Tolerance Fraud & Chargeback Prevention Clause
+                            </div>
+                            <p>If a client engages in payment fraud—including initiating malicious credit card chargebacks, reversing authorized bank transfers, or failing to pay final balances after work approval while retaining or deploying draft codes:</p>
+                            <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                                <li><strong>Immediate Revocation:</strong> ZENIX will immediately revoke all licenses, terminate hosting instances, deploy software locks, and lock all source code repositories.</li>
+                                <li><strong>Legal Remedies:</strong> ZENIX will aggressively pursue full legal remedies for software piracy, copyright infringement, theft of intellectual property, and breach of contract under the Information Technology Act (India) and the Indian Penal Code.</li>
+                                <li><strong>Statutory Damages:</strong> The Client will be held legally liable for all statutory damages, lost profits, and all legal expenses/court costs incurred by ZENIX during recovery.</li>
+                            </ul>
+                        </div>
+
+                        <h3>5. 24-Hour Refund Policy</h3>
+                        <p>We stand behind our code. If your application experiences verified system crashes or defect failures within the first 24 hours of release, you are eligible for a 100% refund of fees paid, subject to:</p>
+                        <ul>
+                            <li>Provision of diagnostic system console logs showing a core system failure.</li>
+                            <li>Verified failure to compile the agreed project scope deliverables.</li>
+                            <li>No refunds are issued for change of mind or requests outside the original project description scope.</li>
+                        </ul>
+
+                        <h3>6. 12-Month Support & OS Updates</h3>
+                        <p>All delivered products include a 12-month support guarantee covering bug corrections inside original scope parameters. In addition, we align your system layout and styles to run on updated mobile and desktop OS versions (Android, iOS, Windows, macOS) for 3 full years post-launch.</p>
+
+                        <h3>7. Limitation of Liability</h3>
+                        <p>ZENIX operates as an acceleration studio. We are not liable for any indirect, incidental, or consequential damages (including profit loss, database leakage, third-party API rate adjustments, or server outages) arising from your software operations.</p>
+
+                        <h3>8. Governing Law & Dispute Forum</h3>
+                        <p>These Terms are governed by and construed in accordance with the laws of India. Any litigation, dispute, or legal proceeding resulting from this engagement must be submitted exclusively to the courts of Ranchi, Jharkhand (India).</p>
+
+                        <h3>9. Contact Terms</h3>
+                        <div class="legal-contact-card">
+                            <h4>Legal & Invoicing Inquiries</h4>
+                            <p>For questions or terms updates, reach us at:</p>
+                            <p>
+                                <strong>Email:</strong> <a href="mailto:zenixservices67@gmail.com">zenixservices67@gmail.com</a><br>
+                                <strong>Phone:</strong> +91 92636 23724 | +91 62090 01378
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

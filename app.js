@@ -6,6 +6,246 @@ document.addEventListener('DOMContentLoaded', () => {
     // Enable JS-based styling
     document.documentElement.classList.add('js-enabled');
 
+    // Configuration Data Management
+    let configData = null;
+    let projectNamesMap = {};
+
+    // Scroll Reveal Intersection Observer variables
+    let revealObserver = null;
+
+    function initScrollReveal() {
+        const animationTargets = [
+            '.section-label',
+            '.section-title',
+            '.section-subtitle',
+            '.grid-card',
+            '.contact-info',
+            '.contact-form-wrapper'
+        ];
+
+        animationTargets.forEach(selector => {
+            document.querySelectorAll(selector).forEach(el => {
+                el.classList.add('reveal');
+            });
+        });
+
+        const revealObserverOptions = {
+            threshold: 0.01,
+            rootMargin: '0px 0px -10px 0px'
+        };
+
+        if (revealObserver) {
+            revealObserver.disconnect();
+        }
+
+        revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, revealObserverOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+    }
+
+    function setupPricingCTA() {
+        const ctaButtons = document.querySelectorAll('.pricing-card .pricing-cta-button');
+        const defaultIds = ['frontend', 'mvp', 'automation'];
+        ctaButtons.forEach((button, cardIndex) => {
+            button.addEventListener('click', () => {
+                let tierId = null;
+                if (configData && configData.pricing && configData.pricing[cardIndex]) {
+                    tierId = configData.pricing[cardIndex].id;
+                } else {
+                    tierId = defaultIds[cardIndex];
+                }
+                if (tierId) {
+                    const radio = document.querySelector(`input[name="project_type"][value="${tierId}"]`);
+                    if (radio) {
+                        radio.checked = true;
+                        radio.dispatchEvent(new Event('change'));
+                    }
+                }
+            });
+        });
+    }
+
+    function setupFormRadioValidation() {
+        const groupProjectType = document.getElementById('group-project-type');
+        if (!groupProjectType) return;
+        document.querySelectorAll('input[name="project_type"]').forEach(radio => {
+            // Remove previous event listeners by cloning
+            const newRadio = radio.cloneNode(true);
+            radio.parentNode.replaceChild(newRadio, radio);
+            newRadio.addEventListener('change', () => {
+                groupProjectType.classList.remove('invalid');
+            });
+        });
+    }
+
+    function applyConfig(config) {
+        if (!config) return;
+
+        // 1. Render Promo Banner
+        const promoContainer = document.getElementById('promo-banner-container');
+        if (promoContainer) {
+            if (config.promoBanner && config.promoBanner.active) {
+                const themeClass = config.promoBanner.theme || 'accent';
+                promoContainer.innerHTML = `
+                    <div class="promo-banner ${themeClass}" id="promo-banner">
+                        <div class="promo-content">
+                            <span class="promo-text">${config.promoBanner.text}</span>
+                        </div>
+                        <button class="promo-close" id="promo-close-btn" aria-label="Dismiss banner">&times;</button>
+                    </div>
+                `;
+                
+                // Add close listener
+                const closeBtn = document.getElementById('promo-close-btn');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        const banner = document.getElementById('promo-banner');
+                        if (banner) {
+                            banner.style.transform = 'translateY(-100%)';
+                            banner.style.opacity = '0';
+                            setTimeout(() => {
+                                banner.style.display = 'none';
+                                document.body.classList.remove('has-promo-banner');
+                            }, 300);
+                        }
+                    });
+                }
+                
+                document.body.classList.add('has-promo-banner');
+            } else {
+                promoContainer.innerHTML = '';
+                document.body.classList.remove('has-promo-banner');
+            }
+        }
+
+        // 2. Render Services
+        const servicesGrid = document.getElementById('dynamic-services-grid');
+        if (servicesGrid && config.services && config.services.length > 0) {
+            servicesGrid.innerHTML = config.services.map(service => `
+                <div class="grid-card service-card">
+                    <div class="card-num">${service.num}</div>
+                    <h3 class="card-title">${service.title}</h3>
+                    <p class="card-desc">${service.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        // 3. Render Pricing Tiers
+        const pricingGrid = document.getElementById('dynamic-pricing-grid');
+        if (pricingGrid && config.pricing && config.pricing.length > 0) {
+            pricingGrid.innerHTML = config.pricing.map(tier => {
+                const isFeatured = tier.featured ? 'featured' : '';
+                const popularBadge = tier.featured && tier.popularTag ? `<div class="popular-tag">${tier.popularTag}</div>` : '';
+                const featuresHTML = (tier.features || []).map(f => `<li>${f}</li>`).join('');
+                
+                return `
+                    <div class="grid-card pricing-card ${isFeatured}">
+                        ${popularBadge}
+                        <h3 class="pricing-tier-title">${tier.title}</h3>
+                        <div class="pricing-rate">
+                            <span class="currency">${tier.currency || '₹'}</span>
+                            <span class="amount">${tier.price}</span>
+                            <span class="period">${tier.period || '/ project'}</span>
+                        </div>
+                        <p class="pricing-desc">${tier.desc}</p>
+                        <ul class="pricing-features">
+                            ${featuresHTML}
+                        </ul>
+                        <a href="#contact" class="pricing-cta-button">Select Model</a>
+                    </div>
+                `;
+            }).join('');
+
+            // Setup select model button listeners
+            setupPricingCTA();
+        }
+
+        // 4. Render Inquiry Form Project Type choice cards
+        const choiceGrid = document.getElementById('dynamic-choice-grid');
+        if (choiceGrid && config.pricing && config.pricing.length > 0) {
+            choiceGrid.innerHTML = config.pricing.map((tier, index) => {
+                const requiredAttr = index === 0 ? 'required' : '';
+                return `
+                    <label class="choice-card">
+                        <input type="radio" name="project_type" value="${tier.id}" ${requiredAttr}>
+                        <span class="choice-title">${tier.title}</span>
+                        <span class="choice-details">Flat Rate ${tier.currency || '₹'}${tier.price}</span>
+                    </label>
+                `;
+            }).join('');
+
+            // Re-setup radio listeners to clear errors on change
+            setupFormRadioValidation();
+        }
+
+        // 5. Update projectNamesMap for Form submission mapping
+        projectNamesMap = {};
+        if (config.pricing) {
+            config.pricing.forEach(tier => {
+                projectNamesMap[tier.id] = `${tier.title} (${tier.currency || '₹'}${tier.price})`;
+            });
+        }
+
+        // Re-initialize animations for the newly rendered cards
+        initScrollReveal();
+    }
+
+    function buildProjectNamesMapFromDOM() {
+        projectNamesMap = {
+            mvp: "Full-Stack MVP (₹9,400)",
+            "ai-agents": "Custom AI Agents (Custom Scope)",
+            frontend: "Landing Page (₹8,900)",
+            automation: "Workflow Automation (₹1,599)"
+        };
+    }
+
+    async function loadConfig() {
+        // Try local storage overrides first
+        const localOverride = localStorage.getItem('zenix_config');
+        if (localOverride) {
+            try {
+                configData = JSON.parse(localOverride);
+                console.log("Loaded ZENIX configuration from localStorage overrides.");
+                applyConfig(configData);
+                return;
+            } catch (e) {
+                console.error("Failed to parse local storage config override, falling back to JSON file.", e);
+            }
+        }
+
+        // Try fetching the configuration file
+        try {
+            const response = await fetch('./zenix-config.json');
+            if (response.ok) {
+                configData = await response.json();
+                console.log("Loaded ZENIX configuration from zenix-config.json file.");
+                applyConfig(configData);
+            } else {
+                console.warn("Could not load config file, keeping static SEO fallbacks.");
+                buildProjectNamesMapFromDOM();
+                initScrollReveal();
+                setupPricingCTA();
+            }
+        } catch (error) {
+            console.error("Error fetching zenix-config.json:", error);
+            buildProjectNamesMapFromDOM();
+            initScrollReveal();
+            setupPricingCTA();
+        }
+    }
+
+    // Trigger config load
+    loadConfig();
+
     // 1. Mobile Menu Drawer Navigation
     const menuToggle = document.getElementById('menu-toggle');
     const navLinks = document.getElementById('nav-links');
@@ -48,40 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = ''; // Unlock scrolling
     }
 
-    // 2. Scroll Reveal Animation using Intersection Observer
-    // Select targets to be animated on scroll
-    const animationTargets = [
-        '.section-label',
-        '.section-title',
-        '.section-subtitle',
-        '.grid-card',
-        '.contact-info',
-        '.contact-form-wrapper'
-    ];
-
-    animationTargets.forEach(selector => {
-        document.querySelectorAll(selector).forEach(el => {
-            el.classList.add('reveal');
-        });
-    });
-
-    const revealObserverOptions = {
-        threshold: 0.01,
-        rootMargin: '0px 0px -10px 0px'
-    };
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('reveal-visible');
-                observer.unobserve(entry.target); // Stop observing after anim triggers
-            }
-        });
-    }, revealObserverOptions);
-
-    document.querySelectorAll('.reveal').forEach(el => {
-        revealObserver.observe(el);
-    });
+    // Scroll Reveal & CTA setups are now initialized dynamically inside applyConfig() / loadConfig()
 
     // 3. Active Link Highlight in Navbar on scroll
     const sections = document.querySelectorAll('section[id]');
@@ -177,17 +384,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 object.access_key = "ab3c9f3a-3434-4080-b1a5-404a2c453588";
                 
                 // Convert option values to friendly display names for the email
-                const projectNames = {
-                    mvp: "Full-Stack MVP (₹9,400)",
-                    frontend: "Landing Page (₹8,900)",
-                    automation: "Workflow Automation (₹1,599)"
-                };
                 const budgetNames = {
                     "under-5000": "Under ₹5,000",
                     "5000-10000": "₹5,000 - ₹10,000",
                     "10000plus": "₹10,000+"
                 };
-                if (object.project_type) object.project_type = projectNames[object.project_type] || object.project_type;
+                if (object.project_type) object.project_type = projectNamesMap[object.project_type] || object.project_type;
                 if (object.budget) object.budget = budgetNames[object.budget] || object.budget;
 
                 const response = await fetch("https://api.web3forms.com/submit", {
@@ -245,11 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Clear error highlights for Choice Grids and Pills immediately on click
-        form.querySelectorAll('input[name="project_type"]').forEach(radio => {
-            radio.addEventListener('change', () => {
-                document.getElementById('group-project-type').classList.remove('invalid');
-            });
-        });
+        setupFormRadioValidation();
 
         form.querySelectorAll('input[name="budget"]').forEach(radio => {
             radio.addEventListener('change', () => {
