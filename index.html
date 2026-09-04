@@ -20,28 +20,18 @@
 </head>
 
 <body>
-    <!-- Futuristic Boot Console Preloader -->
-    <div id="zenix-preloader" class="zenix-preloader">
-        <div class="preloader-terminal">
-            <div class="terminal-header">
-                <div class="terminal-dots">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                </div>
-                <span class="terminal-title">zenix_core_os.sys</span>
-            </div>
-            <div class="terminal-body" id="preloader-terminal-body">
-                <!-- Boot logs will scroll here -->
-            </div>
-            <div class="terminal-footer">
-                <div class="progress-info-row">
-                    <span class="progress-status-lbl" id="preloader-status-lbl">System Initializing</span>
-                    <span class="progress-percentage" id="preloader-progress-pct">0%</span>
-                </div>
-                <div class="progress-bar-wrapper">
-                    <div class="progress-bar-fill" id="preloader-progress-bar"></div>
-                </div>
+    <!-- App-Style Launch Splash Screen -->
+    <div id="zenix-splash" class="zenix-splash">
+        <div class="splash-content">
+            <div class="splash-glow-ring"></div>
+            <div class="splash-logo-box">
+                <svg class="splash-logo-svg" width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" fill="rgba(0, 85, 204, 0.1)"/>
+                    <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc"/>
+                    <polygon points="15,8 18,8 9,16 6,16" fill="#ffffff"/>
+                    <polygon points="11,13 20,13 18,16 9,16" fill="#00d2ff"/>
+                </svg>
+                <span class="splash-brand-text">ZENIX</span>
             </div>
         </div>
     </div>

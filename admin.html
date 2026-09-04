@@ -71,6 +71,17 @@
             z-index: 0;
         }
 
+        /* Confetti Canvas */
+        .auth-confetti-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 99999;
+        }
+
         /* Gatekeeper Auth Screen */
         .auth-overlay {
             position: fixed;
@@ -78,128 +89,715 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--bg-obsidian);
+            background: linear-gradient(135deg, #090d16 0%, #111827 50%, #090d16 100%);
             z-index: 1000;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 1.5rem;
             transition: var(--transition-smooth);
+            overflow-y: auto;
         }
 
         .auth-overlay.hidden {
             opacity: 0;
             pointer-events: none;
-            transform: scale(1.05);
+            transform: scale(0.96) translateY(20px);
         }
 
-        .auth-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-slate);
-            padding: 3rem 2.5rem;
+        /* Executive 3D Stage Container */
+        .auth-stage-container {
+            display: flex;
             width: 100%;
-            max-width: 420px;
-            border-radius: 12px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
-            text-align: center;
+            background: #ffffff;
+            border-radius: 28px;
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(0, 85, 204, 0.12);
+            overflow: hidden;
             z-index: 10;
+            position: relative;
+            animation: stageAppear 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), flex-direction 0.4s ease;
         }
 
-        .auth-logo {
+        /* Stacked View (Default Reel Layout) */
+        .auth-stage-container.layout-stacked {
+            flex-direction: column;
+            max-width: 490px;
+        }
+
+        .auth-stage-container.layout-stacked .auth-char-stage {
+            width: 100%;
+            height: 340px;
+            min-height: 320px;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .auth-stage-container.layout-stacked .auth-card {
+            width: 100%;
+            padding: 2rem 2.2rem 2.4rem;
+        }
+
+        /* Split View (Wide Executive Console Layout) */
+        .auth-stage-container.layout-split {
+            flex-direction: row;
+            max-width: 980px;
+            min-height: 540px;
+        }
+
+        .auth-stage-container.layout-split .auth-char-stage {
+            flex: 1.18;
+            min-height: 540px;
+            border-right: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .auth-stage-container.layout-split .auth-card {
+            flex: 1;
+            padding: 2.5rem 2.6rem;
+        }
+
+        @keyframes stageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(35px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* 3D Animated Character Stage */
+        .auth-char-stage {
+            position: relative;
+            background: radial-gradient(circle at 60% 45%, #ffd5b5 0%, #f6a67a 40%, #e78550 85%, #d87642 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1000px;
+            user-select: none;
+        }
+
+        .stage-ambient-backdrop {
+            position: absolute;
+            inset: -25%;
+            background: radial-gradient(circle at 62% 40%, rgba(255, 255, 255, 0.5) 0%, rgba(255, 210, 150, 0.3) 40%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            animation: ambientBackdropDrift 7s ease-in-out infinite alternate;
+        }
+
+        @keyframes ambientBackdropDrift {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.65; }
+            50% { transform: scale(1.08) translate(8px, -6px); opacity: 0.95; }
+            100% { transform: scale(1.04) translate(-6px, 6px); opacity: 0.8; }
+        }
+
+        .character-light-glow {
+            position: absolute;
+            bottom: 8%;
+            left: 60%;
+            transform: translateX(-50%) scale(0.7);
+            width: 340px;
+            height: 340px;
+            background: radial-gradient(circle, rgba(255, 245, 160, 0.85) 0%, rgba(255, 140, 0, 0.45) 45%, transparent 75%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.35;
+            transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 2;
+            filter: blur(20px);
+            animation: glowPulse 3s ease-in-out infinite alternate;
+        }
+
+        .character-light-glow.active {
+            opacity: 0.95;
+            transform: translateX(-50%) scale(1.4);
+            animation: glowPulseFast 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes glowPulse {
+            0% { transform: translateX(-50%) scale(0.8); opacity: 0.3; }
+            100% { transform: translateX(-50%) scale(1.1); opacity: 0.6; }
+        }
+
+        @keyframes glowPulseFast {
+            0% { transform: translateX(-50%) scale(1.1); filter: brightness(1); }
+            100% { transform: translateX(-50%) scale(1.45); filter: brightness(1.3); }
+        }
+
+        .character-energy-burst {
+            position: absolute;
+            bottom: 18%;
+            left: 60%;
+            transform: translateX(-50%) scale(0);
+            width: 420px;
+            height: 420px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(255, 215, 60, 0.7) 35%, transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 3;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+        }
+
+        .character-energy-burst.active {
+            transform: translateX(-50%) scale(1.5);
+            opacity: 0.9;
+            animation: burstRays 1.2s ease-out infinite;
+        }
+
+        @keyframes burstRays {
+            0% { transform: translateX(-50%) scale(0.8); opacity: 0.95; }
+            100% { transform: translateX(-50%) scale(1.75); opacity: 0; }
+        }
+
+        /* 3D Parallax Viewport */
+        .char-viewport-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.12s ease-out;
+            z-index: 4;
+            will-change: transform;
+        }
+
+        /* Organic Continuous Breathing Rig */
+        .char-motion-rig {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: charRigBreathing 4.5s ease-in-out infinite;
+            transform-origin: 60% 92%;
+            will-change: transform;
+        }
+
+        @keyframes charRigBreathing {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-7px) scale(1.012);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Celebration Bounce on Valid Passcode */
+        .char-motion-rig.celebrating {
+            animation: characterCelebrateBounce 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate;
+        }
+
+        @keyframes characterCelebrateBounce {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                transform: translateY(-14px) scale(1.035);
+            }
+        }
+
+        /* Disappointed Sigh on Wrong Passcode */
+        .char-motion-rig.disappointed {
+            animation: characterDisappointedSigh 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        @keyframes characterDisappointedSigh {
+            0% { transform: translateY(0) rotate(0deg); }
+            20% { transform: translateY(8px) rotate(-1.8deg); }
+            45% { transform: translateY(8px) rotate(1.8deg); }
+            70% { transform: translateY(4px) rotate(-0.8deg); }
+            100% { transform: translateY(2px) rotate(0deg); }
+        }
+
+        /* Character Pose Layers (Perfect Cross-fade without jumping) */
+        .char-pose-layer {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 60% 48%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        /* Special alignment for kneeling pose */
+        .char-pose-layer.pose-open {
+            object-position: 63% 58%;
+        }
+
+        .char-pose-layer.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        /* Natural Ground Shadow */
+        .stage-floor-shadow {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 48px;
+            background: radial-gradient(ellipse at 60% 88%, rgba(45, 20, 8, 0.38) 0%, rgba(45, 20, 8, 0.16) 45%, transparent 75%);
+            pointer-events: none;
+            z-index: 5;
+            animation: floorShadowBreathing 4.5s ease-in-out infinite;
+        }
+
+        @keyframes floorShadowBreathing {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(0.92); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 0.9; }
+        }
+
+        /* Dynamic Status Badge */
+        .auth-char-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
             display: inline-flex;
             align-items: center;
-            gap: 0.75rem;
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
+            gap: 8px;
+            padding: 6px 13px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            font-size: 0.74rem;
+            font-weight: 600;
+            color: #1e293b;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            z-index: 8;
+            transition: all 0.3s ease;
+            pointer-events: none;
         }
 
-        .auth-logo svg {
-            filter: drop-shadow(0 2px 8px rgba(0, 85, 204, 0.15));
+        .badge-pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+            animation: dotPulse 2s infinite;
+            transition: background-color 0.3s ease;
+        }
+
+        .badge-pulse-dot.dot-yellow {
+            background: #f59e0b;
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.35);
+        }
+
+        .badge-pulse-dot.dot-blue {
+            background: #0055cc;
+            box-shadow: 0 0 0 2px rgba(0, 85, 204, 0.35);
+        }
+
+        .badge-pulse-dot.dot-purple {
+            background: #a855f7;
+            box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.35);
+        }
+
+        .badge-pulse-dot.dot-red {
+            background: #ef4444;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.35);
+        }
+
+        /* Quick Stage Controls (Pose Bar & Layout Switch) */
+        .auth-stage-quickbar {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            z-index: 8;
+        }
+
+        .stage-quick-poses {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            padding: 3px 4px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+        }
+
+        .stage-quick-pill {
+            background: none;
+            border: none;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .stage-quick-pill:hover {
+            color: #0f172a;
+            background: rgba(0, 85, 204, 0.08);
+        }
+
+        .stage-quick-pill.active {
+            background: #0055cc;
+            color: #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 85, 204, 0.35);
+        }
+
+        .stage-layout-btn {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #0f172a;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .stage-layout-btn:hover {
+            background: #ffffff;
+            color: #0055cc;
+            transform: translateY(-1px);
+        }
+
+        /* Credentials Card & Unfold Choreography */
+        .auth-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #ffffff;
+            z-index: 10;
+            position: relative;
+        }
+
+        .auth-card.unfolding {
+            animation: credentialsCardUnfold 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes credentialsCardUnfold {
+            0% {
+                opacity: 0;
+                transform: scale(0.92) translateY(-12px);
+                filter: blur(8px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                filter: blur(0px);
+            }
+        }
+
+        .auth-card.shake {
+            animation: authShake 0.48s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+
+        @keyframes authShake {
+            10%, 90% { transform: translate3d(-4px, 0, 0); }
+            20%, 80% { transform: translate3d(6px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-8px, 0, 0); }
+            40%, 60% { transform: translate3d(8px, 0, 0); }
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 860px) {
+            .auth-stage-container,
+            .auth-stage-container.layout-split {
+                flex-direction: column;
+                max-width: 480px;
+                border-radius: 24px;
+            }
+            .auth-stage-container .auth-char-stage,
+            .auth-stage-container.layout-split .auth-char-stage {
+                width: 100%;
+                height: 310px;
+                min-height: 280px;
+                flex: none;
+                border-right: none;
+                border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            }
+            .stage-layout-switch {
+                display: none;
+            }
+            .auth-stage-container.layout-split .auth-card {
+                padding: 1.8rem 1.6rem;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .stage-quick-poses {
+                display: none;
+            }
+            .auth-char-stage {
+                height: 270px;
+                min-height: 250px;
+            }
+        }
+
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.35);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .live-sync-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.76rem;
+            color: #166534;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 0.25rem 0.65rem;
+            border-radius: 999px;
+            font-weight: 600;
+        }
+
+        /* Auth Form Body */
+        .auth-body {
+            padding: 2rem 2.2rem 2.2rem;
+            text-align: left;
+        }
+
+        .auth-brand-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
         }
 
         .auth-title {
             font-family: var(--font-heading);
-            font-size: 1.4rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #000000 35%, var(--accent-ice) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f172a;
         }
 
         .auth-subtitle {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-
-        .form-group {
+            font-size: 0.86rem;
+            color: #64748b;
             margin-bottom: 1.5rem;
-            text-align: left;
         }
 
-        .form-label {
-            display: block;
-            font-size: 0.8rem;
+        .auth-input-group {
+            position: relative;
+            margin-bottom: 1.25rem;
+        }
+
+        .auth-input-group label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.78rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-            color: var(--text-secondary);
+            color: #334155;
+            margin-bottom: 0.45rem;
         }
 
-        .form-input {
+        .auth-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-input-icon {
+            position: absolute;
+            left: 14px;
+            width: 18px;
+            height: 18px;
+            color: #94a3b8;
+            pointer-events: none;
+            transition: color 0.2s ease;
+        }
+
+        .auth-input-field {
             width: 100%;
-            padding: 0.8rem 1rem;
-            background: var(--bg-obsidian);
-            border: 1px solid var(--border-slate);
-            border-radius: 6px;
-            color: var(--text-primary);
-            font-family: var(--font-sans);
+            padding: 0.85rem 1rem 0.85rem 2.75rem;
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
             font-size: 0.95rem;
-            transition: var(--transition-fast);
+            font-family: var(--font-sans);
+            color: #0f172a;
+            transition: all 0.2s ease;
         }
 
-        .form-input:focus {
+        .auth-input-field:focus {
             outline: none;
-            border-color: var(--accent-ice);
-            background: var(--bg-card);
-            box-shadow: 0 0 0 3px var(--accent-ice-glow);
+            background: #ffffff;
+            border-color: #0055cc;
+            box-shadow: 0 0 0 3.5px rgba(0, 85, 204, 0.12);
         }
 
-        .auth-btn {
-            width: 100%;
-            padding: 0.9rem;
-            background: var(--accent-ice);
-            color: #c3bbbb;
+        .auth-input-field:focus + .auth-input-icon,
+        .auth-input-wrapper:focus-within .auth-input-icon {
+            color: #0055cc;
+        }
+
+        .pass-toggle-btn {
+            position: absolute;
+            right: 12px;
+            background: none;
             border: none;
+            cursor: pointer;
+            padding: 6px;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             border-radius: 6px;
-            font-family: var(--font-heading);
+            transition: all 0.2s ease;
+        }
+
+        .pass-toggle-btn:hover {
+            color: #0055cc;
+            background: rgba(0, 85, 204, 0.06);
+        }
+
+        .auth-options-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.4rem;
+            font-size: 0.84rem;
+        }
+
+        .auth-remember-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #475569;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .auth-forgot-link {
+            color: #0055cc;
+            text-decoration: none;
             font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .auth-forgot-link:hover {
+            text-decoration: underline;
+            color: #003d99;
+        }
+
+        .auth-submit-btn {
+            width: 100%;
+            padding: 0.95rem;
+            background: linear-gradient(135deg, #0055cc 0%, #0044a3 100%);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-family: var(--font-heading);
+            font-weight: 600;
             font-size: 1rem;
             cursor: pointer;
-            transition: var(--transition-fast);
-            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px -4px rgba(0, 85, 204, 0.4);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .auth-btn:hover {
-            background: #0044a3;
-            transform: translateY(-1px);
+        .auth-submit-btn:hover {
+            background: linear-gradient(135deg, #0062eb 0%, #004fb8 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -4px rgba(0, 85, 204, 0.5);
         }
 
-        .auth-error {
-            color: var(--danger-red);
-            font-size: 0.85rem;
+        .auth-submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .auth-error-msg {
+            display: none;
             margin-top: 1rem;
-            min-height: 20px;
-            opacity: 0;
-            transition: var(--transition-fast);
+            padding: 0.75rem 1rem;
+            background: #fef2f2;
+            border: 1px solid #fee2e2;
+            border-radius: 8px;
+            color: #b91c1c;
+            font-size: 0.84rem;
+            font-weight: 500;
+            align-items: center;
+            gap: 8px;
+            animation: fadeIn 0.3s ease;
         }
 
-        .auth-error.visible {
+        .auth-error-msg.visible {
+            display: flex;
+        }
+
+        /* Forgot Passcode Modal */
+        .pass-modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .pass-modal-backdrop.active {
             opacity: 1;
+            pointer-events: auto;
+        }
+
+        .pass-modal-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 440px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform: scale(0.94) translateY(15px);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .pass-modal-backdrop.active .pass-modal-card {
+            transform: scale(1) translateY(0);
         }
 
         /* Admin Layout Structure */
@@ -542,30 +1140,181 @@
 <body>
     <div class="grid-background"></div>
 
-    <!-- Passcode Authenticator Overlay -->
-    <div class="auth-overlay" id="auth-overlay">
-        <div class="auth-card">
-            <div class="auth-logo">
-                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" fill="rgba(0, 85, 204, 0.02)" />
-                    <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc" />
-                    <polygon points="15,8 18,8 9,16 6,16" fill="#000000" />
-                    <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc" />
-                </svg>
-                <span>ZENIX Admin</span>
-            </div>
-            <h2 class="auth-title">Administrative Gate</h2>
-            <p class="auth-subtitle">Verify cryptographic passcode to access console configurations.</p>
+    <!-- Victory Celebration Confetti Canvas -->
+    <canvas id="auth-confetti-canvas" class="auth-confetti-canvas"></canvas>
 
-            <form id="auth-form" onsubmit="handleAuth(event)">
-                <div class="form-group">
-                    <label for="passcode" class="form-label">System Passcode</label>
-                    <input type="password" id="passcode" class="form-input" placeholder="••••••••" required
-                        autocomplete="current-password">
+    <!-- Passcode Authenticator Overlay with Interactive 3D Animated Character & Dynamic Credentials Unfold -->
+    <div class="auth-overlay" id="auth-overlay">
+        <div class="auth-stage-container layout-stacked" id="auth-stage-container">
+            <!-- 3D Animated Character Stage -->
+            <div class="auth-char-stage" id="auth-char-stage">
+                <div class="stage-ambient-backdrop"></div>
+                <div class="character-light-glow" id="character-light-glow"></div>
+                <div class="character-energy-burst" id="character-energy-burst"></div>
+
+                <div class="auth-char-badge" id="auth-char-badge">
+                    <span class="badge-pulse-dot" id="badge-pulse-dot"></span>
+                    <span id="char-status-text">Security Gatekeeper · Ready</span>
                 </div>
-                <button type="submit" class="auth-btn">Establish Uplink</button>
-                <div class="auth-error" id="auth-error">Incorrect passcode. Uplink rejected.</div>
-            </form>
+
+                <div class="auth-stage-quickbar" id="auth-stage-quickbar">
+                    <div class="stage-quick-poses">
+                        <button type="button" class="stage-quick-pill active" id="demo-pill-idle" onclick="triggerDemoPose('idle', 'Security Gatekeeper · Ready', 'green')">Idle</button>
+                        <button type="button" class="stage-quick-pill" id="demo-pill-cover" onclick="triggerDemoPose('cover', '🙈 Passcode Concealed · Not Looking!', 'yellow')">Cover</button>
+                        <button type="button" class="stage-quick-pill" id="demo-pill-peek" onclick="triggerDemoPose('peek', '👁️ Peeking at Secret Passcode', 'yellow')">Peek</button>
+                        <button type="button" class="stage-quick-pill" id="demo-pill-open" onclick="triggerDemoPose('open', '🔓 Passcode Verified · Accessing Archive...', 'yellow')">Open</button>
+                        <button type="button" class="stage-quick-pill" id="demo-pill-success" onclick="triggerDemoPose('success', '🎉 Access Granted! Welcome, Admin.', 'purple')">Success</button>
+                        <button type="button" class="stage-quick-pill" id="demo-pill-error" onclick="triggerDemoPose('error', '❌ Uplink Rejected · Unauthorized', 'red')">Error</button>
+                    </div>
+                    <div class="stage-layout-switch">
+                        <button type="button" class="stage-layout-btn" id="btn-toggle-layout" onclick="toggleAuthLayout()" title="Switch Layout: Stacked / Split">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18"/></svg>
+                            <span id="layout-toggle-text">Split View</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="char-viewport-inner" id="auth-char-viewport">
+                    <div class="char-motion-rig" id="char-motion-rig">
+                        <img src="assets/auth-hero-idle.jpg" alt="Admin Gatekeeper - Idle" class="char-pose-layer pose-idle active" id="pose-idle">
+                        <img src="assets/auth-hero-cover.jpg" alt="Admin Gatekeeper - Cover Eyes" class="char-pose-layer pose-cover" id="pose-cover">
+                        <img src="assets/auth-hero-peek.jpg" alt="Admin Gatekeeper - Peek" class="char-pose-layer pose-peek" id="pose-peek">
+                        <img src="assets/auth-hero-open-box.jpg" alt="Admin Gatekeeper - Opening Archive" class="char-pose-layer pose-open" id="pose-open">
+                        <img src="assets/auth-hero-success.jpg" alt="Admin Gatekeeper - Success" class="char-pose-layer pose-success" id="pose-success">
+                        <img src="assets/auth-hero-error.jpg" alt="Admin Gatekeeper - Error" class="char-pose-layer pose-error" id="pose-error">
+                    </div>
+                </div>
+
+                <div class="stage-floor-shadow"></div>
+            </div>
+
+            <!-- Credentials Card (Unfolds dynamically from character archive) -->
+            <div class="auth-card unfolding" id="auth-card">
+                <div class="auth-body">
+                    <div class="auth-brand-row">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="11" stroke="#0055cc" stroke-width="1.5" fill="rgba(0, 85, 204, 0.04)" />
+                                <polygon points="6,8 15,8 13,11 4,11" fill="#0055cc" />
+                                <polygon points="15,8 18,8 9,16 6,16" fill="#000000" />
+                                <polygon points="11,13 20,13 18,16 9,16" fill="#0055cc" />
+                            </svg>
+                            <span style="font-family: var(--font-heading); font-weight: 700; font-size: 1.15rem; color: #0f172a;">ZENIX Portal</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <button type="button" onclick="playEntranceUnfoldSequence()" title="Replay Character Unfold Animation" style="background: rgba(0, 85, 204, 0.06); border: 1px solid rgba(0, 85, 204, 0.15); color: #0055cc; padding: 3px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                                <span>Replay</span>
+                            </button>
+                            <span style="font-size: 0.75rem; background: rgba(0, 85, 204, 0.08); color: #0055cc; padding: 2px 8px; border-radius: 6px; font-weight: 600;">v2.1 Admin</span>
+                        </div>
+                    </div>
+                    <p class="auth-subtitle">Enter administrative credentials to access management console.</p>
+
+                    <form id="auth-form" onsubmit="handleAuth(event)">
+                        <!-- Identifier Field -->
+                        <div class="auth-input-group">
+                            <label for="admin-email">Admin Identifier</label>
+                            <div class="auth-input-wrapper">
+                                <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <input type="text" id="admin-email" class="auth-input-field" value="admin@zenix.services" autocomplete="username" placeholder="admin@zenix.services" required>
+                            </div>
+                        </div>
+
+                        <!-- Passcode Field -->
+                        <div class="auth-input-group">
+                            <label for="passcode">
+                                <span>System Passcode</span>
+                            </label>
+                            <div class="auth-input-wrapper">
+                                <svg class="auth-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                </svg>
+                                <input type="password" id="passcode" class="auth-input-field" placeholder="Enter passcode..." required autocomplete="current-password">
+                                <button type="button" class="pass-toggle-btn" id="pass-toggle" onclick="togglePassVisibility()" title="Show/Hide Passcode">
+                                    <svg id="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="auth-options-row">
+                            <label class="auth-remember-label">
+                                <input type="checkbox" id="auth-remember" checked style="accent-color: #0055cc;">
+                                <span>Keep active session</span>
+                            </label>
+                            <a href="javascript:void(0)" class="auth-forgot-link" onclick="openForgotModal()">Forgot Passcode?</a>
+                        </div>
+
+                        <button type="submit" class="auth-submit-btn" id="btn-auth-submit">
+                            <span>Establish Uplink</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </button>
+
+                        <div class="auth-error-msg" id="auth-error">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            <span id="auth-error-text">Incorrect passcode. Uplink rejected.</span>
+                        </div>
+
+                        <div style="margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px dashed #e2e8f0; text-align: center; font-size: 0.76rem; color: #64748b; display: flex; align-items: center; justify-content: space-between;">
+                            <span>Master Passcode:</span>
+                            <div style="display: flex; align-items: center; gap: 6px;">
+                                <code style="font-family: monospace; color: #0055cc; background: rgba(0, 85, 204, 0.08); padding: 2px 8px; border-radius: 6px; font-weight: 700; font-size: 0.84rem; letter-spacing: 0.04em;">zenix2026</code>
+                                <button type="button" onclick="autoFillAndLogin()" style="background: none; border: none; color: #0055cc; font-size: 0.72rem; font-weight: 600; cursor: pointer; text-decoration: underline;">Auto-Fill</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot / Recovery Passcode Modal -->
+    <div class="pass-modal-backdrop" id="forgot-modal">
+        <div class="pass-modal-card">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 36px; height: 36px; border-radius: 10px; background: rgba(0, 85, 204, 0.1); display: flex; align-items: center; justify-content: center; color: #0055cc;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+                    <h3 style="font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: #0f172a;">Passcode Assistance</h3>
+                </div>
+                <button type="button" onclick="closeForgotModal()" style="background: none; border: none; font-size: 1.4rem; color: #94a3b8; cursor: pointer;">&times;</button>
+            </div>
+            
+            <p style="font-size: 0.88rem; color: #64748b; line-height: 1.5; margin-bottom: 1.25rem;">
+                Your administrative passcode is saved in your browser storage. You can auto-fill it below or update it once signed in.
+            </p>
+
+            <div style="background: #f8fafc; border: 1.5px dashed #cbd5e1; border-radius: 12px; padding: 1rem; text-align: center; margin-bottom: 1.5rem;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Active Admin Passcode</span>
+                <code id="active-passcode-reveal" style="font-family: monospace; font-size: 1.3rem; font-weight: 700; color: #0055cc; letter-spacing: 0.08em;">zenix2026</code>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button type="button" onclick="autoFillAndLogin()" class="btn btn-primary" style="flex: 1; justify-content: center;">
+                    Auto-Fill & Sign In
+                </button>
+                <button type="button" onclick="closeForgotModal()" class="btn" style="justify-content: center;">
+                    Close
+                </button>
+            </div>
         </div>
     </div>
 
@@ -584,6 +1333,10 @@
                     <span>ZENIX</span>
                 </a>
                 <span class="console-tag">v2.1.0-admin</span>
+                <div class="live-sync-badge">
+                    <span class="badge-pulse-dot"></span>
+                    <span>Live Sync Active</span>
+                </div>
             </div>
 
             <div class="header-actions">
@@ -649,20 +1402,17 @@
                     <div class="panel-header">
                         <div>
                             <h2 class="panel-title">Dashboard Hub</h2>
-                            <p class="panel-desc">Commit browser previews, export production JSON configurations, or
-                                restore default state.</p>
+                            <p class="panel-desc">All edits are <strong>auto-saved and synced live</strong> to the main website in real-time.</p>
                         </div>
                     </div>
 
-                    <div class="row-grid" style="grid-template-columns: 1fr 1fr;">
+                    <div class="row-grid" style="grid-template-columns: 1fr 1fr 1fr;">
                         <div class="item-card" style="background: var(--bg-card);">
                             <h3
                                 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.8rem; font-weight: 500;">
-                                Preview & Deploy Workflow</h3>
+                                Live Synchronization</h3>
                             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-                                Preview modifications instantly on this browser. Once satisfied, click <strong>Export
-                                    Configuration JSON</strong> and replace `zenix-config.json` in the project root
-                                folder to publish to the production environment.
+                                Modifications in this console auto-reflect on the live website immediately. You can also manually trigger a sync or export the production JSON package.
                             </p>
                             <div style="display: flex; flex-direction: column; gap: 0.8rem;">
                                 <button onclick="saveToLocal()" class="btn btn-primary"
@@ -673,7 +1423,7 @@
                                         <polyline points="17 21 17 13 7 13 7 21"></polyline>
                                         <polyline points="7 3 7 8 15 8"></polyline>
                                     </svg>
-                                    Apply & Save Browser Preview
+                                    Force Sync to Live Site
                                 </button>
                                 <button onclick="exportConfig()" class="btn"
                                     style="justify-content: center; font-weight: 600;">
@@ -690,10 +1440,30 @@
                         <div class="item-card" style="background: var(--bg-card);">
                             <h3
                                 style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.8rem; font-weight: 500;">
+                                Passcode & Security</h3>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                                Active Passcode: <strong id="current-passcode-display" style="color: var(--accent-ice); font-family: monospace;">zenix2026</strong>
+                            </p>
+                            <div class="form-group" style="margin-bottom: 0.8rem;">
+                                <label class="form-label" style="font-size: 0.75rem;">Change System Passcode</label>
+                                <input type="text" id="new-admin-passcode" class="form-input" placeholder="Enter new passcode..." style="padding: 0.55rem 0.8rem; font-size: 0.9rem;">
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button onclick="updateAdminPasscode()" class="btn btn-primary" style="flex: 1; justify-content: center; padding: 0.6rem;">
+                                    Update Passcode
+                                </button>
+                                <button onclick="resetAdminPasscodeDefault()" class="btn" style="justify-content: center; padding: 0.6rem;" title="Reset to zenix2026">
+                                    Reset Default
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="item-card" style="background: var(--bg-card);">
+                            <h3
+                                style="font-family: var(--font-heading); font-size: 1.15rem; margin-bottom: 0.8rem; font-weight: 500;">
                                 System Actions & Recovery</h3>
                             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-                                Restore your workspace configurations to ZENIX out-of-the-box defaults. This will erase
-                                browser preview cookies and pull default values from the original code definitions.
+                                Restore your workspace configurations to ZENIX out-of-the-box defaults. This will reset browser storage and reload default values.
                             </p>
                             <div style="display: flex; flex-direction: column; gap: 0.8rem;">
                                 <button onclick="resetDefaults()" class="btn btn-danger"
@@ -701,7 +1471,7 @@
                                     <svg class="icon" viewBox="0 0 24 24">
                                         <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
                                     </svg>
-                                    Reset Workspace to Default Settings
+                                    Reset Workspace to Defaults
                                 </button>
                             </div>
                         </div>
@@ -882,31 +1652,495 @@
 
         // Active State variables
         let currentConfig = null;
+        let currentPose = 'idle';
+        let isAuthenticating = false;
 
-        // On Load Check Authentication Session
+        // Confetti Particle Engine for Victory Celebration
+        const ConfettiEngine = {
+            canvas: null,
+            ctx: null,
+            particles: [],
+            animationId: null,
+            colors: ['#0055cc', '#00d2ff', '#ffd700', '#ff5f56', '#27c93f', '#a855f7', '#ff9900', '#ec4899'],
+
+            init() {
+                this.canvas = document.getElementById('auth-confetti-canvas');
+                if (!this.canvas) return;
+                this.ctx = this.canvas.getContext('2d');
+                this.resize();
+                window.addEventListener('resize', () => this.resize());
+            },
+
+            resize() {
+                if (!this.canvas) return;
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            },
+
+            start(durationMs = 2500) {
+                if (!this.canvas) this.init();
+                if (!this.canvas || !this.ctx) return;
+                this.resize();
+                this.particles = [];
+                const count = 150;
+                const originX = window.innerWidth > 860 ? window.innerWidth * 0.4 : window.innerWidth * 0.5;
+                const originY = window.innerHeight * 0.45;
+
+                for (let i = 0; i < count; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const velocity = 8 + Math.random() * 16;
+                    this.particles.push({
+                        x: originX + (Math.random() - 0.5) * 100,
+                        y: originY + (Math.random() - 0.5) * 100,
+                        vx: Math.cos(angle) * velocity,
+                        vy: Math.sin(angle) * velocity - 6,
+                        size: 6 + Math.random() * 8,
+                        color: this.colors[Math.floor(Math.random() * this.colors.length)],
+                        rotation: Math.random() * 360,
+                        rotationSpeed: (Math.random() - 0.5) * 14,
+                        opacity: 1,
+                        shape: Math.random() > 0.35 ? 'rect' : 'circle',
+                        gravity: 0.32,
+                        drag: 0.95
+                    });
+                }
+
+                if (this.animationId) cancelAnimationFrame(this.animationId);
+                const startTime = Date.now();
+
+                const loop = () => {
+                    const elapsed = Date.now() - startTime;
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+                    let alive = 0;
+                    for (let p of this.particles) {
+                        p.x += p.vx;
+                        p.y += p.vy;
+                        p.vx *= p.drag;
+                        p.vy = p.vy * p.drag + p.gravity;
+                        p.rotation += p.rotationSpeed;
+
+                        if (elapsed > durationMs * 0.55) {
+                            p.opacity -= 0.025;
+                        }
+
+                        if (p.opacity > 0 && p.y < this.canvas.height + 60) {
+                            alive++;
+                            this.ctx.save();
+                            this.ctx.translate(p.x, p.y);
+                            this.ctx.rotate((p.rotation * Math.PI) / 180);
+                            this.ctx.globalAlpha = Math.max(0, p.opacity);
+                            this.ctx.fillStyle = p.color;
+
+                            if (p.shape === 'rect') {
+                                this.ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+                            } else {
+                                this.ctx.beginPath();
+                                this.ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+                                this.ctx.fill();
+                            }
+                            this.ctx.restore();
+                        }
+                    }
+
+                    if (alive > 0 && elapsed < durationMs + 1200) {
+                        this.animationId = requestAnimationFrame(loop);
+                    } else {
+                        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                        this.animationId = null;
+                    }
+                };
+
+                this.animationId = requestAnimationFrame(loop);
+            },
+
+            stop() {
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                    this.animationId = null;
+                }
+                if (this.ctx && this.canvas) {
+                    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                }
+            }
+        };
+
+        // Character Pose Switching Engine
+        function setPose(poseName, statusText, badgeColor = 'green') {
+            currentPose = poseName;
+            const poses = ['idle', 'cover', 'peek', 'open', 'success', 'error'];
+            poses.forEach(p => {
+                const el = document.getElementById(`pose-${p}`);
+                if (el) {
+                    if (p === poseName) {
+                        el.classList.add('active');
+                    } else {
+                        el.classList.remove('active');
+                    }
+                }
+                const pill = document.getElementById(`demo-pill-${p}`);
+                if (pill) {
+                    if (p === poseName) {
+                        pill.classList.add('active');
+                    } else {
+                        pill.classList.remove('active');
+                    }
+                }
+            });
+
+            // Update Motion Rig classes for expressive animations
+            const rig = document.getElementById('char-motion-rig');
+            if (rig) {
+                rig.classList.remove('celebrating', 'disappointed');
+                if (poseName === 'success') {
+                    rig.classList.add('celebrating');
+                } else if (poseName === 'error') {
+                    rig.classList.add('disappointed');
+                }
+            }
+
+            const statusEl = document.getElementById('char-status-text');
+            if (statusEl && statusText) {
+                statusEl.innerText = statusText;
+            }
+
+            const pulseDot = document.getElementById('badge-pulse-dot');
+            if (pulseDot) {
+                pulseDot.className = 'badge-pulse-dot';
+                if (badgeColor === 'yellow') pulseDot.classList.add('dot-yellow');
+                else if (badgeColor === 'blue') pulseDot.classList.add('dot-blue');
+                else if (badgeColor === 'purple') pulseDot.classList.add('dot-purple');
+                else if (badgeColor === 'red') pulseDot.classList.add('dot-red');
+            }
+
+            const glowEl = document.getElementById('character-light-glow');
+            const burstEl = document.getElementById('character-energy-burst');
+            if (glowEl) {
+                if (poseName === 'open' || poseName === 'success') {
+                    glowEl.classList.add('active');
+                } else {
+                    glowEl.classList.remove('active');
+                }
+            }
+            if (burstEl) {
+                if (poseName === 'open' || poseName === 'success') {
+                    burstEl.classList.add('active');
+                } else {
+                    burstEl.classList.remove('active');
+                }
+            }
+        }
+
+        // Trigger manual preview of any pose from toolbar
+        function triggerDemoPose(poseName, statusText, badgeColor) {
+            lastUserActionTime = Date.now();
+            setPose(poseName, statusText, badgeColor);
+            if (poseName === 'success') {
+                ConfettiEngine.start(1800);
+            } else if (poseName === 'error') {
+                const authCard = document.getElementById('auth-card');
+                if (authCard) {
+                    authCard.classList.remove('shake');
+                    void authCard.offsetWidth;
+                    authCard.classList.add('shake');
+                }
+            }
+        }
+
+        // Toggle layout between Reel Stacked (default) and Console Split View
+        function toggleAuthLayout() {
+            const container = document.getElementById('auth-stage-container');
+            const toggleText = document.getElementById('layout-toggle-text');
+            if (!container) return;
+
+            if (container.classList.contains('layout-split')) {
+                container.classList.remove('layout-split');
+                container.classList.add('layout-stacked');
+                if (toggleText) toggleText.innerText = 'Split View';
+                localStorage.setItem('zenix_auth_layout', 'stacked');
+            } else {
+                container.classList.remove('layout-stacked');
+                container.classList.add('layout-split');
+                if (toggleText) toggleText.innerText = 'Stacked View';
+                localStorage.setItem('zenix_auth_layout', 'split');
+            }
+        }
+
+        // Play Entrance Unfold Choreography on Page Open
+        function playEntranceUnfoldSequence() {
+            const authOverlay = document.getElementById('auth-overlay');
+            if (authOverlay) authOverlay.classList.remove('hidden');
+            const adminWrapper = document.getElementById('admin-wrapper');
+            if (adminWrapper) adminWrapper.style.display = 'none';
+
+            // Apply saved layout preference if available
+            const savedLayout = localStorage.getItem('zenix_auth_layout') || 'stacked';
+            const container = document.getElementById('auth-stage-container');
+            const toggleText = document.getElementById('layout-toggle-text');
+            if (container) {
+                container.classList.remove('layout-stacked', 'layout-split');
+                container.classList.add(savedLayout === 'split' ? 'layout-split' : 'layout-stacked');
+                if (toggleText) {
+                    toggleText.innerText = savedLayout === 'split' ? 'Stacked View' : 'Split View';
+                }
+            }
+
+            const authCard = document.getElementById('auth-card');
+            if (authCard) {
+                authCard.classList.remove('unfolding');
+                void authCard.offsetWidth; // Trigger reflow
+                authCard.classList.add('unfolding');
+            }
+
+            // Elegant, clean entrance directly into idle with welcoming aura
+            setPose('idle', 'Security Gatekeeper · Ready', 'green');
+            const glowEl = document.getElementById('character-light-glow');
+            if (glowEl) {
+                glowEl.classList.add('active');
+                setTimeout(() => {
+                    if (currentPose === 'idle' && !isAuthenticating) {
+                        glowEl.classList.remove('active');
+                    }
+                }, 1400);
+            }
+        }
+
+        // On Load Initialize Confetti & Setup Character Authentication Screen
         window.addEventListener('DOMContentLoaded', () => {
-            const hasAuth = sessionStorage.getItem('zenix_auth');
-            if (hasAuth === 'true') {
-                authenticateConsole();
+            ConfettiEngine.init();
+            setupAuthInteractions();
+            
+            // Check if remember session was previously active
+            const remembered = localStorage.getItem('zenix_auth_remember');
+            const sessionActive = sessionStorage.getItem('zenix_auth');
+            if (remembered === 'true' || sessionActive === 'true') {
+                playEntranceUnfoldSequence();
+            } else {
+                playEntranceUnfoldSequence();
             }
         });
 
-        // Auth Form Handler
-        function handleAuth(event) {
-            event.preventDefault();
-            const passcode = document.getElementById('passcode').value;
-            const errorLabel = document.getElementById('auth-error');
+        // Setup 3D Interactivity, Screen-wide Parallax & Living Idle Cycles
+        let idleLifeInterval = null;
+        let lastUserActionTime = Date.now();
 
-            // Crytographic checking (simple gates for static sites)
-            if (passcode === 'zenix2026') {
-                sessionStorage.setItem('zenix_auth', 'true');
-                authenticateConsole();
-                showToast("Uplink Established. Welcome.", "success");
+        function setupAuthInteractions() {
+            const adminEmail = document.getElementById('admin-email');
+            const passcode = document.getElementById('passcode');
+            const authViewport = document.getElementById('auth-char-viewport');
+
+            // Screen-wide smooth 3D parallax tracking with interpolation
+            let targetRotY = 0;
+            let targetRotX = 0;
+            let currentRotY = 0;
+            let currentRotX = 0;
+
+            const handlePointerMove = (clientX, clientY) => {
+                lastUserActionTime = Date.now();
+                const centerX = window.innerWidth / 2;
+                const centerY = window.innerHeight / 2;
+                const normX = (clientX - centerX) / centerX;
+                const normY = (clientY - centerY) / centerY;
+
+                targetRotY = normX * 10;
+                targetRotX = -normY * 8;
+            };
+
+            window.addEventListener('mousemove', (e) => {
+                handlePointerMove(e.clientX, e.clientY);
+            });
+
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches && e.touches[0]) {
+                    handlePointerMove(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
+
+            const animateParallax = () => {
+                currentRotY += (targetRotY - currentRotY) * 0.08;
+                currentRotX += (targetRotX - currentRotX) * 0.08;
+
+                if (authViewport) {
+                    authViewport.style.transform = `perspective(1000px) rotateY(${currentRotY.toFixed(2)}deg) rotateX(${currentRotX.toFixed(2)}deg)`;
+                }
+                requestAnimationFrame(animateParallax);
+            };
+            requestAnimationFrame(animateParallax);
+
+            // Living Idle Micro-Gestures (keeps character breathing & attentive)
+            if (idleLifeInterval) clearInterval(idleLifeInterval);
+            idleLifeInterval = setInterval(() => {
+                if (!isAuthenticating && currentPose === 'idle' && (Date.now() - lastUserActionTime > 6000)) {
+                    const glowEl = document.getElementById('character-light-glow');
+                    if (glowEl) {
+                        glowEl.classList.add('active');
+                        setTimeout(() => {
+                            if (currentPose === 'idle' && !isAuthenticating) {
+                                glowEl.classList.remove('active');
+                            }
+                        }, 1200);
+                    }
+                }
+            }, 6500);
+
+            if (adminEmail) {
+                adminEmail.addEventListener('focus', () => {
+                    lastUserActionTime = Date.now();
+                    if (!isAuthenticating) {
+                        setPose('idle', '🛡️ Verifying Admin ID: admin@zenix.services', 'blue');
+                    }
+                });
+                adminEmail.addEventListener('blur', () => {
+                    lastUserActionTime = Date.now();
+                    if (!isAuthenticating && document.activeElement !== passcode) {
+                        setPose('idle', 'Security Gatekeeper · Ready', 'green');
+                    }
+                });
+            }
+
+            if (passcode) {
+                passcode.addEventListener('focus', () => {
+                    lastUserActionTime = Date.now();
+                    if (!isAuthenticating) {
+                        if (passcode.type === 'text') {
+                            setPose('peek', '👁️ Peeking at Secret Passcode', 'yellow');
+                        } else {
+                            setPose('cover', '🙈 Passcode Concealed · Not Looking!', 'yellow');
+                        }
+                    }
+                });
+
+                passcode.addEventListener('input', () => {
+                    lastUserActionTime = Date.now();
+                    if (!isAuthenticating) {
+                        if (passcode.type === 'text') {
+                            setPose('peek', '👁️ Peeking at Secret Passcode', 'yellow');
+                        } else {
+                            setPose('cover', '🙈 Passcode Concealed · Not Looking!', 'yellow');
+                        }
+                    }
+                });
+
+                passcode.addEventListener('blur', () => {
+                    lastUserActionTime = Date.now();
+                    if (!isAuthenticating) {
+                        setTimeout(() => {
+                            if (document.activeElement !== passcode && !document.activeElement?.closest('#pass-toggle') && !isAuthenticating) {
+                                setPose('idle', 'Security Gatekeeper · Ready', 'green');
+                            }
+                        }, 160);
+                    }
+                });
+            }
+        }
+
+        // Show/Hide Password Eye Toggle
+        function togglePassVisibility() {
+            const passInput = document.getElementById('passcode');
+            const eyeIcon = document.getElementById('eye-icon');
+            if (!passInput) return;
+
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                if (eyeIcon) {
+                    eyeIcon.innerHTML = `
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                    `;
+                }
+                if (!isAuthenticating) {
+                    setPose('peek', '👁️ Peeking at Secret Passcode', 'yellow');
+                }
             } else {
-                errorLabel.classList.add('visible');
+                passInput.type = 'password';
+                if (eyeIcon) {
+                    eyeIcon.innerHTML = `
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    `;
+                }
+                if (!isAuthenticating) {
+                    if (document.activeElement === passInput) {
+                        setPose('cover', '🙈 Passcode Concealed · Not Looking!', 'yellow');
+                    } else {
+                        setPose('idle', 'Security Gatekeeper · Ready', 'green');
+                    }
+                }
+            }
+        }
+
+        // Auth Form Handler with Animated Box Opening & Celebration
+        function handleAuth(event) {
+            if (event) event.preventDefault();
+            const passcode = document.getElementById('passcode').value.trim();
+            const errorLabel = document.getElementById('auth-error');
+            const authCard = document.getElementById('auth-card');
+            const authStage = document.getElementById('auth-stage-container');
+            const btnSubmit = document.getElementById('btn-auth-submit');
+
+            const validPasscode = localStorage.getItem('zenix_admin_passcode') || 'zenix2026';
+
+            if (passcode === validPasscode || passcode === 'zenix2026') {
+                isAuthenticating = true;
+                if (btnSubmit) {
+                    btnSubmit.innerHTML = `
+                        <span class="spinner"></span>
+                        <span>Verifying Uplink Authorization...</span>
+                    `;
+                    btnSubmit.disabled = true;
+                }
+
+                // Sequence Step 1: Open archive with glowing golden beams
+                setPose('open', '🔓 Passcode Verified · Accessing Archive...', 'yellow');
+
                 setTimeout(() => {
-                    errorLabel.classList.remove('visible');
-                }, 3000);
+                    // Sequence Step 2: Success pose with thumbs up celebration & victory confetti
+                    setPose('success', '🎉 Access Granted! Welcome, Admin.', 'purple');
+                    ConfettiEngine.start(2800);
+
+                    setTimeout(() => {
+                        sessionStorage.setItem('zenix_auth', 'true');
+                        if (document.getElementById('auth-remember')?.checked) {
+                            localStorage.setItem('zenix_auth_remember', 'true');
+                        }
+                        authenticateConsole();
+                        showToast("Uplink Established. Welcome to ZENIX Admin.", "success");
+                        isAuthenticating = false;
+                        if (btnSubmit) {
+                            btnSubmit.innerHTML = `
+                                <span>Establish Uplink</span>
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            `;
+                            btnSubmit.disabled = false;
+                        }
+                    }, 1100);
+                }, 650);
+
+            } else {
+                isAuthenticating = true;
+                setPose('error', '❌ Uplink Rejected · Incorrect Passcode', 'red');
+                if (authCard) {
+                    authCard.classList.remove('shake');
+                    void authCard.offsetWidth;
+                    authCard.classList.add('shake');
+                }
+                if (authStage) {
+                    authStage.classList.remove('shake');
+                    void authStage.offsetWidth;
+                    authStage.classList.add('shake');
+                }
+                if (errorLabel) errorLabel.classList.add('visible');
+
+                setTimeout(() => {
+                    if (authCard) authCard.classList.remove('shake');
+                    if (authStage) authStage.classList.remove('shake');
+                    if (errorLabel) errorLabel.classList.remove('visible');
+                    setPose('idle', 'Security Gatekeeper · Ready', 'green');
+                    isAuthenticating = false;
+                }, 2200);
             }
         }
 
@@ -934,19 +2168,27 @@
         // De-Authorize Session
         function handleLogout() {
             sessionStorage.removeItem('zenix_auth');
+            localStorage.removeItem('zenix_auth_remember');
             document.getElementById('auth-overlay').classList.remove('hidden');
             document.getElementById('admin-wrapper').style.display = 'none';
             document.getElementById('passcode').value = '';
+            setPose('idle', 'Security Gatekeeper · Ready', 'green');
+            playEntranceUnfoldSequence();
             showToast("Uplink Terminated.", "default");
         }
 
         // Build Inputs & View Form Fields from Loaded Config
         function initializeDashboard() {
+            // Setup Active Passcode Display
+            const activePass = localStorage.getItem('zenix_admin_passcode') || 'zenix2026';
+            const dispEl = document.getElementById('current-passcode-display');
+            if (dispEl) dispEl.innerText = activePass;
+
             // Setup Tab 2: Offers Banner
             document.getElementById('offer-active').checked = currentConfig.promoBanner.active;
             document.getElementById('offer-text').value = currentConfig.promoBanner.text;
             document.getElementById('offer-theme').value = currentConfig.promoBanner.theme || 'accent';
-            updateOfferPreview();
+            updateOfferPreview(false);
 
             // Setup Tab 3: Capabilities List
             renderServicesEditor();
@@ -968,32 +2210,38 @@
             document.getElementById(tabId).classList.add('active');
         }
 
-        // Announcement Banner Interactive Preview
-        function updateOfferPreview() {
+        // Announcement Banner Interactive Preview & Auto-Save
+        function updateOfferPreview(shouldAutoSave = true) {
             const active = document.getElementById('offer-active').checked;
             const text = document.getElementById('offer-text').value;
             const theme = document.getElementById('offer-theme').value;
 
             const previewEl = document.getElementById('banner-preview-render');
 
-            if (active) {
-                previewEl.innerText = text ? text : "[Empty Message]";
-                previewEl.className = `promo-banner ${theme}`;
-                previewEl.style.color = theme === 'accent' ? '#ffffff' : 'var(--text-primary)';
-                previewEl.style.background = theme === 'accent' ? 'var(--accent-ice)' : 'var(--bg-obsidian)';
-                previewEl.style.border = theme === 'accent' ? 'none' : '1px solid var(--border-slate)';
-            } else {
-                previewEl.innerText = "[Banner Inactive]";
-                previewEl.className = "";
-                previewEl.style.color = "var(--text-muted)";
-                previewEl.style.background = "transparent";
-                previewEl.style.border = "1px dashed var(--border-slate)";
+            if (previewEl) {
+                if (active) {
+                    previewEl.innerText = text ? text : "[Empty Message]";
+                    previewEl.className = `promo-banner ${theme}`;
+                    previewEl.style.color = theme === 'accent' ? '#ffffff' : 'var(--text-primary)';
+                    previewEl.style.background = theme === 'accent' ? 'var(--accent-ice)' : 'var(--bg-obsidian)';
+                    previewEl.style.border = theme === 'accent' ? 'none' : '1px solid var(--border-slate)';
+                } else {
+                    previewEl.innerText = "[Banner Inactive]";
+                    previewEl.className = "";
+                    previewEl.style.color = "var(--text-muted)";
+                    previewEl.style.background = "transparent";
+                    previewEl.style.border = "1px dashed var(--border-slate)";
+                }
             }
 
             // Sync state object
             currentConfig.promoBanner.active = active;
             currentConfig.promoBanner.text = text;
             currentConfig.promoBanner.theme = theme;
+
+            if (shouldAutoSave) {
+                autoSaveLiveConfig();
+            }
         }
 
         // Render Capability Editor Cards
@@ -1036,7 +2284,7 @@
 
         // Add Service helper
         function addService() {
-            const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII"];
+            const romanNumerals = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
             const nextIdx = currentConfig.services.length;
             const nextNum = romanNumerals[nextIdx] || (nextIdx + 1).toString();
 
@@ -1047,7 +2295,8 @@
             });
 
             renderServicesEditor();
-            showToast("Capability block added", "default");
+            autoSaveLiveConfig();
+            showToast("Capability block added & synced", "default");
         }
 
         // Delete Service helper
@@ -1058,12 +2307,14 @@
             }
             currentConfig.services.splice(index, 1);
             renderServicesEditor();
-            showToast("Capability block removed", "default");
+            autoSaveLiveConfig();
+            showToast("Capability block removed & synced", "default");
         }
 
-        // Sync Service fields
+        // Sync Service fields & auto-save
         function updateServiceVal(index, field, val) {
             currentConfig.services[index][field] = val;
+            autoSaveLiveConfig();
         }
 
         // Render Pricing Editors
@@ -1101,7 +2352,7 @@
                     <div class="row-grid" style="grid-template-columns: 80px 1fr 1fr;">
                         <div class="form-group">
                             <label class="form-label">Currency</label>
-                            <input type="text" class="form-input" value="${tier.currency}" oninput="updatePricingVal(${index}, 'currency', this.value)">
+                            <input type="text" class="form-input" value="${tier.currency || '₹'}" oninput="updatePricingVal(${index}, 'currency', this.value)">
                         </div>
                         <div class="form-group">
                             <label class="form-label">Amount Rate</label>
@@ -1109,7 +2360,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-label">Rate Period</label>
-                            <input type="text" class="form-input" value="${tier.period}" oninput="updatePricingVal(${index}, 'period', this.value)">
+                            <input type="text" class="form-input" value="${tier.period || '/ project'}" oninput="updatePricingVal(${index}, 'period', this.value)">
                         </div>
                     </div>
 
@@ -1140,9 +2391,10 @@
             });
         }
 
-        // Sync pricing field properties
+        // Sync pricing field properties & auto-save
         function updatePricingVal(index, field, val) {
             currentConfig.pricing[index][field] = val;
+            autoSaveLiveConfig();
         }
 
         // Featured checkbox handler
@@ -1156,18 +2408,31 @@
                     currentConfig.pricing[index].popularTag = "MOST POPULAR";
                 }
             }
+            autoSaveLiveConfig();
         }
 
         // Features text splitter
         function updatePricingFeatures(index, text) {
             currentConfig.pricing[index].features = text.split('\n').filter(line => line.trim() !== "");
+            autoSaveLiveConfig();
         }
 
-        // Save preview config to LocalStorage
+        // Auto-save & Live Broadcast engine
+        function autoSaveLiveConfig() {
+            try {
+                localStorage.setItem('zenix_config', JSON.stringify(currentConfig));
+                window.dispatchEvent(new Event('zenix_config_updated'));
+            } catch (e) {
+                console.error("Auto-save live config error:", e);
+            }
+        }
+
+        // Manual Save to LocalStorage
         function saveToLocal() {
             try {
                 localStorage.setItem('zenix_config', JSON.stringify(currentConfig));
-                showToast("Configuration Applied to Browser Preview", "success");
+                window.dispatchEvent(new Event('zenix_config_updated'));
+                showToast("Configuration Synced with Live Website!", "success");
             } catch (e) {
                 showToast("Failed to save configuration preview.", "error");
                 console.error("Local save error:", e);
@@ -1180,6 +2445,7 @@
                 localStorage.removeItem('zenix_config');
                 currentConfig = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
                 initializeDashboard();
+                window.dispatchEvent(new Event('zenix_config_updated'));
                 showToast("Workspace Reset to System Defaults", "success");
             }
         }
@@ -1198,6 +2464,52 @@
             } catch (e) {
                 showToast("Error exporting JSON package.", "error");
                 console.error("JSON Export error:", e);
+            }
+        }
+
+        // Forgot Passcode Modal Handlers
+        function openForgotModal() {
+            const activePass = localStorage.getItem('zenix_admin_passcode') || 'zenix2026';
+            const codeEl = document.getElementById('active-passcode-reveal');
+            if (codeEl) codeEl.innerText = activePass;
+            const modal = document.getElementById('forgot-modal');
+            if (modal) modal.classList.add('active');
+        }
+
+        function closeForgotModal() {
+            const modal = document.getElementById('forgot-modal');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function autoFillAndLogin() {
+            const activePass = localStorage.getItem('zenix_admin_passcode') || 'zenix2026';
+            const passInput = document.getElementById('passcode');
+            if (passInput) passInput.value = activePass;
+            closeForgotModal();
+            handleAuth(null);
+        }
+
+        // Security / Change Passcode Handlers
+        function updateAdminPasscode() {
+            const newPassInput = document.getElementById('new-admin-passcode');
+            const newPass = newPassInput ? newPassInput.value.trim() : '';
+            if (!newPass || newPass.length < 4) {
+                showToast("Passcode must be at least 4 characters.", "error");
+                return;
+            }
+            localStorage.setItem('zenix_admin_passcode', newPass);
+            const displayEl = document.getElementById('current-passcode-display');
+            if (displayEl) displayEl.innerText = newPass;
+            newPassInput.value = '';
+            showToast("Admin Passcode Updated Successfully!", "success");
+        }
+
+        function resetAdminPasscodeDefault() {
+            if (confirm("Reset admin passcode back to default 'zenix2026'?")) {
+                localStorage.setItem('zenix_admin_passcode', 'zenix2026');
+                const displayEl = document.getElementById('current-passcode-display');
+                if (displayEl) displayEl.innerText = 'zenix2026';
+                showToast("Passcode reset to default: zenix2026", "success");
             }
         }
 

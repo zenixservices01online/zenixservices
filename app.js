@@ -244,8 +244,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Trigger config load
+    // Trigger initial config load
     loadConfig();
+
+    // Real-Time Cross-Window & Tab Synchronization
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'zenix_config') {
+            console.log("Storage event detected: updating live configuration...");
+            loadConfig();
+        }
+    });
+
+    window.addEventListener('zenix_config_updated', () => {
+        loadConfig();
+    });
+
+    // Fast interval check for cross-tab updates on same-origin static servers
+    let lastKnownConfigSnapshot = localStorage.getItem('zenix_config');
+    setInterval(() => {
+        const currentSnapshot = localStorage.getItem('zenix_config');
+        if (currentSnapshot !== lastKnownConfigSnapshot) {
+            lastKnownConfigSnapshot = currentSnapshot;
+            loadConfig();
+        }
+    }, 1000);
 
     // 1. Mobile Menu Drawer Navigation
     const menuToggle = document.getElementById('menu-toggle');
@@ -524,87 +546,26 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 6. Futuristic Boot Console Preloader Handler
-    const preloader = document.getElementById('zenix-preloader');
-    const terminalBody = document.getElementById('preloader-terminal-body');
-    const progressBar = document.getElementById('preloader-progress-bar');
-    const progressPct = document.getElementById('preloader-progress-pct');
-    const statusLbl = document.getElementById('preloader-status-lbl');
-
-    if (preloader && terminalBody) {
-        // Lock body scrolling during preload
+    // 6. Modern App Launch Splash Screen Handler
+    const splashScreen = document.getElementById('zenix-splash') || document.getElementById('zenix-preloader');
+    if (splashScreen) {
         document.body.style.overflow = 'hidden';
-        document.body.style.height = '100vh';
 
-        const bootSequence = [
-            { text: "INITIALIZING SYSTEM BOOT SEQUENCE...", type: "info", delay: 100 },
-            { text: "LOADING ZENIX CLIENT KERNEL... [OK]", type: "success", delay: 300 },
-            { text: "COMPILING DESIGN SYSTEM VARIABLE SCHEMAS...", type: "cmd-prefix", delay: 550 },
-            { text: "RESOLVING STACK COMPILATION PARAMETERS... [OK]", type: "success", delay: 850 },
-            { text: "ESTABLISHING HOSTING PIPELINE CORRELATIONS...", type: "cmd-prefix", delay: 1100 },
-            { text: "CHECKING SERVERLESS REST API CONNECTIVITY... [OK]", type: "success", delay: 1350 },
-            { text: "INTERFACE RENDERING CALIBRATION COMPLETE.", type: "blink", delay: 1550 }
-        ];
-
-        // 1. Staggered log printing logic
-        bootSequence.forEach(step => {
-            setTimeout(() => {
-                const line = document.createElement('div');
-                line.className = `terminal-log-line ${step.type}`;
-                if (step.type === 'cmd-prefix') {
-                    line.className += ' cmd-prefix';
-                }
-                line.textContent = step.text;
-                terminalBody.appendChild(line);
-                
-                // Auto scroll to bottom
-                terminalBody.scrollTop = terminalBody.scrollHeight;
-            }, step.delay);
-        });
-
-        // 2. Linear loading progress bar animation
-        let currentPct = 0;
-        const totalDuration = 1800; // 1.8 seconds loading screen
-        const intervalTime = 20;    // Tick update duration
-        const totalSteps = totalDuration / intervalTime;
-        const pctIncrement = 100 / totalSteps;
-
-        const hidePreloader = () => {
-            if (!preloader.classList.contains('loaded')) {
-                preloader.classList.add('loaded');
+        const dismissSplash = () => {
+            if (!splashScreen.classList.contains('loaded')) {
+                splashScreen.classList.add('loaded');
                 document.body.classList.add('loaded');
                 document.body.style.overflow = '';
-                document.body.style.height = '';
-
-                // Remove preloader from display tree after fade transitions complete
                 setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 1000);
+                    splashScreen.style.display = 'none';
+                }, 550);
             }
         };
 
-        const progressInterval = setInterval(() => {
-            currentPct += pctIncrement;
-            if (currentPct >= 100) {
-                currentPct = 100;
-                clearInterval(progressInterval);
-                if (statusLbl) statusLbl.textContent = "Boot Complete";
-                
-                // Redirection hide preloader trigger
-                setTimeout(hidePreloader, 350);
-            } else if (currentPct > 80) {
-                if (statusLbl) statusLbl.textContent = "Launching Interactive Studio";
-            } else if (currentPct > 40) {
-                if (statusLbl) statusLbl.textContent = "Compiling Design System CSS";
-            }
-
-            const roundedPct = Math.floor(currentPct);
-            if (progressPct) progressPct.textContent = `${roundedPct}%`;
-            if (progressBar) progressBar.style.width = `${roundedPct}%`;
-        }, intervalTime);
-
-        // Safety fallback unlock sequence (max 3.2s)
-        setTimeout(hidePreloader, 3200);
+        // Smooth app splash launch sequence timing (1550ms for luxury expanding logo)
+        setTimeout(dismissSplash, 1550);
+    } else {
+        document.body.classList.add('loaded');
     }
 
 });

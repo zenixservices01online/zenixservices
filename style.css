@@ -1531,190 +1531,143 @@ a.meta-val:hover {
 }
 
 /* ==========================================
-   Futuristic Boot Console Preloader
+   Modern App Launch Splash Screen
    ========================================== */
-.zenix-preloader {
+.zenix-splash {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #050508;
+    width: 100vw;
+    height: 100vh;
+    background-color: #04060d;
     z-index: 999999;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     overflow: hidden;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
 }
 
-.zenix-preloader.loaded {
+.zenix-splash.loaded {
     opacity: 0;
-    transform: scale(1.03);
+    visibility: hidden;
     pointer-events: none;
 }
 
-.preloader-terminal {
-    width: 90%;
-    max-width: 580px;
-    background: rgba(8, 8, 12, 0.88);
-    border: 1px solid rgba(0, 85, 204, 0.22);
-    border-radius: 12px;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(0, 85, 204, 0.12);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    font-family: var(--font-mono);
-    text-align: left;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    height: 380px;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.zenix-preloader.loaded .preloader-terminal {
-    transform: scale(0.94) translateY(-15px);
-}
-
-.terminal-header {
-    height: 40px;
-    background: rgba(255, 255, 255, 0.02);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    display: flex;
-    align-items: center;
-    padding: 0 1.25rem;
+.splash-content {
     position: relative;
-    flex-shrink: 0;
-}
-
-.terminal-dots {
-    display: flex;
-    gap: 7px;
-}
-
-.terminal-dots .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-.terminal-dots .dot.red { background-color: #ff5f56; }
-.terminal-dots .dot.yellow { background-color: #ffbd2e; }
-.terminal-dots .dot.green { background-color: #27c93f; }
-
-.terminal-title {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.4);
-    letter-spacing: 0.05em;
-    margin: 0 auto;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.terminal-body {
-    flex-grow: 1;
-    padding: 1.5rem;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
-    font-size: 0.82rem;
-    line-height: 1.4;
-    color: #e2e8f0;
+    align-items: center;
+    justify-content: center;
+    will-change: transform, opacity;
 }
 
-/* Scrollbar styles for terminal */
-.terminal-body::-webkit-scrollbar {
-    width: 4px;
-}
-.terminal-body::-webkit-scrollbar-track {
-    background: transparent;
-}
-.terminal-body::-webkit-scrollbar-thumb {
-    background: rgba(0, 85, 204, 0.2);
-    border-radius: 2px;
-}
-
-.terminal-log-line {
-    opacity: 0;
-    transform: translateY(5px);
-    animation: printLine 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.splash-glow-ring {
+    position: absolute;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 85, 204, 0.6) 0%, rgba(0, 210, 255, 0.25) 45%, transparent 70%);
+    filter: blur(35px);
+    pointer-events: none;
+    animation: splashGlowPulse 1.6s ease-in-out infinite alternate;
 }
 
-.terminal-log-line.cmd-prefix::before {
-    content: "zenix-studio$ ";
-    color: #00d2ff;
+.splash-logo-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: appLogoSplash 1.6s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
 }
 
-.terminal-log-line.success {
-    color: #00ff88;
-    font-weight: 500;
+.splash-logo-svg {
+    width: 90px;
+    height: 90px;
+    filter: drop-shadow(0 0 30px rgba(0, 102, 255, 0.75));
+    animation: logoSvgShimmer 1.6s ease-in-out forwards;
 }
 
-.terminal-log-line.info {
-    color: #00d2ff;
+.splash-brand-text {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.32em;
+    color: #ffffff;
+    text-indent: 0.32em;
+    text-transform: uppercase;
+    text-shadow: 0 0 25px rgba(0, 210, 255, 0.7);
 }
 
-.terminal-log-line.blink::after {
-    content: "▋";
-    color: #0055cc;
-    animation: blinkCursor 0.8s step-end infinite;
-    margin-left: 2px;
-}
-
-@keyframes printLine {
-    to {
+@keyframes appLogoSplash {
+    0% {
+        opacity: 0;
+        transform: scale(0.82);
+        filter: blur(4px);
+    }
+    22% {
         opacity: 1;
-        transform: translateY(0);
+        transform: scale(1.0);
+        filter: blur(0px);
+    }
+    58% {
+        opacity: 1;
+        transform: scale(1.06);
+        filter: blur(0px);
+    }
+    82% {
+        opacity: 0.85;
+        transform: scale(1.45);
+        filter: blur(2px);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(3.0);
+        filter: blur(14px);
     }
 }
 
-@keyframes blinkCursor {
-    50% { opacity: 0; }
+@keyframes splashGlowPulse {
+    0% {
+        transform: scale(0.85);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.95;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0.6;
+    }
 }
 
-.terminal-footer {
-    padding: 1.25rem 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    background: rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    flex-shrink: 0;
+@keyframes logoSvgShimmer {
+    0% {
+        filter: drop-shadow(0 0 15px rgba(0, 85, 204, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 45px rgba(0, 210, 255, 0.95));
+    }
+    100% {
+        filter: drop-shadow(0 0 70px rgba(0, 85, 204, 1));
+    }
 }
 
-.progress-info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.72rem;
-    color: rgba(255, 255, 255, 0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-}
-
-.progress-percentage {
-    color: #00f0ff;
-    font-weight: 700;
-}
-
-.progress-bar-wrapper {
-    height: 3px;
-    background: rgba(255, 255, 255, 0.05);
-    width: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.progress-bar-fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #0055cc 0%, #00d2ff 100%);
-    box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
-    transition: width 0.1s linear;
+@media (max-width: 768px) {
+    .splash-logo-svg {
+        width: 76px;
+        height: 76px;
+    }
+    .splash-brand-text {
+        font-size: 1.35rem;
+        letter-spacing: 0.28em;
+    }
+    .splash-glow-ring {
+        width: 260px;
+        height: 260px;
+    }
 }
 
 /* Staggered Hero elements reveals */
