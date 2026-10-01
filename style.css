@@ -1860,12 +1860,18 @@ body.has-promo-banner {
    ========================================== */
 .portfolio-featured-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-bottom: 2.5rem;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1080px) {
+    .portfolio-featured-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
     .portfolio-featured-grid {
         grid-template-columns: 1fr;
     }
@@ -1875,7 +1881,7 @@ body.has-promo-banner {
     background: #ffffff;
     border: 1px solid var(--border-slate);
     border-radius: 16px;
-    padding: 2.5rem;
+    padding: 2.25rem 2rem;
     box-shadow: 0 15px 35px rgba(0, 85, 204, 0.04);
     position: relative;
     overflow: hidden;
@@ -1952,7 +1958,7 @@ body.has-promo-banner {
 
 .portfolio-title {
     font-family: var(--font-heading);
-    font-size: 2.2rem;
+    font-size: 1.85rem;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 1rem;
